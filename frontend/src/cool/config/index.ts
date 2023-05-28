@@ -8,7 +8,7 @@ export const isDev = import.meta.env.MODE === "development";
 export const config = {
 	// 项目信息
 	app: {
-		name: "COOL-ADMIN",
+		name: "ChatGPT-Mirror",
 
 		// 菜单
 		menu: {
@@ -21,7 +21,7 @@ export const config = {
 		// 路由
 		router: {
 			// 模式
-			mode: "history",
+			mode: "hash",
 			// 转场动画
 			transition: "slide",
 			// 首页组件
