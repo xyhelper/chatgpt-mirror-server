@@ -3,7 +3,7 @@ services:
   mysql:
     image: mysql:8
     command: --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
-    # restart: always
+    restart: always
     # network_mode: host
     volumes:
       - ./data/mysql/:/var/lib/mysql/
@@ -19,7 +19,7 @@ services:
   redis:
     image: redis
     # command: --requirepass "12345678" # redis库密码,不需要密码注释本行
-    # restart: always
+    restart: always
     # network_mode: host
     environment:
       TZ: Asia/Shanghai # 指定时区
