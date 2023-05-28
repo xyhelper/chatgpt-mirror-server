@@ -1,0 +1,68 @@
+{
+  // Place your cool-admin-go 工作区 snippets here. Each snippet is defined under a snippet name and has a scope, prefix, body and
+  // description. Add comma separated ids of the languages where the snippet is applicable in the scope field. If scope
+  // is left empty or omitted, the snippet gets applied to all languages. The prefix is what is
+  // used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+  // $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders.
+  // Placeholders with the same ids are connected.
+  // Example:
+  // "Print to console": {
+  // 	"scope": "javascript,typescript",
+  // 	"prefix": "log",
+  // 	"body": [
+  // 		"console.log('$1');",
+  // 		"$2"
+  // 	],
+  // 	"description": "Log output to console"
+  // }
+  "model": {
+    "scope": "go",
+    "prefix": "cool-controller",
+    "description": "创建controller",
+    "body": [
+      "package admin",
+      "",
+      "import (",
+      "       \"context\"",
+      "",
+      "       \"github.com/cool-team-official/cool-admin-go/cool\"",
+      "",
+      "       \"github.com/gogf/gf/v2/encoding/gjson\"",
+      "       \"github.com/gogf/gf/v2/frame/g\"",
+      ")",
+      "",
+      "type ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}Controller struct {",
+      "       *cool.Controller",
+      "}",
+      "",
+      "func init() {",
+      "       var ${TM_FILENAME_BASE/(.*)/${1:/downcase}/}_controller = &${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}Controller{",
+      "               &cool.Controller{",
+      "                       Perfix:  \"/admin/demo/${TM_FILENAME_BASE/(.*)/${1:/downcase}/}\",",
+      "                       Api:     []string{\"Add\", \"Delete\", \"Update\", \"Info\", \"List\", \"Page\"},",
+      "                       Service: service.New${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}Service(),",
+      "               },",
+      "       }",
+      "       // 注册路由",
+      "       cool.RegisterController(${TM_FILENAME_BASE/(.*)/${1:/downcase}/}_controller)",
+      "}",
+      "",
+      "// 增加 Welcome 演示 方法",
+      "type ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}WelcomeReq struct {",
+      "       g.Meta `path:\"/welcome\" method:\"GET\"`",
+      "}",
+      "type ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}WelcomeRes struct {",
+      "       *cool.BaseRes",
+      "       Data interface{} `json:\"data\"`",
+      "}",
+      "",
+      "func (c *${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}Controller) Welcome(ctx context.Context, req *${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}WelcomeReq) (res *${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}WelcomeRes, err error) {",
+      "       res = &${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}WelcomeRes{",
+      "               BaseRes: cool.Ok(\"Welcome to Cool Admin Go\"),",
+      "               Data:    gjson.New(`{\"name\": \"Cool Admin Go\", \"age\":0}`),",
+      "       }",
+      "       return",
+      "}"
+    ]
+  }
+}

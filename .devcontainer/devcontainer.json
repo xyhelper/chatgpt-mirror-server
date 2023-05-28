@@ -1,0 +1,32 @@
+{
+  "image": "cnlidong/cool-admin-codespace:latest",
+  "mounts": [
+    {
+      "source": "${localWorkspaceFolder}/.devcontainer/daemon.json",
+      "target": "/etc/docker/daemon.json",
+      "type": "bind"
+    },
+    {
+      "source": "dind-var-lib-docker-${devcontainerId}",
+      "target": "/var/lib/docker",
+      "type": "volume"
+    }
+  ],
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-ceintl.vscode-language-pack-zh-hans",
+        "GitHub.vscode-pull-request-github",
+        "github.copilot",
+        "esbenp.prettier-vscode",
+        "vue.volar",
+        "cweijan.vscode-database-client2"
+      ]
+    }
+  },
+  "containerEnv": {
+    "TZ": "Asia/Shanghai"
+  },
+  "postCreateCommand": "make init",
+  "remoteUser": "root"
+}

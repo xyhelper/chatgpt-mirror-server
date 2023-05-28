@@ -1,0 +1,43 @@
+server:
+  address:     ":8300"
+  openapiPath: "/api.json"
+  swaggerPath: "/swagger"
+  serverRoot: "resource/public"
+  clientMaxBodySize: 104857600  # 100MB in bytes 100*1024*1024
+
+logger:
+  path: "./logs/"
+  file: "{Y-m-d}.log"
+  level : "all"
+  stdout: true
+
+
+database:
+  default:
+    type: "sqlite" # 数据库类型
+    name: "./data/cool.sqlite" # 数据库名称,对于sqlite来说就是数据库文件名
+    extra: busy_timeout=5000 # 扩展参数 如 busy_timeout=5000&journal_mode=ALL
+    createdAt: "createTime" # 创建时间字段名称
+    updatedAt: "updateTime" # 更新时间字段名称
+    debug: true # 开启调试模式,启用后将在控制台打印相关sql语句
+
+cool:
+  autoMigrate: true
+  eps: true
+  file:
+    mode: "local"
+    domain: "http://127.0.0.1:8300"
+
+modules:
+  base:
+    jwt:
+      sso: false
+      secret: "cool-admin-go"
+      token:
+        expire: 7200 # 2*3600
+        refreshExpire: 1296000 # 24*3600*15
+    middleware:
+      authority:
+        enable: 1
+      log:
+        enable: 1
