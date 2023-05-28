@@ -8215,7 +8215,7 @@
           },
           logOut: {
             id: "navigation.logOut",
-            defaultMessage: "Log out",
+            defaultMessage: "退出登录",
             description: "Log out menu item",
           },
           upgradeToPlus: {
@@ -8230,7 +8230,7 @@
           },
           newChat: {
             id: "navigation.newChat",
-            defaultMessage: "New chat",
+            defaultMessage: "新建会话",
             description: "New chat button label",
           },
           clearChat: {
@@ -8389,7 +8389,7 @@
             (0, c.jsx)(n8, {}),
             (0, c.jsxs)(n2, {
               as: "a",
-              href: "https://www.xyhelper.com.cn",
+              href: "/help",
               target: "_blank",
               onClick: function () {
                 i(p.s6.clickFaqLink);
@@ -10309,13 +10309,13 @@
         freeResearchPreview: {
           id: "thread.chatgptFreeResearchPreview",
           defaultMessage:
-            "This service is not an official OpenAI service. Powered by <link>xyhelper</link>",
+            "ChatGPT中文镜像",
           description: "Free Research Preview disclaimer",
         },
         mayProduceInaccurateInformation: {
           id: "thread.chatgptMayProduceInaccurateInformation",
           defaultMessage:
-            "This service is not an official OpenAI service. Powered by <link>xyhelper</link>",
+            "ChatGPT中文镜像",
           description:
             "ChatGPT disclaimer for producing inaccurate information",
         },
@@ -11890,7 +11890,7 @@
                                         values: {
                                           link: function (e) {
                                             return (0, c.jsx)("a", {
-                                              href: "https://www.xyhelper.com.cn",
+                                              href: "/help",
                                               target: "_blank",
                                               rel: "noreferrer",
                                               className: "underline",
@@ -11911,7 +11911,7 @@
                                         values: {
                                           link: function (e) {
                                             return (0, c.jsx)("a", {
-                                              href: "https://www.xyhelper.com.cn",
+                                              href: "/help",
                                               target: "_blank",
                                               rel: "noreferrer",
                                               className: "underline",
