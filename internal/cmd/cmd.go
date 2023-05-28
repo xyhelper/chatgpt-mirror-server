@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"chatgpt-mirror-server/config"
 	"context"
 
 	"github.com/cool-team-official/cool-admin-go/cool"
@@ -17,7 +18,12 @@ var (
 			if cool.IsRedisMode {
 				go cool.ListenFunc(ctx)
 			}
+
 			s := g.Server()
+			if config.PORT(ctx) != 0 {
+				s.SetPort(config.PORT(ctx))
+			}
+
 			s.Run()
 			return nil
 		},

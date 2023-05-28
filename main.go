@@ -3,7 +3,9 @@ package main
 import (
 	_ "chatgpt-mirror-server/internal/packed"
 
+	_ "github.com/cool-team-official/cool-admin-go/contrib/drivers/mysql"
 	_ "github.com/cool-team-official/cool-admin-go/contrib/drivers/sqlite"
+	_ "github.com/gogf/gf/contrib/nosql/redis/v2"
 
 	_ "chatgpt-mirror-server/modules"
 
