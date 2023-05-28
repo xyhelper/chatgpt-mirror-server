@@ -28,28 +28,65 @@
 	</cl-crud>
 </template>
 
-<script lang="ts" name="chatgpt-session" setup>
+<script lang="ts" name="chatgpt-user" setup>
 import { useCrud, useTable, useUpsert } from "@cool-vue/crud";
 import { useCool } from "/@/cool";
-
+import { v4 as uuidv4 } from "uuid";
 const { service } = useCool();
-
+const shortcuts = [
+	{
+		text: "7天后",
+		value: () => {
+			const date = new Date();
+			date.setTime(date.getTime() + 3600 * 1000 * 24 * 7);
+			return date;
+		}
+	},
+	{
+		text: "30天后",
+		value: () => {
+			const date = new Date();
+			date.setTime(date.getTime() + 3600 * 1000 * 24 * 30);
+			return date;
+		}
+	},
+	{
+		text: "90天后",
+		value: () => {
+			const date = new Date();
+			date.setTime(date.getTime() + 3600 * 1000 * 24 * 90);
+			return date;
+		}
+	},
+	{
+		text: "180天后",
+		value: () => {
+			const date = new Date();
+			date.setTime(date.getTime() + 3600 * 1000 * 24 * 180);
+			return date;
+		}
+	},
+	{
+		text: "365天后",
+		value: () => {
+			const date = new Date();
+			date.setTime(date.getTime() + 3600 * 1000 * 24 * 365);
+			return date;
+		}
+	}
+];
 // cl-upsert 配置
 const Upsert = useUpsert({
 	items: [
-		{ label: "邮箱", prop: "email", required: true, component: { name: "el-input" } },
-		{ label: "密码", prop: "password", required: true, component: { name: "el-input" } },
-		{ label: "用户ID", prop: "userID", required: true, component: { name: "el-input-number" } },
+		{ label: "UserToken", prop: "userToken", required: true, component: { name: "el-input" } },
 		{
-			label: "状态",
-			prop: "status",
+			label: "过期时间",
+			prop: "expireTime",
 			component: {
-				name: "el-switch",
-				props: {
-					activeValue: 1,
-					inactiveValue: 0
-				}
-			}
+				name: "el-date-picker",
+				props: { type: "datetime", valueFormat: "YYYY-MM-DD HH:mm:ss", shortcuts }
+			},
+			required: true
 		},
 		{
 			label: "PLUS",
@@ -63,11 +100,6 @@ const Upsert = useUpsert({
 			}
 		},
 		{
-			label: "session",
-			prop: "officialSession",
-			component: { name: "el-input", props: { type: "textarea", rows: 4 } }
-		},
-		{
 			label: "备注",
 			prop: "remark",
 			component: { name: "el-input", props: { type: "textarea", rows: 4 } }
@@ -75,8 +107,8 @@ const Upsert = useUpsert({
 	],
 	onOpened(data) {
 		// 自动生成uuid 作为userToken
-		if (!data.userID) {
-			data.userID = 0;
+		if (!data.userToken) {
+			data.userToken = uuidv4();
 		}
 	}
 });
@@ -85,20 +117,12 @@ const Upsert = useUpsert({
 const Table = useTable({
 	columns: [
 		{ type: "selection" },
-		{ label: "id", prop: "id" },
+		{ label: "id", prop: "id", sortable: true },
 		{ label: "创建时间", prop: "createTime", sortable: true },
 		{ label: "更新时间", prop: "updateTime", sortable: true },
-		{ label: "邮箱", prop: "email", sortable: true },
-		{ label: "密码", prop: "password", sortable: true },
-		{ label: "用户ID", prop: "userID", sortable: true },
-		{ label: "状态", prop: "status", component: { name: "cl-switch" }, sortable: true },
+		{ label: "UserToken", prop: "userToken", sortable: true },
+		{ label: "过期时间", prop: "expireTime", sortable: true },
 		{ label: "PLUS", prop: "isPlus", component: { name: "cl-switch" }, sortable: true },
-		{
-			label: "session",
-			prop: "officialSession",
-			showOverflowTooltip: true,
-			sortable: true
-		},
 		{ label: "备注", prop: "remark", showOverflowTooltip: true, sortable: true },
 		{ type: "op", buttons: ["edit", "delete"] }
 	]
@@ -107,7 +131,7 @@ const Table = useTable({
 // cl-crud 配置
 const Crud = useCrud(
 	{
-		service: service.chatgpt.session
+		service: service.chatgpt.user
 	},
 	(app) => {
 		app.refresh();

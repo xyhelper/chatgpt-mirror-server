@@ -65,15 +65,38 @@ func (s *ChatgptSessionService) ModifyAfter(ctx g.Ctx, method string, param map[
 }
 
 // GetSessionByUserToken 根据userToken获取session
-func (s *ChatgptSessionService) GetSessionByUserToken(ctx g.Ctx, userToken string, conversationId string, isPlusModel bool) (record gdb.Record, err error) {
+func (s *ChatgptSessionService) GetSessionByUserToken(ctx g.Ctx, userToken string) (record gdb.Record, err error) {
 
-	m := cool.DBM(s.Model).Where("status=1")
-	if isPlusModel {
-		m = m.Where("isPlus=1")
-	} else {
-		m = m.Where("isPlus=0")
+	user, err := cool.DBM(model.NewChatgptUser()).Where("userToken", userToken).Where("expireTime>now()").One()
+	if err != nil {
+		return nil, err
 	}
-	record, err = m.OrderRandom().One()
+	if user.IsEmpty() {
+		return nil, gerror.New("用户不存在或已过期")
+	}
+	userID := user["id"]
+	g.Dump(user)
+	g.Log().Debug(ctx, "ChatgptSessionService.GetSessionByUserToken", "userID", userID)
+	record, err = cool.DBM(model.NewChatgptSession()).Where("userID", userID).One()
+	if err != nil {
+		return nil, err
+	}
+	if record.IsEmpty() {
+		// 随机选择一个 status=1  userID=0 的session
+		record, err = cool.DBM(model.NewChatgptSession()).Where("status", 1).Where("userID", 0).One()
+		if err != nil {
+			return nil, err
+		}
+		if record.IsEmpty() {
+			return nil, gerror.New("没有可用的账号,请联系管理员")
+		}
+		_, err = cool.DBM(model.NewChatgptSession()).Where("id", record["id"]).Update(g.Map{
+			"userID": userID,
+		})
+		if err != nil {
+			return nil, err
+		}
+	}
 
 	return
 }
