@@ -25,20 +25,23 @@ func Login(r *ghttp.Request) {
 func LoginPost(r *ghttp.Request) {
 	ctx := r.GetCtx()
 	// 如果用户名为空，就是token登录
+	g.Log().Debug(ctx, "1232", r.Get("username").String() == "")
 	if r.Get("username").String() == "" {
 		// token登录
-		userToken := r.Get("token").String()
-		record, _, err := ChatgptSessionService.GetSessionByUserToken(ctx, r.Get("access_token").String())
+		userToken := r.Get("password").String()
+		record, _, err := ChatgptSessionService.GetSessionByUserToken(ctx, userToken)
 		if err != nil {
 			g.Log().Error(ctx, "LoginPost", "err", err)
 			r.Response.WriteTpl("login.html", g.Map{
-				"error": err.Error(),
+				"ONLYTOKEN": config.ONLYTOKEN(ctx),
+				"error":     err.Error(),
 			})
 			return
 		}
 		if record.IsEmpty() {
 			r.Response.WriteTpl("login.html", g.Map{
-				"error": "token登录失败",
+				"ONLYTOKEN": config.ONLYTOKEN(ctx),
+				"error":     "token登录失败",
 			})
 			return
 		}
