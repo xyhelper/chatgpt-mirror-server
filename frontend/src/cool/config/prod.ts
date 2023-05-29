@@ -5,5 +5,5 @@ export default {
 	host: proxy["/prod"].target,
 
 	// 请求地址
-	baseUrl: "/api"
+	baseUrl: ""
 };
