@@ -1,13 +1,20 @@
 package api
 
 import (
+	"chatgpt-mirror-server/config"
+	"chatgpt-mirror-server/modules/chatgpt/model"
+
+	"github.com/cool-team-official/cool-admin-go/cool"
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/net/ghttp"
 )
 
 func Login(r *ghttp.Request) {
+	ctx := r.GetCtx()
 	if r.Session.MustGet("userToken").IsEmpty() {
-		r.Response.WriteTpl("login.html")
+		r.Response.WriteTpl("login.html", g.Map{
+			"ONLYTOKEN": config.ONLYTOKEN(ctx),
+		})
 
 	} else {
 		r.Response.RedirectTo("/")
@@ -16,28 +23,79 @@ func Login(r *ghttp.Request) {
 }
 
 func LoginPost(r *ghttp.Request) {
-	// ctx := r.GetCtx()
-	// accessToken, session, cookie, err := autologin.Login(ctx, r.Get("username").String(), r.Get("password").String())
-	// if err != nil {
-	// 	g.Log().Error(ctx, err)
+	ctx := r.GetCtx()
+	// 如果用户名为空，就是token登录
+	if r.Get("username").String() == "" {
+		// token登录
+		userToken := r.Get("token").String()
+		record, _, err := ChatgptSessionService.GetSessionByUserToken(ctx, r.Get("access_token").String())
+		if err != nil {
+			g.Log().Error(ctx, "LoginPost", "err", err)
+			r.Response.WriteTpl("login.html", g.Map{
+				"error": err.Error(),
+			})
+			return
+		}
+		if record.IsEmpty() {
+			r.Response.WriteTpl("login.html", g.Map{
+				"error": "token登录失败",
+			})
+			return
+		}
+		r.Session.Set("userToken", userToken)
+		r.Response.RedirectTo("/")
+		return
+	}
+	// 正常用户名密码登录
+	record, err := cool.DBM(model.NewChatgptSession()).Where(g.Map{
+		"email":    r.Get("username").String(),
+		"password": r.Get("password").String(),
+	}).One()
+	if err != nil {
+		g.Log().Error(ctx, "LoginPost", "err", err)
 
-	// 	r.Response.WriteTpl("login.html", g.Map{
-	// 		"username": r.Get("username").String(),
-	// 		"error":    err.Error(),
-	// 	})
-	// 	return
-	// } else {
-	// 	r.Session.Set("session-token", cookie.Value)
-	// 	r.Session.Set("access-token", accessToken)
-	// 	r.Session.Set("session", session)
-	// r.Cookie.Set("access-token", accessToken)
-	// cookie.Name = "session-token"
-	// r.Cookie.SetHttpCookie(cookie)
-	// r.Response.RedirectTo("/")
+		r.Response.WriteTpl("login.html", g.Map{
+			"username": r.Get("username").String(),
+			"error":    err.Error(),
+		})
+		return
+	}
+	if record.IsEmpty() {
+		r.Response.WriteTpl("login.html", g.Map{
+			"username": r.Get("username").String(),
+			"error":    "用户名或密码错误",
+		})
+		return
+	}
+	if record["userID"].Int() == 0 {
+		r.Response.WriteTpl("login.html", g.Map{
+			"username": r.Get("username").String(),
+			"error":    "未开通直登权限",
+		})
+		return
+	}
+	// 获取userToken
+	user, err := cool.DBM(model.NewChatgptUser()).Where("id=?", record["userID"].Int()).Where("expireTime>now()").One()
+	if err != nil {
+		g.Log().Error(ctx, "LoginPost", "err", err)
+		r.Response.WriteTpl("login.html", g.Map{
+			"username": r.Get("username").String(),
+			"error":    err.Error(),
+		})
+		return
+	}
+	if user.IsEmpty() {
+		r.Response.WriteTpl("login.html", g.Map{
+			"username": r.Get("username").String(),
+			"error":    "用户不存在或已过期",
+		})
+		return
+	}
+	r.Session.Set("userToken", user["userToken"].String())
+	r.Response.RedirectTo("/")
+
 	//  延迟跳转
 	// 	r.Response.WriteTpl("login_success.html", g.Map{"Success": "登录成功，正在跳转..."})
-
-	// }
 
 }
 

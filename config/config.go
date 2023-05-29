@@ -40,3 +40,7 @@ func PORT(ctx g.Ctx) int {
 	}
 	return g.Cfg().MustGetWithEnv(ctx, "PORT").Int()
 }
+
+func ONLYTOKEN(ctx g.Ctx) bool {
+	return g.Cfg().MustGetWithEnv(ctx, "ONLYTOKEN").Bool()
+}

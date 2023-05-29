@@ -83,7 +83,7 @@ func (s *ChatgptSessionService) GetSessionByUserToken(ctx g.Ctx, userToken strin
 	}
 	if record.IsEmpty() {
 		// 随机选择一个 status=1  userID=0 的session
-		record, err = cool.DBM(model.NewChatgptSession()).Where("status", 1).Where("userID", 0).One()
+		record, err = cool.DBM(model.NewChatgptSession()).Where("status", 1).Where("userID", 0).Where("isPlus", user["isPlus"]).One()
 		if err != nil {
 			return nil, "", err
 		}
