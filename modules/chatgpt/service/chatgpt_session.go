@@ -76,7 +76,6 @@ func (s *ChatgptSessionService) GetSessionByUserToken(ctx g.Ctx, userToken strin
 	}
 	userID := user["id"]
 	expireTime = user["expireTime"].String()
-	g.Dump(user)
 	g.Log().Debug(ctx, "ChatgptSessionService.GetSessionByUserToken", "userID", userID)
 	record, err = cool.DBM(model.NewChatgptSession()).Where("userID", userID).One()
 	if err != nil {

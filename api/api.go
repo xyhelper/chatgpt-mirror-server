@@ -31,6 +31,7 @@ func init() {
 	group.POST("/login_token", LoginToken)
 	group.GET("/auth/logout", Logout)
 	group.GET("/api/auth/session", Session)
+	group.GET("/api/conversation_limit", ConversationLimit)
 	group.POST("/api/accounts/data_export", NotFound) // 禁用导出
 
 }
