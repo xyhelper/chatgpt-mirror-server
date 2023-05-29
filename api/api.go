@@ -3,7 +3,6 @@ package api
 import (
 	"chatgpt-mirror-server/config"
 	"chatgpt-mirror-server/modules/chatgpt/service"
-	"chatgpt-mirror-server/proxyall"
 	"chatgpt-mirror-server/utility"
 	"net/http"
 	"net/http/httputil"
@@ -20,7 +19,6 @@ var (
 
 func init() {
 	s := g.Server()
-	s.BindHandler("/backend-api/*any", proxyall.ProxyAll)
 	s.BindHandler("/api/*", Api2backend)
 	group := s.Group("/")
 	group.GET("/", Index)

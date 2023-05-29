@@ -8,6 +8,7 @@ import (
 	_ "github.com/gogf/gf/contrib/nosql/redis/v2"
 
 	_ "chatgpt-mirror-server/api"
+	_ "chatgpt-mirror-server/backend-api"
 	_ "chatgpt-mirror-server/modules"
 
 	"github.com/gogf/gf/v2/os/gctx"
