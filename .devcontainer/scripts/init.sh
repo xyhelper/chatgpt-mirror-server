@@ -35,12 +35,19 @@ if [ "$REMOTE_CONTAINERS" = "true" ]; then
     # 安装cool-tools
     echo "Installing cool-tools ..."
     go install github.com/cool-team-official/cool-admin-go/cool-tools@latest
-    # 安装gf
-    # echo "Installing gf use mirror ..."
-    # pgit wget -O gf \
-    #     https://github.com/gogf/gf/releases/latest/download/gf_$(go env GOOS)_$(go env GOARCH) &&
-    #     chmod +x gf &&
-    #     ./gf install -y &&
-    #     rm ./gf
+    # 安装gf 
+    echo "Installing gf use mirror ..."
+    pgit wget -O gf \
+        https://github.com/gogf/gf/releases/latest/download/gf_$(go env GOOS)_$(go env GOARCH) &&
+        chmod +x gf &&
+        ./gf install -y &&
+        rm ./gf
+    # 安装前端依赖
+    echo "Installing frontend dependencies ..."
+    cd frontend && yarn install && cd ..
+
+    # 安装后端依赖
+    echo "Installing backend dependencies ..."
+    go mod tidy
 
 fi
