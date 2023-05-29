@@ -3,7 +3,8 @@
 
 set -e
 BASE_DIR=$(pwd)
-BACKUP_DIR="$BASE_DIR/data/backup"
+echo "BASE_DIR: $BASE_DIR"
+BACKUP_DIR="$BASE_DIR//.devcontainer/data/backup"
 BACKUPTIME=$(date +%Y%m%d-%H%M%S)
 
 
@@ -20,10 +21,11 @@ if [ ! -d "$BACKUP_DIR" ]; then
 fi
 
 # 备份所有库
-docker compose exec mysql sh -c 'exec mysqldump --all-databases -uroot -p"$MYSQL_ROOT_PASSWORD"' >$BACKUP_DIR/all-$BACKUPTIME.sql
+# docker compose exec mysql sh -c 'exec mysqldump --all-databases -uroot -p"$MYSQL_ROOT_PASSWORD"' >$BACKUP_DIR/all-$BACKUPTIME.sql
 
 # 只备份cool数据库
-# docker compose exec mysql sh -c 'exec mysqldump cool -uroot -p"$MYSQL_ROOT_PASSWORD"' >$BACKUP_DIR/cool-$BACKUPTIME.sql
+cd $BASE_DIR/.devcontainer
+docker compose exec mysql sh -c 'exec mysqldump cool -uroot -p"$MYSQL_ROOT_PASSWORD"' >$BACKUP_DIR/cool-$BACKUPTIME.sql
 
 # 删除7天前的备份文件
 # find $BACKUP_DIR -mtime +7 -name "*.sql" -exec rm {} \; 

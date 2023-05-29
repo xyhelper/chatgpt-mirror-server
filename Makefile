@@ -36,7 +36,7 @@ mysql-down: ## 停止mysql
 .PHONY: mysql-backup
 mysql-backup: ## 备份mysql
 	@echo "备份mysql"
-	@bash ./.devcontainer/devcontainer/scripts/mysql-backup.sh
+	@bash ./.devcontainer/scripts/mysql-backup.sh
 
 # 启动redis
 .PHONY: redis-up
