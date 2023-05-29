@@ -7,6 +7,7 @@ services:
     # network_mode: host
     volumes:
       - ./data/mysql/:/var/lib/mysql/
+      - ../docker-entrypoint-initdb.d/:/docker-entrypoint-initdb.d/
     environment:
       TZ: Asia/Shanghai # 指定时区
       MYSQL_ROOT_PASSWORD: "123456" # 配置root用户密码
