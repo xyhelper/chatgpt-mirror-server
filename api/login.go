@@ -6,8 +6,13 @@ import (
 )
 
 func Login(r *ghttp.Request) {
+	if r.Session.MustGet("userToken").IsEmpty() {
+		r.Response.WriteTpl("login.html")
 
-	r.Response.WriteTpl("login.html")
+	} else {
+		r.Response.RedirectTo("/")
+	}
+
 }
 
 func LoginPost(r *ghttp.Request) {
@@ -45,7 +50,7 @@ func LoginToken(r *ghttp.Request) {
 		})
 		return
 	}
-	record, err := ChatgptSessionService.GetSessionByUserToken(ctx, r.Get("access_token").String())
+	record, _, err := ChatgptSessionService.GetSessionByUserToken(ctx, r.Get("access_token").String())
 	if err != nil {
 		r.Response.WriteJson(g.Map{
 			"code":    500,
@@ -60,7 +65,6 @@ func LoginToken(r *ghttp.Request) {
 		})
 		return
 	}
-	r.Session.Set("officialSession", record["officialSession"])
 	r.Session.Set("userToken", r.Get("access_token").String())
 	r.Response.WriteJsonExit(g.Map{
 		"code": 0,

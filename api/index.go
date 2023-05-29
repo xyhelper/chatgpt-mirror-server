@@ -8,10 +8,8 @@ import (
 
 func Index(r *ghttp.Request) {
 
-	userSession := r.Session.MustGet("userToken")
-	if userSession.IsEmpty() {
+	if r.Session.MustGet("userToken").IsEmpty() {
 		r.Response.RedirectTo("/login")
-		// r.Response.Writer.Write([]byte("Hello XyHelper"))
 		return
 	}
 	props := `
@@ -60,10 +58,9 @@ func Index(r *ghttp.Request) {
 }
 
 func C(r *ghttp.Request) {
-	if r.Session.MustGet("session").String() == "" {
-		r.Session.RemoveAll()
-		g.Log().Debug(r.GetCtx(), "redirect to login")
+	if r.Session.MustGet("userToken").IsEmpty() {
 		r.Response.RedirectTo("/login")
+		return
 	}
 	chatId := r.RequestURI[3:]
 
