@@ -14,11 +14,16 @@ import (
 
 var (
 	ChatgptSessionService = service.NewChatgptSessionService()
+
 )
 
 func init() {
 	s := g.Server()
 	s.BindHandler("/backend-api/*any", ProxyAll)
+	backendGroup := s.Group("/backend-api")
+	backendGroup.POST("/accounts/data_export", NotFound) // 禁用导出
+	backendGroup.POST("/payments/checkout",NotFound) // 禁用支付
+
 }
 
 // NotFound 404

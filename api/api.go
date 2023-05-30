@@ -31,6 +31,7 @@ func init() {
 	group.GET("/api/auth/session", Session)
 	group.GET("/api/conversation_limit", ConversationLimit)
 	group.POST("/api/accounts/data_export", NotFound) // 禁用导出
+	group.POST("/api/payments/checkout",NotFound) // 禁用支付
 
 }
 
