@@ -14,7 +14,6 @@ import (
 
 var (
 	ChatgptSessionService = service.NewChatgptSessionService()
-
 )
 
 func init() {
@@ -22,7 +21,7 @@ func init() {
 	s.BindHandler("/backend-api/*any", ProxyAll)
 	backendGroup := s.Group("/backend-api")
 	backendGroup.POST("/accounts/data_export", NotFound) // 禁用导出
-	backendGroup.POST("/payments/checkout",NotFound) // 禁用支付
+	backendGroup.POST("/payments/checkout", NotFound)    // 禁用支付
 
 }
 
@@ -69,6 +68,6 @@ func ProxyAll(r *ghttp.Request) {
 	newreq.Header.Set("Authorization", "Bearer "+officialAccessToken)
 
 	// g.Dump(newreq.URL)
-	proxy.ServeHTTP(r.Response.Writer, newreq)
+	proxy.ServeHTTP(r.Response.Writer.RawWriter(), newreq)
 
 }

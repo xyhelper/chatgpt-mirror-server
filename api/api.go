@@ -31,7 +31,7 @@ func init() {
 	group.GET("/api/auth/session", Session)
 	group.GET("/api/conversation_limit", ConversationLimit)
 	group.POST("/api/accounts/data_export", NotFound) // 禁用导出
-	group.POST("/api/payments/checkout",NotFound) // 禁用支付
+	group.POST("/api/payments/checkout", NotFound)    // 禁用支付
 
 }
 
@@ -78,6 +78,6 @@ func Api2backend(r *ghttp.Request) {
 	newreq.Header.Set("Authorization", "Bearer "+officialAccessToken)
 
 	// g.Dump(newreq.URL)
-	proxy.ServeHTTP(r.Response.Writer, newreq)
+	proxy.ServeHTTP(r.Response.Writer.RawWriter(), newreq)
 
 }
