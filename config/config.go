@@ -70,3 +70,7 @@ func generateRandomNumber(max int) int {
 	rand.Seed(time.Now().UnixNano()) // 使用当前时间作为随机数生成器的种子
 	return rand.Intn(max)            // 生成0到59之间的随机数
 }
+
+func APIAUTH(ctx g.Ctx) string {
+	return g.Cfg().MustGetWithEnv(ctx, "APIAUTH").String()
+}
