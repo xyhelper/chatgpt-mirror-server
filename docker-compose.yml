@@ -34,5 +34,7 @@ services:
       AUTHKEY: "xyhelper"
       # 是否只使用token验证
       ONLYTOKEN: true 
+      # API对接验证
+      APIAUTH: "myauthkey"
     volumes:
       - ./data/chatgpt-api-server/:/app/data/
