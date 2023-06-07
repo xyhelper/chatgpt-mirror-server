@@ -74,3 +74,8 @@ func generateRandomNumber(max int) int {
 func APIAUTH(ctx g.Ctx) string {
 	return g.Cfg().MustGetWithEnv(ctx, "APIAUTH").String()
 }
+
+// 是否在新绑定用户时清空聊天记录
+func CLEARCHATHISTORY(ctx g.Ctx) bool {
+	return g.Cfg().MustGetWithEnv(ctx, "CLEARCHATHISTORY").Bool()
+}

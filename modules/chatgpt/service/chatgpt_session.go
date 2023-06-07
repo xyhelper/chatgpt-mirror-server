@@ -96,7 +96,29 @@ func (s *ChatgptSessionService) GetSessionByUserToken(ctx g.Ctx, userToken strin
 		if err != nil {
 			return nil, "", err
 		}
+		// 清除历史会话
+		ClearChatHistory(ctx, record["officialSession"].String())
 	}
 
 	return
+}
+
+// 清除历史会话
+func ClearChatHistory(ctx g.Ctx, officalSession string) {
+	if !config.CLEARCHATHISTORY(ctx) {
+		return
+	}
+	g.Log().Debug(ctx, "ChatgptSessionService.ClearChatHistory", "officalSession", officalSession)
+	clearUrl := config.CHATPROXY(ctx) + "/backend-api/conversations"
+	accessToken := gjson.New(officalSession).Get("accessToken").String()
+	// 请求内容 {"is_visible":false}
+	client := g.Client()
+	client.SetHeader("authkey", config.AUTHKEY(ctx))
+	client.SetHeader("Authorization", "Bearer "+accessToken)
+	client.SetHeader("Content-Type", "application/json")
+	result := client.PostVar(ctx, clearUrl, g.Map{
+		"is_visible": false,
+	})
+	g.Log().Debug(ctx, "ChatgptSessionService.ClearChatHistory", "result", result)
+
 }
