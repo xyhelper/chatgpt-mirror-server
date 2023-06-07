@@ -13,7 +13,7 @@ type ChatgptSession struct {
 	Password        string `gorm:"column:password;not null;comment:密码" json:"password"`
 	Status          bool   `gorm:"column:status;comment:状态;default:0" json:"status"`
 	IsPlus          bool   `gorm:"column:isPlus;comment:PLUS;default:0" json:"isPlus"`
-	UserID          string `gorm:"column:userID;comment:用户ID;default:0" json:"userID"`
+	UserID          int    `gorm:"column:userID;comment:用户ID" json:"userID"`
 	OfficialSession string `gorm:"column:officialSession;comment:官方session" json:"officialSession"`
 	Remark          string `gorm:"column:remark;comment:备注" json:"remark"`
 }
