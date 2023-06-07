@@ -38,6 +38,7 @@ func (s *ChatgptUserService) ModifyAfter(ctx g.Ctx, method string, param map[str
 	if method == "Delete" {
 		ids := garray.NewIntArrayFrom(gconv.Ints(param["ids"]))
 		for _, id := range ids.Slice() {
+			g.Log().Debug(ctx, "ChatgptSessionService.ModifyAfter", "userID", id)
 			cool.DBM(model.NewChatgptSession()).Where("userID=?", id).Update(g.Map{"userID": 0})
 		}
 	}
