@@ -42,3 +42,28 @@ func (c *ChatgptUserController) Welcome(ctx context.Context, req *ChatgptUserWel
 	}
 	return
 }
+
+type AuthReq struct {
+	g.Meta      `path:"/auth" method:"POST"`
+	AccessToken string `json:"access_token"`
+}
+type AuthRes struct {
+	*cool.BaseRes
+	Data interface{} `json:"data"`
+}
+
+func (c *ChatgptUserController) Auth(ctx context.Context, req *AuthReq) (res *AuthRes, err error) {
+	s := service.NewChatgptUserService()
+	data, err := s.Auth(ctx, req.AccessToken)
+	if err != nil {
+		res = &AuthRes{
+			BaseRes: cool.Fail(err.Error()),
+		}
+		return
+	}
+	res = &AuthRes{
+		BaseRes: cool.Ok(""),
+		Data:    data,
+	}
+	return
+}
