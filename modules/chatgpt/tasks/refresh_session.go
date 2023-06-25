@@ -40,14 +40,14 @@ func RefreshSession(ctx g.Ctx) {
 		sessionJson := gjson.New(sessionVar)
 		if sessionJson.Get("accessToken").String() == "" {
 			g.Log().Error(ctx, "RefreshSession", v["email"], "get session error", sessionJson)
-			return
+			continue
 		}
 		_, err = cool.DBM(m).Where("email=?", v["email"]).Update(g.Map{
 			"officialSession": sessionJson.String(),
 		})
 		if err != nil {
 			g.Log().Error(ctx, "RefreshSession", err)
-			return
+			continue
 		}
 		g.Log().Info(ctx, "RefreshSession", v["email"], "success")
 		// 延时5分钟
