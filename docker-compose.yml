@@ -35,6 +35,6 @@ services:
       # 是否只使用token验证
       ONLYTOKEN: true 
       # API对接验证
-      APIAUTH: "myauthkey"
+      # APIAUTH: "myauthkey"
     volumes:
-      - ./data/chatgpt-api-server/:/app/data/
+      - ./data/chatgpt-mirror-server/:/app/data/
