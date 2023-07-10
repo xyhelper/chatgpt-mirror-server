@@ -9286,7 +9286,7 @@
         iT = n.n(iM),
         iN = n(15300),
         iI = n(44675),
-        iZ = "https://tcr9i.chat.openai.com/v2/".concat(
+        iZ = "/v2/".concat(
           "35536E1E-65B4-4D96-9D97-6ADB7EFF8147",
           "/api.js"
         );
@@ -10803,13 +10803,13 @@
         freeResearchPreview: {
           id: "thread.chatgptFreeResearchPreview",
           defaultMessage:
-            "Free Research Preview. ChatGPT 中文镜像 <link>ChatGPT May 24 Version</link>",
+            "Free Research Preview. ChatGPT may produce inaccurate information about people, places, or facts. <link>ChatGPT May 24 Version</link>",
           description: "Free Research Preview disclaimer",
         },
         mayProduceInaccurateInformation: {
           id: "thread.chatgptMayProduceInaccurateInformation",
           defaultMessage:
-            "ChatGPT 中文镜像 <link>ChatGPT May 24 Version</link>",
+            "ChatGPT may produce inaccurate information about people, places, or facts. <link>ChatGPT May 24 Version</link>",
           description:
             "ChatGPT disclaimer for producing inaccurate information",
         },
