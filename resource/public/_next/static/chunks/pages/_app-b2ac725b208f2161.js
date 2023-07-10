@@ -384,8 +384,8 @@
       }
       var ty = /^\.(?:(0+)(\*)?|(#+)|(0+)(#+))$/g,
         tb = /^(@+)?(\+|#+)?[rs]?$/g,
-        tE = /(\*)(0+)|(#+)(0+)|(0+)/g,
-        tw = /^(0+)$/;
+        tw = /(\*)(0+)|(#+)(0+)|(0+)/g,
+        tE = /^(0+)$/;
       function tS(U) {
         var B = {};
         return (
@@ -449,7 +449,7 @@
               ? ((B.signDisplay = "always"), (U = U.slice(2)))
               : "+?" === G &&
                 ((B.signDisplay = "exceptZero"), (U = U.slice(2))),
-            !tw.test(U))
+            !tE.test(U))
           )
             throw Error("Malformed concise eng/scientific notation");
           B.minimumIntegerDigits = U.length;
@@ -533,7 +533,7 @@
                 throw RangeError(
                   "integer-width stems only accept a single optional option"
                 );
-              V.options[0].replace(tE, function (U, G, Y, V, Z, J) {
+              V.options[0].replace(tw, function (U, G, Y, V, Z, J) {
                 if (G) B.minimumIntegerDigits = Y.length;
                 else if (V && Z)
                   throw Error(
@@ -547,7 +547,7 @@
               });
               continue;
           }
-          if (tw.test(V.stem)) {
+          if (tE.test(V.stem)) {
             B.minimumIntegerDigits = V.stem.length;
             continue;
           }
@@ -2407,10 +2407,10 @@
                 : globalThis.document,
             [, ty] = (0, Z.useState)({}),
             tb = (0, Q.e)(B, (U) => tm(U)),
-            tE = Array.from(tg.layers),
-            [tw] = [...tg.layersWithOutsidePointerEventsDisabled].slice(-1),
-            tS = tE.indexOf(tw),
-            tx = t_ ? tE.indexOf(t_) : -1,
+            tw = Array.from(tg.layers),
+            [tE] = [...tg.layersWithOutsidePointerEventsDisabled].slice(-1),
+            tS = tw.indexOf(tE),
+            tx = t_ ? tw.indexOf(t_) : -1,
             tk = tg.layersWithOutsidePointerEventsDisabled.size > 0,
             tT = tx >= tS,
             tC = tu((U) => {
@@ -2686,7 +2686,7 @@
                 };
               }
             }, [th, t_, tm, tb]);
-          let tE = (0, V.useCallback)(
+          let tw = (0, V.useCallback)(
             (U) => {
               if ((!G && !tn) || tb.paused) return;
               let B = "Tab" === U.key && !U.altKey && !U.ctrlKey && !U.metaKey,
@@ -2708,7 +2708,7 @@
           );
           return (0, V.createElement)(
             J.WV.div,
-            (0, Y.Z)({ tabIndex: -1 }, tc, { ref: ty, onKeyDown: tE })
+            (0, Y.Z)({ tabIndex: -1 }, tc, { ref: ty, onKeyDown: tw })
           );
         });
       function tr(U, { select: B = !1 } = {}) {
@@ -3027,16 +3027,16 @@
             0 === tv && (tv = te.floating[td]);
             let ty = tg / 2 - t_ / 2,
               tb = ti[th],
-              tE = tv - tf[td] - ti[tp],
-              tw = tv / 2 - tf[td] / 2 + ty,
-              tS = tu(tb, tw, tE),
+              tw = tv - tf[td] - ti[tp],
+              tE = tv / 2 - tf[td] / 2 + ty,
+              tS = tu(tb, tE, tw),
               tx =
                 ("start" === tc ? ti[th] : ti[tp]) > 0 &&
-                tw !== tS &&
+                tE !== tS &&
                 te.reference[td] <= te.floating[td];
             return {
-              [ts]: ta[ts] - (tx ? (tw < tb ? tb - tw : tE - tw) : 0),
-              data: { [ts]: tS, centerOffset: tw - tS },
+              [ts]: ta[ts] - (tx ? (tE < tb ? tb - tE : tw - tE) : 0),
+              data: { [ts]: tS, centerOffset: tE - tS },
             };
           },
         }),
@@ -3104,7 +3104,7 @@
                 tv = [te, ...tm],
                 ty = await ti(B, tp),
                 tb = [],
-                tE = (null == (G = Q.flip) ? void 0 : G.overflows) || [];
+                tw = (null == (G = Q.flip) ? void 0 : G.overflows) || [];
               if ((ta && tb.push(ty[t_]), ts)) {
                 let { main: U, cross: B } = th(
                   X,
@@ -3114,7 +3114,7 @@
                 tb.push(ty[U], ty[B]);
               }
               if (
-                ((tE = [...tE, { placement: X, overflows: tb }]),
+                ((tw = [...tw, { placement: X, overflows: tb }]),
                 !tb.every((U) => U <= 0))
               ) {
                 let U =
@@ -3124,7 +3124,7 @@
                   B = tv[U];
                 if (B)
                   return {
-                    data: { index: U, overflows: tE },
+                    data: { index: U, overflows: tw },
                     reset: { placement: B },
                   };
                 let G = "bottom";
@@ -3132,7 +3132,7 @@
                   case "bestFit": {
                     let U =
                       null ==
-                      (J = tE
+                      (J = tw
                         .map((U) => [
                           U,
                           U.overflows
@@ -3195,7 +3195,7 @@
             },
           };
         },
-        tE = function (U) {
+        tw = function (U) {
           return (
             void 0 === U && (U = 0),
             {
@@ -3240,7 +3240,7 @@
             }
           );
         };
-      function tw(U) {
+      function tE(U) {
         return "x" === U ? "y" : "x";
       }
       let tS = function (U) {
@@ -3265,7 +3265,7 @@
                   tn = { x: G, y: Y },
                   tr = await ti(B, te),
                   ta = X(Z(V)),
-                  ts = tw(ta),
+                  ts = tE(ta),
                   tc = tn[ta],
                   td = tn[ts];
                 if (J) {
@@ -3298,7 +3298,7 @@
                   { offset: tt = 0, mainAxis: te = !0, crossAxis: tn = !0 } = U,
                   tr = { x: G, y: Y },
                   ti = X(V),
-                  ta = tw(ti),
+                  ta = tE(ti),
                   ts = tr[ti],
                   tu = tr[ta],
                   tc =
@@ -3991,8 +3991,8 @@
           );
         }),
         ey = "PopperContent",
-        [eb, eE] = ed(ey),
-        [ew, eS] = ed(ey, { hasParent: !1, positionUpdateFns: new Set() }),
+        [eb, ew] = ed(ey),
+        [eE, eS] = ed(ey, { hasParent: !1, positionUpdateFns: new Set() }),
         ek = (0, V.forwardRef)((U, B) => {
           var G, Y, Z, J, X, Q, tt, te;
           let {
@@ -4011,8 +4011,8 @@
               ...t_
             } = U,
             tv = ep(ey, tn),
-            [ty, tw] = (0, V.useState)(null),
-            tT = (0, ei.e)(B, (U) => tw(U)),
+            [ty, tE] = (0, V.useState)(null),
+            tT = (0, ei.e)(B, (U) => tE(U)),
             [tC, tR] = (0, V.useState)(null),
             tA = (0, eu.t)(tC),
             tO =
@@ -4046,7 +4046,7 @@
               whileElementsMounted: t5,
               middleware: [
                 eI(),
-                tE({ mainAxis: ti + tI, alignmentAxis: ts }),
+                tw({ mainAxis: ti + tI, alignmentAxis: ts }),
                 tp
                   ? tS({
                       mainAxis: !0,
@@ -4166,7 +4166,7 @@
               },
               t6
                 ? (0, V.createElement)(
-                    ew,
+                    eE,
                     { scope: tn, hasParent: !0, positionUpdateFns: t3 },
                     (0, V.createElement)(ee.WV.div, t4)
                   )
@@ -4178,7 +4178,7 @@
         eC = { top: "bottom", right: "left", bottom: "top", left: "right" },
         eR = (0, V.forwardRef)(function (U, B) {
           let { __scopePopper: G, ...Z } = U,
-            J = eE(eT, G),
+            J = ew(eT, G),
             X = eC[J.placedSide];
           return (0,
           V.createElement)("span", { ref: J.onArrowChange, style: { position: "absolute", left: J.arrowX, top: J.arrowY, [X]: 0, transformOrigin: { top: "", right: "0 0", bottom: "center 0", left: "100% 0" }[J.placedSide], transform: { top: "translateY(100%)", right: "translateY(50%) rotate(90deg) translateX(-50%)", bottom: "rotate(180deg)", left: "translateY(50%) rotate(-90deg) translateX(50%)" }[J.placedSide], visibility: J.shouldHideArrow ? "hidden" : void 0 } }, (0, V.createElement)(er, (0, Y.Z)({}, Z, { ref: B, style: { ...Z.style, display: "block" } })));
@@ -4601,8 +4601,8 @@
           );
         },
         ty = "Tooltip",
-        [tb, tE] = tc(ty),
-        tw = (U) => {
+        [tb, tw] = tc(ty),
+        tE = (U) => {
           let {
               __scopeTooltip: B,
               children: G,
@@ -4630,12 +4630,12 @@
                   null == J || J(U);
               },
             }),
-            tE = (0, V.useMemo)(
+            tw = (0, V.useMemo)(
               () =>
                 t_ ? (tp.current ? "delayed-open" : "instant-open") : "closed",
               [t_]
             ),
-            tw = (0, V.useCallback)(() => {
+            tE = (0, V.useCallback)(() => {
               window.clearTimeout(tc.current), (tp.current = !1), tv(!0);
             }, [tv]),
             tS = (0, V.useCallback)(() => {
@@ -4658,16 +4658,16 @@
                   scope: B,
                   contentId: tu,
                   open: t_,
-                  stateAttribute: tE,
+                  stateAttribute: tw,
                   trigger: ti,
                   onTriggerChange: ta,
                   onTriggerEnter: (0, V.useCallback)(() => {
-                    tn.isOpenDelayed ? tx() : tw();
-                  }, [tn.isOpenDelayed, tx, tw]),
+                    tn.isOpenDelayed ? tx() : tE();
+                  }, [tn.isOpenDelayed, tx, tE]),
                   onTriggerLeave: (0, V.useCallback)(() => {
                     td ? tS() : window.clearTimeout(tc.current);
                   }, [tS, td]),
-                  onOpen: tw,
+                  onOpen: tE,
                   onClose: tS,
                   disableHoverableContent: td,
                 },
@@ -4679,7 +4679,7 @@
         tS = "TooltipTrigger",
         tx = (0, V.forwardRef)((U, B) => {
           let { __scopeTooltip: G, ...X } = U,
-            Q = tE(tS, G),
+            Q = tw(tS, G),
             tt = tm(tS, G),
             tn = tf(G),
             tr = (0, V.useRef)(null),
@@ -4740,7 +4740,7 @@
               children: Y,
               container: Z,
             } = U,
-            J = tE(tk, B);
+            J = tw(tk, B);
           return (0, V.createElement)(
             tT,
             { scope: B, forceMount: G },
@@ -4755,7 +4755,7 @@
         tO = (0, V.forwardRef)((U, B) => {
           let G = tC(tA, U.__scopeTooltip),
             { forceMount: Z = G.forceMount, side: J = "top", ...X } = U,
-            Q = tE(tA, U.__scopeTooltip);
+            Q = tw(tA, U.__scopeTooltip);
           return (0, V.createElement)(
             tr.z,
             { present: Z || Q.open },
@@ -4765,7 +4765,7 @@
           );
         }),
         tI = (0, V.forwardRef)((U, B) => {
-          let G = tE(tA, U.__scopeTooltip),
+          let G = tw(tA, U.__scopeTooltip),
             Z = tm(tA, U.__scopeTooltip),
             X = (0, V.useRef)(null),
             Q = (0, J.e)(B, X),
@@ -4838,7 +4838,7 @@
               onPointerDownOutside: tt,
               ...tn
             } = U,
-            tr = tE(tA, G),
+            tr = tw(tA, G),
             ti = tf(G),
             { onClose: ts } = tr;
           return (
@@ -4995,7 +4995,7 @@
           : B.concat(G);
       }
       let tH = tv,
-        tz = tw,
+        tz = tE,
         t$ = tx,
         tq = tR,
         tY = tO,
@@ -5116,6 +5116,9 @@
     37812: function (U, B, G) {
       "use strict";
       G.d(B, {
+        T: function () {
+          return J;
+        },
         f: function () {
           return X;
         },
@@ -6796,7 +6799,7 @@ Sentry.init({...});
           return t6.s;
         },
         pT: function () {
-          return rE;
+          return rw;
         },
         m9: function () {
           return nJ;
@@ -6844,7 +6847,7 @@ Sentry.init({...});
           return ru;
         },
         SS: function () {
-          return iw;
+          return iE;
         },
         k3: function () {
           return oz;
@@ -6901,7 +6904,7 @@ Sentry.init({...});
           return tA.pj;
         },
         KC: function () {
-          return iE;
+          return iw;
         },
         q$: function () {
           return d7;
@@ -7030,8 +7033,8 @@ Sentry.init({...});
       var tv,
         ty,
         tb,
-        tE,
         tw,
+        tE,
         tS,
         tx,
         tk,
@@ -7083,7 +7086,7 @@ Sentry.init({...});
             return rR;
           },
           TryCatch: function () {
-            return rE;
+            return rw;
           },
         });
       var tA = G(31101);
@@ -7597,7 +7600,7 @@ Url: ${t0(U)}`),
       }
       let ey = 50,
         eb = /\(error: (.*)\)/;
-      function eE(...U) {
+      function ew(...U) {
         let B = U.sort((U, B) => U[0] - B[0]).map((U) => U[1]);
         return (U, G = 0) => {
           let Y = [],
@@ -7620,8 +7623,8 @@ Url: ${t0(U)}`),
           return eS(Y);
         };
       }
-      function ew(U) {
-        return Array.isArray(U) ? eE(...U) : U;
+      function eE(U) {
+        return Array.isArray(U) ? ew(...U) : U;
       }
       function eS(U) {
         if (!U.length) return [];
@@ -8283,7 +8286,7 @@ ${JSON.stringify(B)}
               : [{ type: "session" }, U];
         return no(Z, [J]);
       }
-      function nE(U, B, G, Y) {
+      function nw(U, B, G, Y) {
         let V = nm(G),
           Z = U.type && "replay_event" !== U.type ? U.type : "event";
         ny(U, G && G.sdk);
@@ -8292,7 +8295,7 @@ ${JSON.stringify(B)}
         let X = [{ type: Z }, U];
         return no(J, [X]);
       }
-      var nw = G(3177),
+      var nE = G(3177),
         nS = G(36883),
         nx = G(96333);
       function nk(U, B, G, Y) {
@@ -8499,7 +8502,7 @@ ${JSON.stringify(B)}
               tG.kg.warn(
                 "Discarded session because of missing or non-string release"
               )
-            : (this.sendSession(U), (0, nw.CT)(U, { init: !1 }));
+            : (this.sendSession(U), (0, nE.CT)(U, { init: !1 }));
         }
         getDsn() {
           return this._dsn;
@@ -8553,7 +8556,7 @@ ${JSON.stringify(B)}
         }
         sendEvent(U, B = {}) {
           if (this._dsn) {
-            let G = nE(
+            let G = nw(
               U,
               this._dsn,
               this._options._metadata,
@@ -8612,7 +8615,7 @@ ${JSON.stringify(B)}
           let Z = "ok" === U.status,
             J = (Z && 0 === U.errors) || (Z && G);
           J &&
-            ((0, nw.CT)(U, {
+            ((0, nE.CT)(U, {
               ...(G && { status: "crashed" }),
               errors: U.errors || Number(Y || G),
             }),
@@ -9392,15 +9395,15 @@ Reason: ${U}`))
         "XMLHttpRequestEventTarget",
         "XMLHttpRequestUpload",
       ];
-      class rE {
+      class rw {
         static __initStatic() {
           this.id = "TryCatch";
         }
         __init() {
-          this.name = rE.id;
+          this.name = rw.id;
         }
         constructor(U) {
-          rE.prototype.__init.call(this),
+          rw.prototype.__init.call(this),
             (this._options = {
               XMLHttpRequest: !0,
               eventTarget: !0,
@@ -9411,8 +9414,8 @@ Reason: ${U}`))
             });
         }
         setupOnce() {
-          this._options.setTimeout && (0, t5.hl)(nJ, "setTimeout", rw),
-            this._options.setInterval && (0, t5.hl)(nJ, "setInterval", rw),
+          this._options.setTimeout && (0, t5.hl)(nJ, "setTimeout", rE),
+            this._options.setInterval && (0, t5.hl)(nJ, "setInterval", rE),
             this._options.requestAnimationFrame &&
               (0, t5.hl)(nJ, "requestAnimationFrame", rS),
             this._options.XMLHttpRequest &&
@@ -9425,7 +9428,7 @@ Reason: ${U}`))
           }
         }
       }
-      function rw(U) {
+      function rE(U) {
         return function (...B) {
           let G = B[0];
           return (
@@ -9527,7 +9530,7 @@ Reason: ${U}`))
             };
           }));
       }
-      rE.__initStatic();
+      rw.__initStatic();
       let rT = "cause",
         rC = 5;
       class rR {
@@ -9775,7 +9778,7 @@ Reason: ${U}`))
         },
         r9 = [rH, r7],
         it = [rK, r0, r5],
-        ie = eE(...it),
+        ie = ew(...it),
         ir = (U, B) => {
           let G = -1 !== U.indexOf("safari-extension"),
             Y = -1 !== U.indexOf("safari-web-extension");
@@ -9974,7 +9977,7 @@ Reason: ${U}`))
         return ig(U, V);
       }
       let ib = 4;
-      function iE(U) {
+      function iw(U) {
         function B(B) {
           return new eN.cW((G, Y) => {
             let V = new XMLHttpRequest();
@@ -10000,10 +10003,10 @@ Reason: ${U}`))
         }
         return ig(U, B);
       }
-      let iw = [
+      let iE = [
         new t$(),
         new t3(),
-        new rE(),
+        new rw(),
         new rt(),
         new rd(),
         new rR(),
@@ -10011,7 +10014,7 @@ Reason: ${U}`))
         new rI(),
       ];
       function iS(U = {}) {
-        void 0 === U.defaultIntegrations && (U.defaultIntegrations = iw),
+        void 0 === U.defaultIntegrations && (U.defaultIntegrations = iE),
           void 0 === U.release &&
             ("string" == typeof __SENTRY_RELEASE__ &&
               (U.release = __SENTRY_RELEASE__),
@@ -10022,9 +10025,9 @@ Reason: ${U}`))
           void 0 === U.sendClientReports && (U.sendClientReports = !0);
         let B = {
           ...U,
-          stackParser: ew(U.stackParser || ie),
+          stackParser: eE(U.stackParser || ie),
           integrations: t7(U),
-          transport: U.transport || (eA() ? iy : iE),
+          transport: U.transport || (eA() ? iy : iw),
         };
         en(rl, B), U.autoSessionTracking && iN();
       }
@@ -11101,10 +11104,10 @@ The transaction will not be sampled. Please use the ${V} instrumentation to star
             );
           }
         };
-      function oE(U) {
+      function ow(U) {
         return "number" == typeof U && isFinite(U);
       }
-      function ow(U, { startTimestamp: B, ...G }) {
+      function oE(U, { startTimestamp: B, ...G }) {
         return (
           B && U.startTimestamp > B && (U.startTimestamp = B),
           U.startChild({ startTimestamp: B, ...G })
@@ -11275,7 +11278,7 @@ The transaction will not be sampled. Please use the ${V} instrumentation to star
           let Y = oT["mark.fid"];
           Y &&
             oT.fid &&
-            (ow(U, {
+            (oE(U, {
               description: "first input delay",
               endTimestamp: Y.value + oS(oT.fid.value),
               op: "ui.action",
@@ -11294,7 +11297,7 @@ The transaction will not be sampled. Please use the ${V} instrumentation to star
         let Z = V + G,
           J = Z + Y;
         return (
-          ow(U, {
+          oE(U, {
             description: B.name,
             endTimestamp: J,
             op: B.entryType,
@@ -11323,7 +11326,7 @@ The transaction will not be sampled. Please use the ${V} instrumentation to star
           X = B[`${G}Start`];
         X &&
           J &&
-          ow(U, {
+          oE(U, {
             op: "browser",
             description: V || G,
             startTimestamp: Y + oS(X),
@@ -11331,13 +11334,13 @@ The transaction will not be sampled. Please use the ${V} instrumentation to star
           });
       }
       function oB(U, B, G) {
-        ow(U, {
+        oE(U, {
           op: "browser",
           description: "request",
           startTimestamp: G + oS(B.requestStart),
           endTimestamp: G + oS(B.responseEnd),
         }),
-          ow(U, {
+          oE(U, {
             op: "browser",
             description: "response",
             startTimestamp: G + oS(B.responseStart),
@@ -11357,7 +11360,7 @@ The transaction will not be sampled. Please use the ${V} instrumentation to star
             (J["resource.render_blocking_status"] = B.renderBlockingStatus);
         let X = Z + Y,
           Q = X + V;
-        ow(U, {
+        oE(U, {
           description: G,
           endTimestamp: Q,
           op: B.initiatorType
@@ -11375,11 +11378,11 @@ The transaction will not be sampled. Please use the ${V} instrumentation to star
           (G.effectiveType &&
             U.setTag("effectiveConnectionType", G.effectiveType),
           G.type && U.setTag("connectionType", G.type),
-          oE(G.rtt) &&
+          ow(G.rtt) &&
             (oT["connection.rtt"] = { value: G.rtt, unit: "millisecond" })),
-          oE(B.deviceMemory) &&
+          ow(B.deviceMemory) &&
             U.setTag("deviceMemory", `${B.deviceMemory} GB`),
-          oE(B.hardwareConcurrency) &&
+          ow(B.hardwareConcurrency) &&
             U.setTag("hardwareConcurrency", String(B.hardwareConcurrency));
       }
       function oF(U) {
@@ -11861,8 +11864,8 @@ The transaction will not be sampled. Please use the ${V} instrumentation to star
       }
       let av = 1,
         ay = RegExp("[^a-z0-9-_:]"),
-        aE = -2;
-      function aw(U) {
+        aw = -2;
+      function aE(U) {
         return U ? U.replace(/[\S]/g, "*") : "";
       }
       function aS() {
@@ -11988,7 +11991,7 @@ The transaction will not be sampled. Please use the ${V} instrumentation to star
         if ("srcset" === Q) return aM(U, V);
         if ("style" === Q) return aD(V, aj());
         if ("object" === tt && "data" === Q) return aU(U, V);
-        if (Z && aF(B, Q, tt, J)) return X ? X(V) : aw(V);
+        if (Z && aF(B, Q, tt, J)) return X ? X(V) : aE(V);
         return V;
       }
       function aF(U, B, G, Y) {
@@ -12209,35 +12212,35 @@ The transaction will not be sampled. Please use the ${V} instrumentation to star
               }
             );
           case U.TEXT_NODE:
-            let tE = U.parentNode && U.parentNode.tagName,
-              tw = U.textContent,
-              tS = "STYLE" === tE || void 0,
-              tx = "SCRIPT" === tE || void 0;
-            if (tS && tw) {
+            let tw = U.parentNode && U.parentNode.tagName,
+              tE = U.textContent,
+              tS = "STYLE" === tw || void 0,
+              tx = "SCRIPT" === tw || void 0;
+            if (tS && tE) {
               try {
                 U.nextSibling ||
                   U.previousSibling ||
                   ((null === (G = U.parentNode.sheet) || void 0 === G
                     ? void 0
                     : G.cssRules) &&
-                    (tw = aR(U.parentNode.sheet)));
+                    (tE = aR(U.parentNode.sheet)));
               } catch (B) {
                 console.warn(
                   `Cannot get CSS styles from text's parentNode. Error: ${B}`,
                   U
                 );
               }
-              tw = aD(tw, aj());
+              tE = aD(tE, aj());
             }
-            if ((tx && (tw = "SCRIPT_PLACEHOLDER"), "TEXTAREA" === tE && tw))
-              tw = "";
-            else if ("OPTION" === tE && tw) {
+            if ((tx && (tE = "SCRIPT_PLACEHOLDER"), "TEXTAREA" === tw && tE))
+              tE = "";
+            else if ("OPTION" === tw && tE) {
               let B = U.parentNode;
-              tw = ag({
+              tE = ag({
                 input: B,
                 type: null,
-                tagName: tE,
-                value: tw,
+                tagName: tw,
+                value: tE,
                 maskInputSelector: ta,
                 unmaskInputSelector: ts,
                 maskInputOptions: tc,
@@ -12247,11 +12250,11 @@ The transaction will not be sampled. Please use the ${V} instrumentation to star
               !tS &&
                 !tx &&
                 az(U, Q, tn, tr, tu) &&
-                tw &&
-                (tw = td ? td(tw) : aw(tw));
+                tE &&
+                (tE = td ? td(tE) : aE(tE));
             return {
               type: tv.Text,
-              textContent: tw || "",
+              textContent: tE || "",
               isStyle: tS,
               rootId: Y,
             };
@@ -12369,8 +12372,8 @@ The transaction will not be sampled. Please use the ${V} instrumentation to star
             iframeLoadTimeout: ty = 5e3,
             keepIframeSrcFn: tb = () => !1,
           } = B,
-          { preserveWhiteSpace: tE = !0 } = B,
-          tw = aq(U, {
+          { preserveWhiteSpace: tw = !0 } = B,
+          tE = aq(U, {
             doc: Y,
             blockClass: Z,
             blockSelector: J,
@@ -12390,19 +12393,19 @@ The transaction will not be sampled. Please use the ${V} instrumentation to star
             recordCanvas: tg,
             keepIframeSrcFn: tb,
           });
-        if (!tw) return console.warn(U, "not serialized"), null;
+        if (!tE) return console.warn(U, "not serialized"), null;
         G =
           "__sn" in U
             ? U.__sn.id
-            : !aV(tw, tf) &&
-              (tE ||
-                tw.type !== tv.Text ||
-                tw.isStyle ||
-                tw.textContent.replace(/^\s+|\s+$/gm, "").length)
+            : !aV(tE, tf) &&
+              (tw ||
+                tE.type !== tv.Text ||
+                tE.isStyle ||
+                tE.textContent.replace(/^\s+|\s+$/gm, "").length)
             ? aS()
-            : aE;
-        let tS = Object.assign(tw, { id: G });
-        if (((U.__sn = tS), G === aE)) return null;
+            : aw;
+        let tS = Object.assign(tE, { id: G });
+        if (((U.__sn = tS), G === aw)) return null;
         (V[G] = U), t_ && t_(U);
         let tx = !tn;
         if (
@@ -12413,9 +12416,9 @@ The transaction will not be sampled. Please use the ${V} instrumentation to star
           (tS.type === tv.Document || tS.type === tv.Element) && tx)
         ) {
           tf.headWhitespace &&
-            tw.type === tv.Element &&
-            "head" === tw.tagName &&
-            (tE = !1);
+            tE.type === tv.Element &&
+            "head" === tE.tagName &&
+            (tw = !1);
           let B = {
             doc: Y,
             map: V,
@@ -12437,7 +12440,7 @@ The transaction will not be sampled. Please use the ${V} instrumentation to star
             dataURLOptions: th,
             inlineImages: tp,
             recordCanvas: tg,
-            preserveWhiteSpace: tE,
+            preserveWhiteSpace: tw,
             onSerialize: t_,
             onIframeLoad: tm,
             iframeLoadTimeout: ty,
@@ -12483,7 +12486,7 @@ The transaction will not be sampled. Please use the ${V} instrumentation to star
                     dataURLOptions: th,
                     inlineImages: tp,
                     recordCanvas: tg,
-                    preserveWhiteSpace: tE,
+                    preserveWhiteSpace: tw,
                     onSerialize: t_,
                     onIframeLoad: tm,
                     iframeLoadTimeout: ty,
@@ -12665,12 +12668,12 @@ The transaction will not be sampled. Please use the ${V} instrumentation to star
             (U[(U.TouchMove_Departed = 8)] = "TouchMove_Departed"),
             (U[(U.TouchEnd = 9)] = "TouchEnd"),
             (U[(U.TouchCancel = 10)] = "TouchCancel");
-        })(tE || (tE = {})),
+        })(tw || (tw = {})),
         (function (U) {
           (U[(U["2D"] = 0)] = "2D"),
             (U[(U.WebGL = 1)] = "WebGL"),
             (U[(U.WebGL2 = 2)] = "WebGL2");
-        })(tw || (tw = {})),
+        })(tE || (tE = {})),
         (function (U) {
           (U[(U.Play = 0)] = "Play"),
             (U[(U.Pause = 1)] = "Pause"),
@@ -12805,7 +12808,7 @@ The transaction will not be sampled. Please use the ${V} instrumentation to star
         return U.nodeType, U.TEXT_NODE, a8(U.parentNode, B, G, Y);
       }
       function a7(U) {
-        return "__sn" in U && U.__sn.id === aE;
+        return "__sn" in U && U.__sn.id === aw;
       }
       function a9(U, B) {
         if (af(U)) return !1;
@@ -12926,8 +12929,8 @@ The transaction will not be sampled. Please use the ${V} instrumentation to star
                 B = new ss(),
                 G = (U) => {
                   let B = U,
-                    G = aE;
-                  for (; G === aE; )
+                    G = aw;
+                  for (; G === aw; )
                     G = (B = B && B.nextSibling) && this.mirror.getId(B);
                   return G;
                 },
@@ -13411,10 +13414,10 @@ The transaction will not be sampled. Please use the ${V} instrumentation to star
             if (!Q) return;
             let tt = G.getId(X),
               { clientX: te, clientY: tn } = Q;
-            sp(U)({ type: tE[B], id: tt, x: te, y: tn });
+            sp(U)({ type: tw[B], id: tt, x: te, y: tn });
           };
         return (
-          Object.keys(tE)
+          Object.keys(tw)
             .filter(
               (U) =>
                 Number.isNaN(Number(U)) &&
@@ -13451,7 +13454,7 @@ The transaction will not be sampled. Please use the ${V} instrumentation to star
         }, J.scroll || 100);
         return aX("scroll", sp(X), B);
       }
-      function sE({ viewportResizeCb: U }) {
+      function sw({ viewportResizeCb: U }) {
         let B = -1,
           G = -1,
           Y = a2(() => {
@@ -13464,7 +13467,7 @@ The transaction will not be sampled. Please use the ${V} instrumentation to star
           }, 200);
         return aX("resize", sp(Y), window);
       }
-      function sw(U, B) {
+      function sE(U, B) {
         let G = Object.assign({}, U);
         return B || delete G.userTriggered, G;
       }
@@ -13518,7 +13521,7 @@ The transaction will not be sampled. Please use the ${V} instrumentation to star
                   value: tc,
                   maskInputFn: tn,
                 })),
-            ts(G, sp(sw)({ text: tc, isChecked: td, userTriggered: ta }, ti));
+            ts(G, sp(sE)({ text: tc, isChecked: td, userTriggered: ta }, ti));
           let tf = G.name;
           "radio" === tu &&
             tf &&
@@ -13528,7 +13531,7 @@ The transaction will not be sampled. Please use the ${V} instrumentation to star
                 U !== G &&
                   ts(
                     U,
-                    sp(sw)(
+                    sp(sE)(
                       { text: U.value, isChecked: !td, userTriggered: !1 },
                       ti
                     )
@@ -13859,7 +13862,7 @@ The transaction will not be sampled. Please use the ${V} instrumentation to star
           V = sv(U),
           Z = sy(U),
           J = sb(U),
-          X = sE(U),
+          X = sw(U),
           Q = sk(U),
           tt = sA(U),
           te = sC(U, { win: G }),
@@ -14023,7 +14026,7 @@ The transaction will not be sampled. Please use the ${V} instrumentation to star
                           V = null == Y ? void 0 : Y.data;
                         B[0] = JSON.stringify(V);
                       }
-                      U(this.canvas, { type: tw["2D"], property: Z, args: B });
+                      U(this.canvas, { type: tE["2D"], property: Z, args: B });
                     }, 0),
                   B.apply(this, J)
                 );
@@ -14034,7 +14037,7 @@ The transaction will not be sampled. Please use the ${V} instrumentation to star
             let G = a5(B.CanvasRenderingContext2D.prototype, Z, {
               set(B) {
                 U(this.canvas, {
-                  type: tw["2D"],
+                  type: tE["2D"],
                   property: Z,
                   args: [B],
                   setter: !0,
@@ -14209,13 +14212,13 @@ The transaction will not be sampled. Please use the ${V} instrumentation to star
         let J = [];
         return (
           J.push(
-            ...sK(B.WebGLRenderingContext.prototype, tw.WebGL, U, G, Y, V, Z, B)
+            ...sK(B.WebGLRenderingContext.prototype, tE.WebGL, U, G, Y, V, Z, B)
           ),
           void 0 !== B.WebGL2RenderingContext &&
             J.push(
               ...sK(
                 B.WebGL2RenderingContext.prototype,
-                tw.WebGL2,
+                tE.WebGL2,
                 U,
                 G,
                 Y,
@@ -14338,8 +14341,8 @@ The transaction will not be sampled. Please use the ${V} instrumentation to star
           maskTextFn: t_,
           hooks: tm,
           packFn: tv,
-          sampling: tE = {},
-          mousemoveWait: tw,
+          sampling: tw = {},
+          mousemoveWait: tE,
           recordCanvas: tS = !1,
           userTriggeredOnInput: tx = !1,
           collectFonts: tk = !1,
@@ -14349,7 +14352,7 @@ The transaction will not be sampled. Please use the ${V} instrumentation to star
           onMutation: tA,
         } = U;
         if (!G) throw Error("emit function is required");
-        void 0 !== tw && void 0 === tE.mousemove && (tE.mousemove = tw);
+        void 0 !== tE && void 0 === tw.mousemove && (tw.mousemove = tE);
         let tO =
             !0 === tf
               ? {
@@ -14470,7 +14473,7 @@ The transaction will not be sampled. Please use the ${V} instrumentation to star
               maskInputFn: tg,
               recordCanvas: tS,
               inlineImages: tT,
-              sampling: tE,
+              sampling: tw,
               slimDOMOptions: tI,
               iframeManager: tU,
               canvasManager: tB,
@@ -14647,7 +14650,7 @@ The transaction will not be sampled. Please use the ${V} instrumentation to star
                 unmaskInputSelector: tu,
                 maskInputOptions: tO,
                 inlineStylesheet: tc,
-                sampling: tE,
+                sampling: tw,
                 recordCanvas: tS,
                 inlineImages: tT,
                 userTriggeredOnInput: tx,
@@ -15100,20 +15103,20 @@ function t(t){let e=t.length;for(;--e>=0;)t[e]=0}const e=new Uint8Array([0,0,0,0
       function ub(U) {
         return !U.type;
       }
-      function uE(U) {
+      function uw(U) {
         return "transaction" === U.type;
       }
-      function uw(U) {
+      function uE(U) {
         return "replay_event" === U.type;
       }
       function uS(U) {
         let B = ux();
         return (G, Y) => {
-          if (!ub(G) && !uE(G)) return;
+          if (!ub(G) && !uw(G)) return;
           let V = Y && Y.statusCode;
           if (!B || (V && !(V < 200) && !(V >= 300))) {
             if (
-              uE(G) &&
+              uw(G) &&
               G.contexts &&
               G.contexts.trace &&
               G.contexts.trace.trace_id
@@ -15255,8 +15258,8 @@ function t(t){let e=t.length;for(;--e>=0;)t[e]=0}const e=new Uint8Array([0,0,0,0
       function uL(U, B = !1) {
         let G = B ? uS(U) : void 0;
         return (B, Y) => {
-          if (uw(B)) return delete B.breadcrumbs, B;
-          if (!ub(B) && !uE(B)) return B;
+          if (uE(B)) return delete B.breadcrumbs, B;
+          if (!ub(B) && !uw(B)) return B;
           if (uD(B, Y) && !U.getOptions()._experiments.captureExceptions)
             return (
               ("undefined" == typeof __SENTRY_DEBUG__ || __SENTRY_DEBUG__) &&
@@ -15264,7 +15267,7 @@ function t(t){let e=t.length;for(;--e>=0;)t[e]=0}const e=new Uint8Array([0,0,0,0
               null
             );
           if (
-            ((ub(B) || (uE(B) && "session" === U.recordingMode)) &&
+            ((ub(B) || (uw(B) && "session" === U.recordingMode)) &&
               (B.tags = { ...B.tags, replayId: U.getSessionId() }),
             ("undefined" == typeof __SENTRY_DEBUG__ || __SENTRY_DEBUG__) &&
               U.getOptions()._experiments.traceInternals &&
@@ -15598,7 +15601,7 @@ function t(t){let e=t.length;for(;--e>=0;)t[e]=0}const e=new Uint8Array([0,0,0,0
             if (U instanceof URLSearchParams)
               return B.encode(U.toString()).length;
             if (U instanceof FormData) {
-              let G = cw(U);
+              let G = cE(U);
               return B.encode(G).length;
             }
             if (U instanceof Blob) return U.size;
@@ -15616,7 +15619,7 @@ function t(t){let e=t.length;for(;--e>=0;)t[e]=0}const e=new Uint8Array([0,0,0,0
           : U instanceof URLSearchParams
           ? U.toString()
           : U instanceof FormData
-          ? cw(U)
+          ? cE(U)
           : void 0;
       }
       function cm(U, B) {
@@ -15655,13 +15658,13 @@ function t(t){let e=t.length;for(;--e>=0;)t[e]=0}const e=new Uint8Array([0,0,0,0
           { body: V, warnings: Z } = cS(G);
         return (Y.body = V), Z.length > 0 && (Y._meta = { warnings: Z }), Y;
       }
-      function cE(U, B) {
+      function cw(U, B) {
         return Object.keys(U).reduce((G, Y) => {
           let V = Y.toLowerCase();
           return B.includes(V) && U[Y] && (G[V] = U[Y]), G;
         }, {});
       }
-      function cw(U) {
+      function cE(U) {
         return new URLSearchParams(U).toString();
       }
       function cS(U) {
@@ -15794,7 +15797,7 @@ function t(t){let e=t.length;for(;--e>=0;)t[e]=0}const e=new Uint8Array([0,0,0,0
             ? cD(G, B)
             : Array.isArray(G)
             ? {}
-            : cE(G, B)
+            : cw(G, B)
           : {};
       }
       async function cM(U, B, G) {
@@ -15840,8 +15843,8 @@ function t(t){let e=t.length;for(;--e>=0;)t[e]=0}const e=new Uint8Array([0,0,0,0
           };
         }
         let tr = J[eU],
-          ti = tr ? cE(tr.request_headers, G.networkRequestHeaders) : {},
-          ta = cE(cj(J), G.networkResponseHeaders),
+          ti = tr ? cw(tr.request_headers, G.networkRequestHeaders) : {},
+          ta = cw(cj(J), G.networkResponseHeaders),
           ts = cy(ti, te, G.networkCaptureBodies ? c_(Z) : void 0),
           tu = cy(ta, tn, G.networkCaptureBodies ? B.xhr.responseText : void 0);
         return {
@@ -17014,8 +17017,8 @@ Sentry.init({ replaysOnErrorSampleRate: ${J} })`),
       }
       lm.__initStatic();
       let lb = 100,
-        lE = 5e3,
-        lw = 36e5;
+        lw = 5e3,
+        lE = 36e5;
       function lS(U, B) {
         ("undefined" == typeof __SENTRY_DEBUG__ || __SENTRY_DEBUG__) &&
           tG.kg.info(`[Offline]: ${U}`, B);
@@ -17025,7 +17028,7 @@ Sentry.init({ replaysOnErrorSampleRate: ${J} })`),
           let G;
           let Y = U(B),
             V = B.createStore ? B.createStore(B) : void 0,
-            Z = lE;
+            Z = lw;
           function J(U, G, Y) {
             return (
               !nc(U, ["replay_event", "replay_recording", "client_report"]) &&
@@ -17049,7 +17052,7 @@ Sentry.init({ replaysOnErrorSampleRate: ${J} })`),
                 G.unref());
           }
           function Q() {
-            G || (X(Z), (Z = Math.min(2 * Z, lw)));
+            G || (X(Z), (Z = Math.min(2 * Z, lE)));
           }
           async function tt(U) {
             try {
@@ -17060,7 +17063,7 @@ Sentry.init({ replaysOnErrorSampleRate: ${J} })`),
                   G = ia(B.headers["retry-after"]);
                 else if ((B.statusCode || 0) >= 400) return B;
               }
-              return X(G), (Z = lE), B;
+              return X(G), (Z = lw), B;
             } catch (B) {
               if (V && (await J(U, B, Z)))
                 return (
@@ -17765,8 +17768,8 @@ Sentry.init({ replaysOnErrorSampleRate: ${J} })`),
         return null !== B && parseInt(B[0]) >= 17;
       }
       let dy = "unknown",
-        dE = { componentStack: null, error: null, eventId: null };
-      function dw(U, B) {
+        dw = { componentStack: null, error: null, eventId: null };
+      function dE(U, B) {
         let G = new WeakMap();
         function Y(U, B) {
           if (!G.has(U)) {
@@ -17778,7 +17781,7 @@ Sentry.init({ replaysOnErrorSampleRate: ${J} })`),
       }
       class dS extends ds.Component {
         __init() {
-          this.state = dE;
+          this.state = dw;
         }
         __init2() {
           this._openFallbackReportDialog = !0;
@@ -17811,7 +17814,7 @@ Sentry.init({ replaysOnErrorSampleRate: ${J} })`),
               let G = Error(U.message);
               (G.name = `React ErrorBoundary ${G.name}`),
                 (G.stack = B),
-                dw(U, G);
+                dE(U, G);
             }
             G && G(J, U, B);
             let X = (0, nK.Tb)(U, {
@@ -17837,7 +17840,7 @@ Sentry.init({ replaysOnErrorSampleRate: ${J} })`),
           this.resetErrorBoundary = () => {
             let { onReset: U } = this.props,
               { error: B, componentStack: G, eventId: Y } = this.state;
-            U && U(B, G, Y), this.setState(dE);
+            U && U(B, G, Y), this.setState(dw);
           };
         }
         render() {
@@ -18924,7 +18927,7 @@ Url: ${tp(U)}`),
       function tb(U) {
         return "http" === U || "https" === U;
       }
-      function tE(U, B = !1) {
+      function tw(U, B = !1) {
         let {
           host: G,
           path: Y,
@@ -18938,7 +18941,7 @@ Url: ${tp(U)}`),
           Y ? `${Y}/` : Y
         }${J}`;
       }
-      function tw(U) {
+      function tE(U) {
         let B = ty.exec(U);
         if (!B) throw new tv(`Invalid Sentry Dsn: ${U}`);
         let [G, Y, V = "", Z, J = "", X] = B.slice(1),
@@ -18991,7 +18994,7 @@ Url: ${tp(U)}`),
         return !0;
       }
       function tk(U) {
-        let B = "string" == typeof U ? tw(U) : tS(U);
+        let B = "string" == typeof U ? tE(U) : tS(U);
         return tx(B), B;
       }
       function tT(U) {
@@ -19002,7 +19005,7 @@ Url: ${tp(U)}`),
       function tC(U, B) {
         let G = tk(U),
           Y = `${tT(G)}embed/error-page/`,
-          V = `dsn=${tE(G)}`;
+          V = `dsn=${tw(G)}`;
         for (let U in B)
           if ("dsn" !== U) {
             if ("user" === U) {
@@ -19763,16 +19766,16 @@ Error:`,
           },
         ];
       }
-      function eE(U, B = Infinity, G = Infinity) {
+      function ew(U, B = Infinity, G = Infinity) {
         try {
           return eS("", U, B, G);
         } catch (U) {
           return { ERROR: `**non-serializable** (${U})` };
         }
       }
-      function ew(U, B = 3, G = 102400) {
-        let Y = eE(U, B);
-        return eC(Y) > G ? ew(U, B - 1, G) : Y;
+      function eE(U, B = 3, G = 102400) {
+        let Y = ew(U, B);
+        return eC(Y) > G ? eE(U, B - 1, G) : Y;
       }
       function eS(U, B, G = Infinity, Y = Infinity, V = eb()) {
         let [Z, J] = V;
@@ -19862,7 +19865,7 @@ Error:`,
                 },
               ],
             },
-            extra: { __serialized__: ew(B, J) },
+            extra: { __serialized__: eE(B, J) },
           };
         if (G) {
           let B = eI(U, G);
@@ -24382,7 +24385,7 @@ Error:`,
             return U() + "-" + B() + "-" + G() + "-" + Y + "-" + U();
           };
         })());
-      var tE = [
+      var tw = [
         "ahrefsbot",
         "baiduspider",
         "bingbot",
@@ -24407,8 +24410,8 @@ Error:`,
       ];
       (tm.isBlockedUA = function (U) {
         var B;
-        for (B = 0, U = U.toLowerCase(); B < tE.length; B++)
-          if (-1 !== U.indexOf(tE[B])) return !0;
+        for (B = 0, U = U.toLowerCase(); B < tw.length; B++)
+          if (-1 !== U.indexOf(tw[B])) return !0;
         return !1;
       }),
         (tm.HTTPBuildQuery = function (U, B) {
@@ -24503,9 +24506,9 @@ Error:`,
             tm.cookie.set(U, "", -1, B, !1, !1, G);
           },
         });
-      var tw = null,
+      var tE = null,
         tS = function (U, B) {
-          if (null !== tw && !B) return tw;
+          if (null !== tE && !B) return tE;
           var G = !0;
           try {
             U = U || window.localStorage;
@@ -24515,7 +24518,7 @@ Error:`,
           } catch (U) {
             G = !1;
           }
-          return (tw = G), G;
+          return (tE = G), G;
         };
       (tm.localStorage = {
         is_supported: function (U) {
@@ -26259,8 +26262,8 @@ Error:`,
             tm.isUndefined(B) || (delete this.props[em][U], this.save()), B
           );
         });
-      var eE = 0,
-        ew = 1,
+      var ew = 0,
+        eE = 1,
         eS = function (U) {
           return U;
         },
@@ -26322,7 +26325,7 @@ Error:`,
         eP = function (U, B, Z) {
           var J,
             X = Z === eT ? Y : Y[Z];
-          if (X && G === eE) J = X;
+          if (X && G === ew) J = X;
           else {
             if (X && !tm.isArray(X)) {
               tv.error("You have already initialized " + Z);
@@ -27139,7 +27142,7 @@ Error:`,
               ? (J = eB[eT])
               : U && ((J = eP(U, V, eT))._loaded(), (eB[eT] = J)),
               (Y = J),
-              G === ew && (B[eT] = Y),
+              G === eE && (B[eT] = Y),
               ej();
           };
         },
@@ -27177,7 +27180,7 @@ Error:`,
           tm.register_event(B, "load", U, !0);
         },
         eH = (function () {
-          return (G = eE), (Y = new eL()), eG(), Y.init(), eF(), Y;
+          return (G = ew), (Y = new eL()), eG(), Y.init(), eF(), Y;
         })();
       U.exports = eH;
     },
@@ -27726,7 +27729,7 @@ Error:`,
         (B.getSession = tS),
         (B.signIn = tA),
         (B.signOut = tI),
-        (B.useSession = tw);
+        (B.useSession = tE);
       var tn = Q(G(23809)),
         tr = Q(G(67860)),
         ti = Q(G(8629)),
@@ -27834,9 +27837,9 @@ Error:`,
         },
         ty = (0, td.BroadcastChannel)(),
         tb = (0, tu.proxyLogger)(tu.default, tv.basePath),
-        tE = ts.createContext(void 0);
-      function tw(U) {
-        var B = ts.useContext(tE),
+        tw = ts.createContext(void 0);
+      function tE(U) {
+        var B = ts.useContext(tw),
           G = null != U ? U : {},
           Y = G.required,
           V = G.onUnauthenticated,
@@ -28264,7 +28267,7 @@ Error:`,
           },
           [J, te]
         );
-        return (0, tf.jsx)(tE.Provider, { value: tu, children: B });
+        return (0, tf.jsx)(tw.Provider, { value: tu, children: B });
       }
     },
     14549: function (U, B) {
@@ -28493,7 +28496,7 @@ Error:`,
             (0, Y.useEffect)(() => {
               tv(null != U ? U : th);
             }, [U, th]);
-          let tE = (0, Y.useMemo)(
+          let tw = (0, Y.useMemo)(
             () => ({
               theme: th,
               setTheme: ty,
@@ -28506,7 +28509,7 @@ Error:`,
           );
           return Y.createElement(
             X.Provider,
-            { value: tE },
+            { value: tw },
             Y.createElement(ti, {
               forcedTheme: U,
               disableTransitionOnChange: B,
@@ -28631,7 +28634,7 @@ Error:`,
       G.r(B),
         G.d(B, {
           default: function () {
-            return nw;
+            return nE;
           },
         });
       var Y,
@@ -28650,35 +28653,35 @@ Error:`,
         tu = G(68555),
         tc = G(70079),
         td = G(1454);
-      G(1328), G(11724), G(94981), G(59835);
-      var tf = G(66958),
-        th = G(59114),
-        tp = G(48727),
-        tg = G(76727),
-        t_ = G(51217),
-        tm = G(69072),
-        tv = G(81949),
-        ty = G(12051),
-        tb = G(91530),
-        tE = G.n(tb),
-        tw = "undefined" != typeof document,
+      G(1328), G(11724), G(94981), G(59835), G(18996);
+      var tf = G(91530),
+        th = G.n(tf),
+        tp = G(66958),
+        tg = G(59114),
+        t_ = G(48727),
+        tm = G(76727),
+        tv = G(51217),
+        ty = G(69072),
+        tb = G(81949),
+        tw = G(12051),
+        tE = "undefined" != typeof document,
         tS = tc.createContext({
-          addEscapeHandler: tE(),
-          removeEscapeHandler: tE(),
-          addDocClickHandler: tE(),
-          removeDocClickHandler: tE(),
+          addEscapeHandler: th(),
+          removeEscapeHandler: th(),
+          addDocClickHandler: th(),
+          removeDocClickHandler: th(),
           host: null,
           zIndex: void 0,
         }),
         tx = tS.Provider,
         tk = tS.Consumer,
         tT = (function (U) {
-          (0, tm._)(G, U);
-          var B = (0, ty._)(G);
+          (0, ty._)(G, U);
+          var B = (0, tw._)(G);
           function G(U) {
             var Y;
             return (
-              (0, t_._)(this, G),
+              (0, tv._)(this, G),
               ((Y = B.call(this, U)).onDocumentClick = function (U) {
                 var B =
                   Y.state.docClickHandlers[Y.state.docClickHandlers.length - 1];
@@ -28696,7 +28699,7 @@ Error:`,
               (Y.onAddEscapeHandler = function (U) {
                 Y.setState(function (B) {
                   return {
-                    escapeKeyHandlers: (0, tv._)(B.escapeKeyHandlers).concat([
+                    escapeKeyHandlers: (0, tb._)(B.escapeKeyHandlers).concat([
                       U,
                     ]),
                   };
@@ -28714,7 +28717,7 @@ Error:`,
               (Y.onAddDocClickHandler = function (U) {
                 Y.setState(function (B) {
                   return {
-                    docClickHandlers: (0, tv._)(B.docClickHandlers).concat([U]),
+                    docClickHandlers: (0, tb._)(B.docClickHandlers).concat([U]),
                   };
                 });
               }),
@@ -28737,12 +28740,12 @@ Error:`,
           return (
             (Y.componentDidMount = function () {
               this.forceUpdate(),
-                tw &&
+                tE &&
                   (document.addEventListener("keyup", this.onKeyUp),
                   document.addEventListener("mousedown", this.onDocumentClick));
             }),
             (Y.componentWillUnmount = function () {
-              tw &&
+              tE &&
                 (document.removeEventListener("keyup", this.onKeyUp),
                 document.removeEventListener(
                   "mousedown",
@@ -29369,8 +29372,8 @@ Error:`,
             B
           );
         })(tc.PureComponent),
-        eh = G(64135),
-        ep = G(88038),
+        eh = G(88038),
+        ep = G(59110),
         eg = "en-US",
         e_ = [
           "de-DE",
@@ -29448,7 +29451,7 @@ Error:`,
             return U.apply(this, arguments);
           };
         })(),
-        eE = (function () {
+        ew = (function () {
           var U = (0, V._)(function (U, B, G, Y) {
             var V, Z;
             return (0, X.Jh)(this, function (J) {
@@ -29470,13 +29473,13 @@ Error:`,
             return U.apply(this, arguments);
           };
         })(),
-        ew = function (U, B) {
+        eE = function (U, B) {
           return B;
         },
         eS = (0, tc.createContext)({
           locale: eg,
           dispatchLocale: function () {
-            return ew;
+            return eE;
           },
         }),
         ek = {},
@@ -29484,14 +29487,14 @@ Error:`,
           var B,
             G = U.locale,
             Y = U.children,
-            V = (0, eh.hz)(),
+            V = (0, ep.hz)(),
             X = (0, tc.useMemo)(
               function () {
                 return ey(G);
               },
               [G]
             ),
-            tt = (0, J._)((0, tc.useReducer)(ew, X), 2),
+            tt = (0, J._)((0, tc.useReducer)(eE, X), 2),
             te = tt[0],
             tn = tt[1],
             tr = (0, tc.useMemo)(
@@ -29525,7 +29528,7 @@ Error:`,
                     tA.Tb("Issue importing locale: ".concat(U));
                   };
                 return (
-                  V.has(ep.Tx) && eE(te, B, G, Y),
+                  V.has(eh.Tx) && ew(te, B, G, Y),
                   function () {
                     U.abort();
                   }
@@ -29919,7 +29922,7 @@ Error:`,
             tb = function () {
               tm();
             },
-            tE = function (U) {
+            tw = function (U) {
               if (null !== U) {
                 var B = U.getBoundingClientRect().height;
                 tu(B);
@@ -29941,7 +29944,7 @@ Error:`,
                 onMouseLeave: tb,
                 style: { height: ts, zIndex: G, marginBottom: tf ? 0 : -ts },
                 children: (0, Q.jsx)("div", {
-                  ref: tE,
+                  ref: tw,
                   className: "w-full p-1 text-center md:w-auto md:text-justify",
                   children: (0, Q.jsxs)(eD.b, {
                     icon: null !== (B = eX[X]) && void 0 !== B ? B : void 0,
@@ -29969,12 +29972,12 @@ Error:`,
           return Object.hasOwnProperty.call(U, "id");
         },
         e5 = (function (U) {
-          (0, tm._)(G, U);
-          var B = (0, ty._)(G);
+          (0, ty._)(G, U);
+          var B = (0, tw._)(G);
           function G(U) {
             var Y;
             return (
-              (0, t_._)(this, G),
+              (0, tv._)(this, G),
               ((Y = B.call(this, U)).getToasts = function () {
                 return Y.state.toasts;
               }),
@@ -30010,7 +30013,7 @@ Error:`,
                 var tt = Y.createToastInstance(U, B);
                 return (
                   Y.setState(function (U) {
-                    return { toasts: [tt].concat((0, tv._)(U.toasts)) };
+                    return { toasts: [tt].concat((0, tb._)(U.toasts)) };
                   }),
                   tt
                 );
@@ -30901,7 +30904,7 @@ Error:`,
       }
       var ny = 348e4,
         nb = 348e4;
-      function nE() {
+      function nw() {
         return new nv({
           defaultOptions: {
             queries: {
@@ -30917,39 +30920,39 @@ Error:`,
           },
         });
       }
-      var nw = function (U) {
+      var nE = function (U) {
         var B = U.Component,
           G = U.pageProps,
           Y = (0, J._)((0, tc.useState)(!1), 2),
           ta = Y[0],
-          t_ = Y[1],
-          tm = (0, J._)(
+          tf = Y[1],
+          tv = (0, J._)(
             (0, tc.useState)(function () {
-              return nE();
+              return nw();
             }),
             1
           )[0],
-          tv = (0, J._)((0, tc.useState)(""), 2),
-          ty = tv[0],
-          tb = tv[1],
+          ty = (0, J._)((0, tc.useState)(""), 2),
+          tb = ty[0],
+          tw = ty[1],
           tE = (0, tu.useRouter)(),
-          tw = tE.query.shareId || "",
-          tS = tE.query.chatId || void 0,
-          tx =
+          tS = tE.query.shareId || "",
+          tx = tE.query.chatId || void 0,
+          tk =
             (Array.isArray(tE.query.locale)
               ? tE.query.locale[0]
               : tE.query.locale) || null,
-          tk = nt(tS);
+          tC = nt(tx);
         (0, tc.useEffect)(function () {
           window._oaiHandleSessionExpired = function (U, B) {
-            t_(!0),
+            tf(!0),
               eC.ZP.event(
                 eR.s6.forceLogInModal("".concat(eR.VY).concat(eR.MC.Thread)),
                 { content: "".concat(U, ": ").concat(B) }
               );
           };
         }, []);
-        var tC = (0, tc.useMemo)(
+        var tR = (0, tc.useMemo)(
           function () {
             return { serviceStatus: G.serviceStatus || void 0 };
           },
@@ -30957,7 +30960,7 @@ Error:`,
         );
         return (0, Q.jsxs)(Q.Fragment, {
           children: [
-            (0, Q.jsx)(tg.Z, {}),
+            (0, Q.jsx)(tm.Z, {}),
             (0, Q.jsxs)(ts(), {
               children: [
                 (0, Q.jsx)("meta", {
@@ -30983,7 +30986,7 @@ Error:`,
                   {
                     property: "og:image",
                     content:
-                      "/images/chatgpt-share-og.png",
+                      "https://chat.openai.com/images/chatgpt-share-og.png",
                   },
                   "og:image"
                 ),
@@ -31024,7 +31027,7 @@ Error:`,
                   children: [
                     (0, Q.jsx)("h2", { children: "Oops, an error occurred!" }),
                     !1,
-                    (0, Q.jsx)(tf.z, {
+                    (0, Q.jsx)(tp.z, {
                       color: "neutral",
                       onClick: B,
                       children: "Try again",
@@ -31033,16 +31036,16 @@ Error:`,
                 });
               },
               children: (0, Q.jsx)(tn.aH, {
-                client: tm,
+                client: tv,
                 children: (0, Q.jsx)(ti.f, {
                   attribute: "class",
                   children: (0, Q.jsx)(tt.zt, {
                     children: (0, Q.jsx)(ne.gt.Provider, {
-                      value: tC,
+                      value: tR,
                       children: (0, Q.jsx)(eT, {
-                        locale: tx,
+                        locale: tk,
                         children: (0, Q.jsx)(ne.QL.Provider, {
-                          value: tk,
+                          value: tC,
                           children: (0, Q.jsx)(tT, {
                             children: (0, Q.jsxs)(eO, {
                               user: G.user,
@@ -31051,23 +31054,23 @@ Error:`,
                                   B,
                                   (0, Z._)(
                                     {
-                                      signInUrl: ty,
-                                      sharedConversationId: tw,
-                                      urlThreadId: tS,
+                                      signInUrl: tb,
+                                      sharedConversationId: tS,
+                                      urlThreadId: tx,
                                     },
                                     G
                                   )
                                 ),
                                 (0, Q.jsx)(e5, {}),
-                                (0, Q.jsx)(tp.Z, {
+                                (0, Q.jsx)(t_.Z, {
                                   isOpen: ta,
                                   icon: td.BJv,
                                   title: "Your session has expired",
                                   description:
                                     "Please log in again to continue using the app.",
                                   type: "warning",
-                                  onClose: t_,
-                                  primaryButton: (0, Q.jsx)(th.ZP.Button, {
+                                  onClose: th(),
+                                  primaryButton: (0, Q.jsx)(tg.ZP.Button, {
                                     onClick: (0, V._)(function () {
                                       var U;
                                       return (0, X.Jh)(this, function (B) {
@@ -31089,8 +31092,8 @@ Error:`,
                                             return (
                                               (U = B.sent()),
                                               tE.push(U.url),
-                                              t_(!1),
-                                              tb(U.url),
+                                              tf(!1),
+                                              tw(U.url),
                                               [2]
                                             );
                                         }
@@ -31122,6 +31125,9 @@ Error:`,
         },
         KF: function () {
           return Z;
+        },
+        Xf: function () {
+          return J;
         },
         r3: function () {
           return Y;
@@ -31253,56 +31259,80 @@ Error:`,
     38317: function (U, B, G) {
       "use strict";
       G.d(B, {
+        $V: function () {
+          return tg;
+        },
+        AQ: function () {
+          return tS;
+        },
+        Ae: function () {
+          return th;
+        },
         Bj: function () {
-          return ts;
+          return tc;
+        },
+        Fz: function () {
+          return tf;
         },
         HQ: function () {
-          return ti;
+          return ts;
         },
-        IX: function () {
+        HV: function () {
           return te;
         },
+        IT: function () {
+          return t_;
+        },
+        IX: function () {
+          return tr;
+        },
         MP: function () {
-          return tu;
+          return td;
+        },
+        Np: function () {
+          return tx;
+        },
+        O1: function () {
+          return ty;
+        },
+        Q$: function () {
+          return tp;
         },
         QF: function () {
-          return tn;
+          return ti;
         },
-        Z8: function () {
-          return tg;
+        X7: function () {
+          return tb;
         },
         ZP: function () {
           return Q;
         },
-        b3: function () {
-          return th;
-        },
-        dY: function () {
-          return tf;
-        },
         i9: function () {
-          return ta;
+          return tu;
         },
-        jE: function () {
+        j3: function () {
           return tm;
         },
-        jZ: function () {
-          return td;
+        jE: function () {
+          return tk;
         },
         jr: function () {
-          return t_;
+          return tv;
+        },
+        lv: function () {
+          return tw;
         },
         nI: function () {
-          return ty;
+          return tC;
         },
         nQ: function () {
-          return tr;
+          return ta;
         },
-        oV: function () {
-          return tp;
+        vy: function () {
+          return tE;
         },
-        xx: function () {
-          return tc;
+        zx: function () {
+          return tn;
         },
       });
       var Y = G(39324),
@@ -31353,6 +31383,42 @@ Error:`,
       var te = function (U) {
           return (0, J.jsx)(
             tt,
+            (0, V._)((0, Y._)({ fill: "none", viewBox: "0 0 18 18" }, U), {
+              children: (0, J.jsx)("path", {
+                d: "M8.4375 8.4375L8.46825 8.4225C8.56442 8.37445 8.67235 8.35497 8.77925 8.36637C8.88615 8.37776 8.98755 8.41955 9.07143 8.48678C9.15532 8.55402 9.21818 8.64388 9.25257 8.74574C9.28697 8.8476 9.29145 8.95717 9.2655 9.0615L8.7345 11.1885C8.70836 11.2929 8.7127 11.4026 8.74702 11.5045C8.78133 11.6065 8.84418 11.6965 8.9281 11.7639C9.01202 11.8312 9.1135 11.8731 9.2205 11.8845C9.32749 11.8959 9.43551 11.8764 9.53175 11.8282L9.5625 11.8125M15.75 9C15.75 9.88642 15.5754 10.7642 15.2362 11.5831C14.897 12.4021 14.3998 13.1462 13.773 13.773C13.1462 14.3998 12.4021 14.897 11.5831 15.2362C10.7642 15.5754 9.88642 15.75 9 15.75C8.11358 15.75 7.23583 15.5754 6.41689 15.2362C5.59794 14.897 4.85382 14.3998 4.22703 13.773C3.60023 13.1462 3.10303 12.4021 2.76381 11.5831C2.42459 10.7642 2.25 9.88642 2.25 9C2.25 7.20979 2.96116 5.4929 4.22703 4.22703C5.4929 2.96116 7.20979 2.25 9 2.25C10.7902 2.25 12.5071 2.96116 13.773 4.22703C15.0388 5.4929 15.75 7.20979 15.75 9ZM9 6.1875H9.006V6.1935H9V6.1875Z",
+                stroke: "currentColor",
+                strokeWidth: "1.5",
+                strokeLinecap: "round",
+                strokeLinejoin: "round",
+              }),
+            })
+          );
+        },
+        tn = function (U) {
+          return (0, J.jsxs)(
+            tt,
+            (0, V._)((0, Y._)({ fill: "none", viewBox: "0 0 18 18" }, U), {
+              children: [
+                (0, J.jsx)("path", {
+                  d: "M8.4375 8.4375L8.46825 8.4225C8.56442 8.37445 8.67235 8.35497 8.77925 8.36637C8.88615 8.37776 8.98755 8.41955 9.07143 8.48678C9.15532 8.55402 9.21818 8.64388 9.25257 8.74574C9.28697 8.8476 9.29145 8.95717 9.2655 9.0615L8.7345 11.1885C8.70836 11.2929 8.7127 11.4026 8.74702 11.5045C8.78133 11.6065 8.84418 11.6965 8.9281 11.7639C9.01202 11.8312 9.1135 11.8731 9.2205 11.8845C9.32749 11.8959 9.43551 11.8764 9.53175 11.8282L9.5625 11.8125M2.25 9C2.25 8.10489 2.42779 7.22812 2.76381 6.41689C3.09984 5.60565 3.59409 4.85996 4.22703 4.22703C5.4929 2.96116 7.20979 2.25 9 2.25C10.7902 2.25 12.5071 2.96116 13.773 4.22703C15.0388 5.4929 15.75 7.20979 15.75 9C15.75 9.88642 15.5754 10.7642 15.2362 11.5831C14.897 12.4021 14.3998 13.1462 13.773 13.773C13.1462 14.3998 12.4021 14.897 11.5831 15.2362C10.7642 15.5754 9.88642 15.75 9 15.75C8.11358 15.75 7.23583 15.5754 6.41689 15.2362C5.59794 14.897 4.85382 14.3998 4.22703 13.773C4.00067 13.5466 3.79122 13.305 3.6 13.05M9 6.1875H9.006V6.1935H9V6.1875Z",
+                  stroke: "currentColor",
+                  strokeWidth: "1.5",
+                  strokeLinecap: "round",
+                  strokeLinejoin: "round",
+                }),
+                (0, J.jsx)("path", {
+                  d: "M2.24999 10.3516L0.674988 8.10156H3.82499L2.24999 10.3516Z",
+                  fill: "currentColor",
+                  stroke: "currentColor",
+                  strokeLinejoin: "round",
+                }),
+              ],
+            })
+          );
+        },
+        tr = function (U) {
+          return (0, J.jsx)(
+            tt,
             (0, V._)((0, Y._)({ fill: "none", viewBox: "0 0 16 16" }, U), {
               children: (0, J.jsx)("path", {
                 d: "M.5 1.163A1 1 0 0 1 1.97.28l12.868 6.837a1 1 0 0 1 0 1.766L1.969 15.72A1 1 0 0 1 .5 14.836V10.33a1 1 0 0 1 .816-.983L8.5 8 1.316 6.653A1 1 0 0 1 .5 5.67V1.163Z",
@@ -31361,7 +31427,7 @@ Error:`,
             })
           );
         },
-        tn = function (U) {
+        ti = function (U) {
           return (0, J.jsxs)(
             tt,
             (0, V._)(
@@ -31389,7 +31455,7 @@ Error:`,
             )
           );
         },
-        tr = function (U) {
+        ta = function (U) {
           return (0, J.jsx)(
             tt,
             (0, V._)(
@@ -31413,7 +31479,7 @@ Error:`,
             )
           );
         },
-        ti = function (U) {
+        ts = function (U) {
           return (0, J.jsxs)(
             tt,
             (0, V._)(
@@ -31445,7 +31511,7 @@ Error:`,
             )
           );
         },
-        ta = function (U) {
+        tu = function (U) {
           return (0, J.jsxs)(
             tt,
             (0, V._)((0, Y._)({ fill: "none", viewBox: "0 0 20 21" }, U), {
@@ -31476,7 +31542,7 @@ Error:`,
             })
           );
         },
-        ts = function (U) {
+        tc = function (U) {
           return (0, J.jsx)(
             tt,
             (0, V._)(
@@ -31498,7 +31564,7 @@ Error:`,
             )
           );
         },
-        tu = function (U) {
+        td = function (U) {
           return (0, J.jsxs)(
             tt,
             (0, V._)(
@@ -31526,7 +31592,7 @@ Error:`,
             )
           );
         },
-        tc = function (U) {
+        tf = function (U) {
           return (0, J.jsx)(
             tt,
             (0, V._)(
@@ -31555,7 +31621,7 @@ Error:`,
             )
           );
         },
-        td = function (U) {
+        th = function (U) {
           return (0, J.jsxs)(
             tt,
             (0, V._)(
@@ -31583,7 +31649,7 @@ Error:`,
             )
           );
         },
-        tf = function (U) {
+        tp = function (U) {
           return (0, J.jsxs)(
             tt,
             (0, V._)(
@@ -31611,7 +31677,7 @@ Error:`,
             )
           );
         },
-        th = function (U) {
+        tg = function (U) {
           return (0, J.jsxs)(
             tt,
             (0, V._)(
@@ -31639,7 +31705,7 @@ Error:`,
             )
           );
         },
-        tp = function (U) {
+        t_ = function (U) {
           return (0, J.jsx)(
             tt,
             (0, V._)(
@@ -31668,7 +31734,7 @@ Error:`,
             )
           );
         },
-        tg = function (U) {
+        tm = function (U) {
           return (0, J.jsxs)(
             tt,
             (0, V._)(
@@ -31696,7 +31762,7 @@ Error:`,
             )
           );
         },
-        t_ = function (U) {
+        tv = function (U) {
           return (0, J.jsx)(
             tt,
             (0, V._)(
@@ -31718,7 +31784,188 @@ Error:`,
             )
           );
         },
-        tm = function (U) {
+        ty = function (U) {
+          return (0, J.jsx)(
+            tt,
+            (0, V._)(
+              (0, Y._)(
+                {
+                  width: "16",
+                  height: "16",
+                  viewBox: "0 0 16 16",
+                  fill: "none",
+                },
+                U
+              ),
+              {
+                children: (0, J.jsxs)("g", {
+                  fill: "currentColor",
+                  children: [
+                    (0, J.jsx)("path", {
+                      fillRule: "evenodd",
+                      clipRule: "evenodd",
+                      d: "M9.216 2.623a6 6 0 1 0 4.78 5.636L12.4 10.042a1.377 1.377 0 0 1-.26.226 4.515 4.515 0 0 1-2.509 2.427c.428-.789.726-1.629.895-2.489a1.376 1.376 0 0 1-.495-1.368L10.424 7H9.037c.052.248.09.499.117.75H6.846a7.318 7.318 0 0 1 .311-1.487 1.366 1.366 0 0 1-.14-.85c.04-.262.156-.507.333-.705l1.866-2.085ZM6.846 9.25A7.295 7.295 0 0 0 8 12.504 7.295 7.295 0 0 0 9.154 9.25H6.846Zm-3.284 0a4.506 4.506 0 0 0 2.807 3.445 8.798 8.798 0 0 1-1.03-3.445H3.563Zm0-1.5H5.34a8.798 8.798 0 0 1 1.029-3.445A4.506 4.506 0 0 0 3.562 7.75Z",
+                    }),
+                    (0, J.jsx)("path", {
+                      d: "M12.992.953a.375.375 0 0 0-.647-.328l-4.25 4.75a.375.375 0 0 0 .28.625h3.286l-.652 3.047a.375.375 0 0 0 .646.328l4.25-4.75a.374.374 0 0 0-.28-.625h-3.286l.652-3.047Z",
+                    }),
+                  ],
+                }),
+              }
+            )
+          );
+        },
+        tb = function (U) {
+          return (0, J.jsxs)(
+            tt,
+            (0, V._)(
+              (0, Y._)(
+                {
+                  width: "16",
+                  height: "16",
+                  viewBox: "0 0 16 16",
+                  fill: "none",
+                },
+                U
+              ),
+              {
+                children: [
+                  (0, J.jsx)("path", {
+                    fillRule: "evenodd",
+                    clipRule: "evenodd",
+                    d: "M9.216 2.623a6 6 0 1 0 4.78 5.636L12.4 10.042a1.377 1.377 0 0 1-.26.226 4.515 4.515 0 0 1-2.509 2.427c.428-.789.726-1.629.895-2.489a1.376 1.376 0 0 1-.495-1.368L10.424 7H9.037c.052.248.09.499.117.75H6.846a7.318 7.318 0 0 1 .311-1.487 1.366 1.366 0 0 1-.14-.85c.04-.262.156-.507.333-.705l1.866-2.085ZM6.846 9.25A7.295 7.295 0 0 0 8 12.504 7.295 7.295 0 0 0 9.154 9.25H6.846Zm-3.284 0a4.506 4.506 0 0 0 2.807 3.445 8.798 8.798 0 0 1-1.03-3.445H3.563Zm0-1.5H5.34a8.798 8.798 0 0 1 1.029-3.445A4.506 4.506 0 0 0 3.562 7.75Z",
+                    fill: "#86909D",
+                  }),
+                  (0, J.jsx)("path", {
+                    d: "M12.992.953a.375.375 0 0 0-.647-.328l-4.25 4.75a.375.375 0 0 0 .28.625h3.286l-.652 3.047a.375.375 0 0 0 .646.328l4.25-4.75a.374.374 0 0 0-.28-.625h-3.286l.652-3.047Z",
+                    fill: "currentColor",
+                  }),
+                ],
+              }
+            )
+          );
+        },
+        tw = function (U) {
+          return (0, J.jsxs)(
+            tt,
+            (0, V._)(
+              (0, Y._)(
+                {
+                  width: "16",
+                  height: "16",
+                  viewBox: "0 0 16 16",
+                  fill: "none",
+                },
+                U
+              ),
+              {
+                children: [
+                  (0, J.jsx)("path", {
+                    fillRule: "evenodd",
+                    clipRule: "evenodd",
+                    d: "M8.879 3 7.35 4.708A1.375 1.375 0 0 0 8.375 7h2.05l-.395 1.838a1.375 1.375 0 0 0 2.37 1.204l2.582-2.886c.013.265.018.546.018.844v2c0 4-1 5-5.667 5H6.667C2 15 1 14 1 10V8c0-4 1-5 5.667-5H8.879ZM4.53 6.47a.75.75 0 1 0-1.06 1.06l.97.97-.97.97a.75.75 0 0 0 1.06 1.06l1.5-1.5a.75.75 0 0 0 0-1.06l-1.5-1.5Zm1.97 4.28a.75.75 0 0 0 0 1.5h3a.75.75 0 0 0 0-1.5h-3Z",
+                    fill: "currentColor",
+                  }),
+                  (0, J.jsx)("path", {
+                    d: "M12.992.953a.375.375 0 0 0-.647-.328l-4.25 4.75a.375.375 0 0 0 .28.625h3.286l-.652 3.047a.375.375 0 0 0 .646.328l4.25-4.75a.374.374 0 0 0-.28-.625h-3.286l.652-3.047Z",
+                    fill: "currentColor",
+                  }),
+                ],
+              }
+            )
+          );
+        },
+        tE = function (U) {
+          return (0, J.jsxs)(
+            tt,
+            (0, V._)(
+              (0, Y._)(
+                {
+                  width: "16",
+                  height: "16",
+                  viewBox: "0 0 16 16",
+                  fill: "none",
+                },
+                U
+              ),
+              {
+                children: [
+                  (0, J.jsx)("path", {
+                    fillRule: "evenodd",
+                    clipRule: "evenodd",
+                    d: "M8.879 3 7.35 4.708A1.375 1.375 0 0 0 8.375 7h2.05l-.395 1.838a1.375 1.375 0 0 0 2.37 1.204l2.582-2.886c.013.265.018.546.018.844v2c0 4-1 5-5.667 5H6.667C2 15 1 14 1 10V8c0-4 1-5 5.667-5H8.879ZM4.53 6.47a.75.75 0 1 0-1.06 1.06l.97.97-.97.97a.75.75 0 0 0 1.06 1.06l1.5-1.5a.75.75 0 0 0 0-1.06l-1.5-1.5Zm1.97 4.28a.75.75 0 0 0 0 1.5h3a.75.75 0 0 0 0-1.5h-3Z",
+                    fill: "#86909D",
+                  }),
+                  (0, J.jsx)("path", {
+                    d: "M12.992.953a.375.375 0 0 0-.647-.328l-4.25 4.75a.375.375 0 0 0 .28.625h3.286l-.652 3.047a.375.375 0 0 0 .646.328l4.25-4.75a.374.374 0 0 0-.28-.625h-3.286l.652-3.047Z",
+                    fill: "currentColor",
+                  }),
+                ],
+              }
+            )
+          );
+        },
+        tS = function (U) {
+          return (0, J.jsxs)(
+            tt,
+            (0, V._)(
+              (0, Y._)(
+                {
+                  width: "16",
+                  height: "16",
+                  viewBox: "0 0 16 16",
+                  fill: "none",
+                },
+                U
+              ),
+              {
+                children: [
+                  (0, J.jsx)("path", {
+                    fillRule: "evenodd",
+                    clipRule: "evenodd",
+                    d: "M8.527 3.393c.014-.118.03-.23.048-.342.038-.25.076-.5.076-.814C8.651 1.554 7.913 1 7.001 1c-.911 0-1.65.554-1.65 1.237 0 .294.137.564.364.776.245.227.461.513.461.847a.822.822 0 0 1-.85.828 32.784 32.784 0 0 1-3.08-.263.619.619 0 0 0-.694.528 34.39 34.39 0 0 0-.262 2.626.8.8 0 0 0 .805.845c.325 0 .602-.21.82-.45.215-.234.488-.375.787-.375.683 0 1.237.738 1.237 1.65 0 .911-.554 1.65-1.237 1.65-.294 0-.564-.137-.776-.364-.227-.245-.513-.462-.847-.462a.823.823 0 0 0-.829.85c.042 1.103.134 2.193.278 3.267a.619.619 0 0 0 .532.532c1.074.144 2.164.237 3.267.277a.825.825 0 0 0 .85-.829c0-.334-.217-.618-.462-.847-.227-.212-.363-.481-.363-.775 0-.683.738-1.237 1.65-1.237.91 0 1.649.554 1.649 1.237 0 .299-.14.572-.375.786-.24.219-.45.496-.45.82a.8.8 0 0 0 .845.806c.878-.054 1.755-.141 2.626-.262a.619.619 0 0 0 .528-.695 32.632 32.632 0 0 1-.263-3.08.823.823 0 0 1 .121-.458 1.375 1.375 0 0 1-1.653-1.627L10.425 7H8.375A1.375 1.375 0 0 1 7.35 4.708l1.177-1.315Zm3.844 6.68.029-.03 2.078-2.324c.453.245.772.838.772 1.53 0 .911-.554 1.65-1.237 1.65-.294 0-.564-.137-.776-.364-.228-.245-.513-.462-.847-.462h-.02Z",
+                    fill: "currentColor",
+                  }),
+                  (0, J.jsx)("path", {
+                    d: "M12.992.953a.375.375 0 0 0-.647-.328l-4.25 4.75a.375.375 0 0 0 .28.625h3.286l-.652 3.047a.375.375 0 0 0 .646.328l4.25-4.75a.374.374 0 0 0-.28-.625h-3.286l.652-3.047Z",
+                    fill: "currentColor",
+                  }),
+                ],
+              }
+            )
+          );
+        },
+        tx = function (U) {
+          return (0, J.jsxs)(
+            tt,
+            (0, V._)(
+              (0, Y._)(
+                {
+                  width: "16",
+                  height: "16",
+                  viewBox: "0 0 16 16",
+                  fill: "none",
+                },
+                U
+              ),
+              {
+                children: [
+                  (0, J.jsx)("path", {
+                    fillRule: "evenodd",
+                    clipRule: "evenodd",
+                    d: "M8.527 3.393c.014-.118.03-.23.048-.342.038-.25.076-.5.076-.814C8.651 1.554 7.913 1 7.001 1c-.911 0-1.65.554-1.65 1.237 0 .294.137.564.364.776.245.227.461.513.461.847a.822.822 0 0 1-.85.828 32.784 32.784 0 0 1-3.08-.263.619.619 0 0 0-.694.528 34.39 34.39 0 0 0-.262 2.626.8.8 0 0 0 .805.845c.325 0 .602-.21.82-.45.215-.234.488-.375.787-.375.683 0 1.237.738 1.237 1.65 0 .911-.554 1.65-1.237 1.65-.294 0-.564-.137-.776-.364-.227-.245-.513-.462-.847-.462a.823.823 0 0 0-.829.85c.042 1.103.134 2.193.278 3.267a.619.619 0 0 0 .532.532c1.074.144 2.164.237 3.267.277a.825.825 0 0 0 .85-.829c0-.334-.217-.618-.462-.847-.227-.212-.363-.481-.363-.775 0-.683.738-1.237 1.65-1.237.91 0 1.649.554 1.649 1.237 0 .299-.14.572-.375.786-.24.219-.45.496-.45.82a.8.8 0 0 0 .845.806c.878-.054 1.755-.141 2.626-.262a.619.619 0 0 0 .528-.695 32.632 32.632 0 0 1-.263-3.08.823.823 0 0 1 .121-.458 1.375 1.375 0 0 1-1.653-1.627L10.425 7H8.375A1.375 1.375 0 0 1 7.35 4.708l1.177-1.315Zm3.844 6.68.029-.03 2.078-2.324c.453.245.772.838.772 1.53 0 .911-.554 1.65-1.237 1.65-.294 0-.564-.137-.776-.364-.228-.245-.513-.462-.847-.462h-.02Z",
+                    fill: "#86909D",
+                  }),
+                  (0, J.jsx)("path", {
+                    d: "M12.992.953a.375.375 0 0 0-.647-.328l-4.25 4.75a.375.375 0 0 0 .28.625h3.286l-.652 3.047a.375.375 0 0 0 .646.328l4.25-4.75a.374.374 0 0 0-.28-.625h-3.286l.652-3.047Z",
+                    fill: "currentColor",
+                  }),
+                ],
+              }
+            )
+          );
+        },
+        tk = function (U) {
           return (0, J.jsxs)(
             tt,
             (0, V._)(
@@ -32003,8 +32250,8 @@ Error:`,
             )
           );
         },
-        tv = "ChatGPT",
-        ty = function (U) {
+        tT = "ChatGPT",
+        tC = function (U) {
           var B = U.strokeWidth,
             G = U.className;
           return (0, J.jsxs)("svg", {
@@ -32018,7 +32265,7 @@ Error:`,
             role: "img",
             children: [
               (0, J.jsx)("title", { children: "ChatGPT" }),
-              (0, J.jsx)("text", { x: "-9999", y: "-9999", children: tv }),
+              (0, J.jsx)("text", { x: "-9999", y: "-9999", children: tT }),
               (0, J.jsx)("path", {
                 d: "M37.5324 16.8707C37.9808 15.5241 38.1363 14.0974 37.9886 12.6859C37.8409 11.2744 37.3934 9.91076 36.676 8.68622C35.6126 6.83404 33.9882 5.3676 32.0373 4.4985C30.0864 3.62941 27.9098 3.40259 25.8215 3.85078C24.8796 2.7893 23.7219 1.94125 22.4257 1.36341C21.1295 0.785575 19.7249 0.491269 18.3058 0.500197C16.1708 0.495044 14.0893 1.16803 12.3614 2.42214C10.6335 3.67624 9.34853 5.44666 8.6917 7.47815C7.30085 7.76286 5.98686 8.3414 4.8377 9.17505C3.68854 10.0087 2.73073 11.0782 2.02839 12.312C0.956464 14.1591 0.498905 16.2988 0.721698 18.4228C0.944492 20.5467 1.83612 22.5449 3.268 24.1293C2.81966 25.4759 2.66413 26.9026 2.81182 28.3141C2.95951 29.7256 3.40701 31.0892 4.12437 32.3138C5.18791 34.1659 6.8123 35.6322 8.76321 36.5013C10.7141 37.3704 12.8907 37.5973 14.9789 37.1492C15.9208 38.2107 17.0786 39.0587 18.3747 39.6366C19.6709 40.2144 21.0755 40.5087 22.4946 40.4998C24.6307 40.5054 26.7133 39.8321 28.4418 38.5772C30.1704 37.3223 31.4556 35.5506 32.1119 33.5179C33.5027 33.2332 34.8167 32.6547 35.9659 31.821C37.115 30.9874 38.0728 29.9178 38.7752 28.684C39.8458 26.8371 40.3023 24.6979 40.0789 22.5748C39.8556 20.4517 38.9639 18.4544 37.5324 16.8707ZM22.4978 37.8849C20.7443 37.8874 19.0459 37.2733 17.6994 36.1501C17.7601 36.117 17.8666 36.0586 17.936 36.0161L25.9004 31.4156C26.1003 31.3019 26.2663 31.137 26.3813 30.9378C26.4964 30.7386 26.5563 30.5124 26.5549 30.2825V19.0542L29.9213 20.998C29.9389 21.0068 29.9541 21.0198 29.9656 21.0359C29.977 21.052 29.9842 21.0707 29.9867 21.0902V30.3889C29.9842 32.375 29.1946 34.2791 27.7909 35.6841C26.3872 37.0892 24.4838 37.8806 22.4978 37.8849ZM6.39227 31.0064C5.51397 29.4888 5.19742 27.7107 5.49804 25.9832C5.55718 26.0187 5.66048 26.0818 5.73461 26.1244L13.699 30.7248C13.8975 30.8408 14.1233 30.902 14.3532 30.902C14.583 30.902 14.8088 30.8408 15.0073 30.7248L24.731 25.1103V28.9979C24.7321 29.0177 24.7283 29.0376 24.7199 29.0556C24.7115 29.0736 24.6988 29.0893 24.6829 29.1012L16.6317 33.7497C14.9096 34.7416 12.8643 35.0097 10.9447 34.4954C9.02506 33.9811 7.38785 32.7263 6.39227 31.0064ZM4.29707 13.6194C5.17156 12.0998 6.55279 10.9364 8.19885 10.3327C8.19885 10.4013 8.19491 10.5228 8.19491 10.6071V19.808C8.19351 20.0378 8.25334 20.2638 8.36823 20.4629C8.48312 20.6619 8.64893 20.8267 8.84863 20.9404L18.5723 26.5542L15.206 28.4979C15.1894 28.5089 15.1703 28.5155 15.1505 28.5173C15.1307 28.5191 15.1107 28.516 15.0924 28.5082L7.04046 23.8557C5.32135 22.8601 4.06716 21.2235 3.55289 19.3046C3.03862 17.3858 3.30624 15.3413 4.29707 13.6194ZM31.955 20.0556L22.2312 14.4411L25.5976 12.4981C25.6142 12.4872 25.6333 12.4805 25.6531 12.4787C25.6729 12.4769 25.6928 12.4801 25.7111 12.4879L33.7631 17.1364C34.9967 17.849 36.0017 18.8982 36.6606 20.1613C37.3194 21.4244 37.6047 22.849 37.4832 24.2684C37.3617 25.6878 36.8382 27.0432 35.9743 28.1759C35.1103 29.3086 33.9415 30.1717 32.6047 30.6641C32.6047 30.5947 32.6047 30.4733 32.6047 30.3889V21.188C32.6066 20.9586 32.5474 20.7328 32.4332 20.5338C32.319 20.3348 32.154 20.1698 31.955 20.0556ZM35.3055 15.0128C35.2464 14.9765 35.1431 14.9142 35.069 14.8717L27.1045 10.2712C26.906 10.1554 26.6803 10.0943 26.4504 10.0943C26.2206 10.0943 25.9948 10.1554 25.7963 10.2712L16.0726 15.8858V11.9982C16.0715 11.9783 16.0753 11.9585 16.0837 11.9405C16.0921 11.9225 16.1048 11.9068 16.1207 11.8949L24.1719 7.25025C25.4053 6.53903 26.8158 6.19376 28.2383 6.25482C29.6608 6.31589 31.0364 6.78077 32.2044 7.59508C33.3723 8.40939 34.2842 9.53945 34.8334 10.8531C35.3826 12.1667 35.5464 13.6095 35.3055 15.0128ZM14.2424 21.9419L10.8752 19.9981C10.8576 19.9893 10.8423 19.9763 10.8309 19.9602C10.8195 19.9441 10.8122 19.9254 10.8098 19.9058V10.6071C10.8107 9.18295 11.2173 7.78848 11.9819 6.58696C12.7466 5.38544 13.8377 4.42659 15.1275 3.82264C16.4173 3.21869 17.8524 2.99464 19.2649 3.1767C20.6775 3.35876 22.0089 3.93941 23.1034 4.85067C23.0427 4.88379 22.937 4.94215 22.8668 4.98473L14.9024 9.58517C14.7025 9.69878 14.5366 9.86356 14.4215 10.0626C14.3065 10.2616 14.2466 10.4877 14.2479 10.7175L14.2424 21.9419ZM16.071 17.9991L20.4018 15.4978L24.7325 17.9975V22.9985L20.4018 25.4983L16.071 22.9985V17.9991Z",
                 fill: "currentColor",
@@ -32130,8 +32377,8 @@ Error:`,
         t_ = G(94251);
       let tm = "Dialog",
         [tv, ty] = (0, tr.b)(tm),
-        [tb, tE] = tv(tm),
-        tw = (U) => {
+        [tb, tw] = tv(tm),
+        tE = (U) => {
           let {
               __scopeDialog: B,
               children: G,
@@ -32169,7 +32416,7 @@ Error:`,
               children: Y,
               container: V,
             } = U,
-            Z = tE(tS, B);
+            Z = tw(tS, B);
           return (0, tt.createElement)(
             tx,
             { scope: B, forceMount: G },
@@ -32186,7 +32433,7 @@ Error:`,
         tR = (0, tt.forwardRef)((U, B) => {
           let G = tk(tC, U.__scopeDialog),
             { forceMount: Y = G.forceMount, ...V } = U,
-            Z = tE(tC, U.__scopeDialog);
+            Z = tw(tC, U.__scopeDialog);
           return Z.modal
             ? (0, tt.createElement)(
                 td.z,
@@ -32197,7 +32444,7 @@ Error:`,
         }),
         tA = (0, tt.forwardRef)((U, B) => {
           let { __scopeDialog: G, ...Y } = U,
-            V = tE(tC, G);
+            V = tw(tC, G);
           return (0, tt.createElement)(
             tp.Z,
             { as: t_.g7, allowPinchZoom: !0, shards: [V.contentRef] },
@@ -32214,7 +32461,7 @@ Error:`,
         tI = (0, tt.forwardRef)((U, B) => {
           let G = tk(tO, U.__scopeDialog),
             { forceMount: Y = G.forceMount, ...V } = U,
-            Z = tE(tO, U.__scopeDialog);
+            Z = tw(tO, U.__scopeDialog);
           return (0, tt.createElement)(
             td.z,
             { present: Y || Z.open },
@@ -32224,7 +32471,7 @@ Error:`,
           );
         }),
         tN = (0, tt.forwardRef)((U, B) => {
-          let G = tE(tO, U.__scopeDialog),
+          let G = tw(tO, U.__scopeDialog),
             Y = (0, tt.useRef)(null),
             V = (0, tn.e)(B, G.contentRef, Y);
           return (
@@ -32259,7 +32506,7 @@ Error:`,
           );
         }),
         tD = (0, tt.forwardRef)((U, B) => {
-          let G = tE(tO, U.__scopeDialog),
+          let G = tw(tO, U.__scopeDialog),
             Y = (0, tt.useRef)(!1);
           return (0, tt.createElement)(
             tL,
@@ -32304,7 +32551,7 @@ Error:`,
               onCloseAutoFocus: Z,
               ...J
             } = U,
-            X = tE(tO, G),
+            X = tw(tO, G),
             te = (0, tt.useRef)(null),
             tr = (0, tn.e)(B, te);
           return (
@@ -32343,7 +32590,7 @@ Error:`,
         tP = "DialogTitle",
         tM = (0, tt.forwardRef)((U, B) => {
           let { __scopeDialog: G, ...Y } = U,
-            V = tE(tP, G);
+            V = tw(tP, G);
           return (0, tt.createElement)(
             tf.WV.h2,
             (0, Q.Z)({ id: V.titleId }, Y, { ref: B })
@@ -32352,7 +32599,7 @@ Error:`,
         tU = "DialogDescription",
         tB = (0, tt.forwardRef)((U, B) => {
           let { __scopeDialog: G, ...Y } = U,
-            V = tE(tU, G);
+            V = tw(tU, G);
           return (0, tt.createElement)(
             tf.WV.p,
             (0, Q.Z)({ id: V.descriptionId }, Y, { ref: B })
@@ -32361,7 +32608,7 @@ Error:`,
         tj = "DialogClose",
         tG = (0, tt.forwardRef)((U, B) => {
           let { __scopeDialog: G, ...Y } = U,
-            V = tE(tj, G);
+            V = tw(tj, G);
           return (0, tt.createElement)(
             tf.WV.button,
             (0, Q.Z)({ type: "button" }, Y, {
@@ -32379,7 +32626,7 @@ Error:`,
           titleName: tP,
           docsSlug: "dialog",
         }),
-        tq = tw,
+        tq = tE,
         tY = tT,
         tV = tR,
         tW = tI,
@@ -32393,7 +32640,7 @@ Error:`,
         t3 = G(38317);
       function t6() {
         var U = (0, J._)([
-          "grid-cols-[minmax(10px,30px)_1fr_minmax(10px,30px)] grid h-full w-full grid-rows-[minmax(10px,_1fr)_auto_minmax(10px,_1fr)] md:grid-rows-[minmax(20px,_1fr)_auto_minmax(20px,_1fr)] overflow-y-auto",
+          "grid-cols-[10px_1fr_10px] grid h-full w-full grid-rows-[minmax(10px,_1fr)_auto_minmax(10px,_1fr)] md:grid-rows-[minmax(20px,_1fr)_auto_minmax(20px,_1fr)] overflow-y-auto",
         ]);
         return (
           (t6 = function () {
@@ -32735,75 +32982,84 @@ Error:`,
       "use strict";
       G.d(B, {
         Z: function () {
-          return ts;
+          return tu;
         },
       });
       var Y = G(39324),
-        V = G(94209),
-        Z = G(60986),
-        J = G(70079),
-        X = G(82841),
-        Q = G(36218),
-        tt = G(32787),
-        te = G(15300),
-        tn = G(75955),
-        tr = G(64135),
-        ti = G(31241),
-        ta = !1;
-      function ts(U, B, G, ts) {
-        var tu = (0, tr.Xj)().data,
-          tc = (0, tt.kP)().session,
-          td = (0, X.WS)(G);
-        (0, J.useEffect)(
+        V = G(71209),
+        Z = G(94209),
+        J = G(60986),
+        X = G(70079),
+        Q = G(82841),
+        tt = G(36218),
+        te = G(32787),
+        tn = G(15300),
+        tr = G(75955),
+        ti = G(59110),
+        ta = G(31241),
+        ts = !1;
+      function tu(U, B, G, tu) {
+        var tc = (0, ti.ec)(function (U) {
+            return {
+              subscriptionStatus: U.subscriptionStatus,
+              features: U.features,
+              currentWorkspace: U.currentWorkspace,
+            };
+          }),
+          td = tc.subscriptionStatus,
+          tf = tc.features,
+          th = tc.currentWorkspace,
+          tp = (0, te.kP)().session,
+          tg = (0, Q.WS)(G);
+        (0, X.useEffect)(
           function () {
-            null != tu &&
+            if (null != td && null != th) {
+              var U = (0, V._)((0, Y._)({}, td), { accountUserRole: th.role });
               B.id &&
-              (X.ZP.setUser(B, Array.from(tu.features), tu.accountPlan, ts),
-              (tu.features.has("log_statsig_events") || ta) &&
-                tn.m.setUser(B, tu.accountPlan),
-              tu.features.has("log_intercom_events") &&
-                (0, ti.u$)(B, tu.accountPlan),
-              te.U.setUser(B, Array.from(tu.features), tu.accountPlan, ts),
-              null == V ||
-                Z.av({
-                  id: B.id,
-                  segment: tu.accountPlan.hasPaidSubscription ? "paid" : "free",
-                }),
-              null == V ||
-                Z.v("features", (0, Y._)({}, Array.from(tu.features))),
-              null == V || Z.v("accountPlan", tu.accountPlan),
-              null == V || Z.v("idp", { idp: B.idp }));
+                (Q.ZP.setUser(B, Array.from(tf), U, tu),
+                (tf.has("log_statsig_events") || ts) && tr.m.setUser(B, U),
+                tf.has("log_intercom_events") && (0, ta.u$)(B, U),
+                tn.U.setUser(B, Array.from(tf), U, tu),
+                null == Z ||
+                  J.av({
+                    id: B.id,
+                    segment: td.hasPaidSubscription ? "paid" : "free",
+                  }),
+                null == Z || J.v("features", (0, Y._)({}, Array.from(tf))),
+                null == Z || J.v("accountPlan", td),
+                null == Z || J.v("idp", { idp: B.idp }));
+            }
           },
-          [tu, B.id]
+          [td, B.id]
         ),
-          (0, J.useEffect)(
+          (0, X.useEffect)(
             function () {
-              td(Q.s6.pageLoad);
+              tg(tt.s6.pageLoad);
             },
-            [td]
+            [tg]
           ),
-          (0, ti.oG)(),
-          (0, J.useEffect)(
+          (0, ta.oG)(),
+          (0, X.useEffect)(
             function () {
-              (null == tc ? void 0 : tc.error) === "RefreshAccessTokenError" &&
-                window._oaiHandleSessionExpired("page load", tc.error);
+              (null == tp ? void 0 : tp.error) === "RefreshAccessTokenError" &&
+                window._oaiHandleSessionExpired("page load", tp.error);
             },
-            [tc, B.id]
+            [tp, B.id]
           ),
-          (0, J.useEffect)(
+          (0, X.useEffect)(
             function () {
               document.title = U;
             },
             [U]
           );
       }
-      te.U.initialize();
+      tn.U.initialize();
     },
     24274: function (U, B, G) {
       "use strict";
       G.d(B, {
         ZP: function () {
-          return tx;
+          return tE;
         },
       });
       var Y = G(21722),
@@ -32811,18 +33067,17 @@ Error:`,
         Z = G(39324),
         J = G(71209),
         X = G(70216),
-        Q = G(22830),
-        tt = G(39889);
-      async function te(U, B) {
+        Q = G(39889);
+      async function tt(U, B) {
         let G;
         let Y = U.getReader();
         for (; !(G = await Y.read()).done; ) B(G.value);
       }
-      function tn(U) {
+      function te(U) {
         let B, G, Y;
         let V = !1;
         return function (Z) {
-          void 0 === B ? ((B = Z), (G = 0), (Y = -1)) : (B = ti(B, Z));
+          void 0 === B ? ((B = Z), (G = 0), (Y = -1)) : (B = tr(B, Z));
           let J = B.length,
             X = 0;
           for (; G < J; ) {
@@ -32844,11 +33099,11 @@ Error:`,
           X === J ? (B = void 0) : 0 !== X && ((B = B.subarray(X)), (G -= X));
         };
       }
-      function tr(U, B, G) {
-        let Y = ta(),
+      function tn(U, B, G) {
+        let Y = ti(),
           V = new TextDecoder();
         return function (Z, J) {
-          if (0 === Z.length) null == G || G(Y), (Y = ta());
+          if (0 === Z.length) null == G || G(Y), (Y = ti());
           else if (J > 0) {
             let G = V.decode(Z.subarray(0, J)),
               X = J + (32 === Z[J + 1] ? 2 : 1),
@@ -32870,14 +33125,14 @@ Error:`,
           }
         };
       }
-      function ti(U, B) {
+      function tr(U, B) {
         let G = new Uint8Array(U.length + B.length);
         return G.set(U), G.set(B, U.length), G;
       }
-      function ta() {
+      function ti() {
         return { data: "", event: "", id: "", retry: void 0 };
       }
-      var ts = function (U, B) {
+      var ta = function (U, B) {
         var G = {};
         for (var Y in U)
           Object.prototype.hasOwnProperty.call(U, Y) &&
@@ -32894,10 +33149,10 @@ Error:`,
               (G[Y[V]] = U[Y[V]]);
         return G;
       };
-      let tu = "text/event-stream",
-        tc = 1e3,
-        td = "last-event-id";
-      function tf(U, B) {
+      let ts = "text/event-stream",
+        tu = 1e3,
+        tc = "last-event-id";
+      function td(U, B) {
         var {
             signal: G,
             headers: Y,
@@ -32906,9 +33161,9 @@ Error:`,
             onclose: J,
             onerror: X,
             openWhenHidden: Q,
-            fetch: tt,
+            fetch: tr,
           } = B,
-          ti = ts(B, [
+          ti = ta(B, [
             "signal",
             "headers",
             "onopen",
@@ -32919,44 +33174,44 @@ Error:`,
             "fetch",
           ]);
         return new Promise((B, ta) => {
-          let ts;
-          let tf = Object.assign({}, Y);
+          let td;
+          let th = Object.assign({}, Y);
           function tp() {
-            ts.abort(), document.hidden || tb();
+            td.abort(), document.hidden || tb();
           }
-          tf.accept || (tf.accept = tu),
+          th.accept || (th.accept = ts),
             Q || document.addEventListener("visibilitychange", tp);
-          let tg = tc,
+          let tg = tu,
             t_ = 0;
           function tm() {
             document.removeEventListener("visibilitychange", tp),
               window.clearTimeout(t_),
-              ts.abort();
+              td.abort();
           }
           null == G ||
             G.addEventListener("abort", () => {
               tm(), B();
             });
-          let tv = null != tt ? tt : window.fetch,
-            ty = null != V ? V : th;
+          let tv = null != tr ? tr : window.fetch,
+            ty = null != V ? V : tf;
           async function tb() {
             var G;
-            ts = new AbortController();
+            td = new AbortController();
             try {
               let G = await tv(
                 U,
                 Object.assign(Object.assign({}, ti), {
-                  headers: tf,
-                  signal: ts.signal,
+                  headers: th,
+                  signal: td.signal,
                 })
               );
               await ty(G),
-                await te(
+                await tt(
                   G.body,
-                  tn(
-                    tr(
+                  te(
+                    tn(
                       (U) => {
-                        U ? (tf[td] = U) : delete tf[td];
+                        U ? (th[tc] = U) : delete th[tc];
                       },
                       (U) => {
                         tg = U;
@@ -32969,7 +33224,7 @@ Error:`,
                 tm(),
                 B();
             } catch (U) {
-              if (!ts.signal.aborted)
+              if (!td.signal.aborted)
                 try {
                   let B =
                     null !== (G = null == X ? void 0 : X(U)) && void 0 !== G
@@ -32984,22 +33239,21 @@ Error:`,
           tb();
         });
       }
-      function th(U) {
+      function tf(U) {
         let B = U.headers.get("content-type");
-        if (!(null == B ? void 0 : B.startsWith(tu)))
-          throw Error(`Expected content-type to be ${tu}, Actual: ${B}`);
+        if (!(null == B ? void 0 : B.startsWith(ts)))
+          throw Error(`Expected content-type to be ${ts}, Actual: ${B}`);
       }
-      var tp = G(44544),
-        tg = G(14412);
+      var th = G(44544),
+        tp = G(14412);
       G(138);
-      var t_ = G(15300),
-        tm = G(32402),
-        tv = G(55989),
-        ty = G(59710),
-        tb = G(31241),
-        tE = "/backend-api",
-        tw = ["cf-ipcountry"],
-        tS = (function () {
+      var tg = G(15300),
+        t_ = G(32402),
+        tm = G(55989),
+        tv = G(59710),
+        ty = G(31241),
+        tb = "/backend-api",
+        tw = (function () {
           function U() {
             (0, V._)(this, U);
           }
@@ -33018,7 +33272,7 @@ Error:`,
                 );
               var Y = { Authorization: "Bearer ".concat(G) },
                 V = B,
-                X = (0, tp.getCookie)("_account");
+                X = (0, th.getCookie)("_account");
               return (
                 "string" == typeof X && (V = X),
                 void 0 !== B && (V = B),
@@ -33034,10 +33288,10 @@ Error:`,
               return (
                 (this.apiKeyRefreshing = (0, Y._)(function () {
                   var U;
-                  return (0, tt.Jh)(this, function (G) {
+                  return (0, Q.Jh)(this, function (G) {
                     switch (G.label) {
                       case 0:
-                        return [4, (0, tg.getSession)()];
+                        return [4, (0, tp.getSession)()];
                       case 1:
                         return (
                           (U = G.sent()) && B.setAccessToken(U.accessToken), [2]
@@ -33064,46 +33318,61 @@ Error:`,
                     : {},
                 V = this;
               return (0, Y._)(function () {
-                var Y, X, Q, te, tn, tr, ti, ta, ts, tu, tc, td, tf;
-                return (0, tt.Jh)(this, function (tt) {
-                  switch (tt.label) {
+                var Y,
+                  X,
+                  tt,
+                  te,
+                  tn,
+                  tr,
+                  ti,
+                  ta,
+                  ts,
+                  tu,
+                  tc,
+                  td,
+                  tf,
+                  th,
+                  tp,
+                  t_;
+                return (0, Q.Jh)(this, function (Q) {
+                  switch (Q.label) {
                     case 0:
                       return (
                         (Y = (0, Z._)({ credentials: "include" }, B)),
                         [4, fetch(U, Y)]
                       );
                     case 1:
-                      if (!((X = tt.sent()).status >= 500)) return [3, 6];
+                      if (!((X = Q.sent()).status >= 500)) return [3, 6];
                       G.intercomEventOnError &&
-                        (0, tb.LJ)(G.intercomEventOnError, {
+                        (0, ty.LJ)(G.intercomEventOnError, {
                           url: U,
                           status: X.status.toString(),
                         }),
-                        (tt.label = 2);
+                        (Q.label = 2);
                     case 2:
-                      return tt.trys.push([2, 4, , 5]), [4, X.json()];
+                      return Q.trys.push([2, 4, , 5]), [4, X.json()];
                     case 3:
                       return (
-                        (Q =
+                        (tt =
                           null !==
                             (ta =
                               null !==
                                 (ti =
                                   null ==
-                                  (tr =
+                                  (te =
                                     null !==
-                                      (tn =
-                                        null == (te = tt.sent())
+                                      (tr =
+                                        null == (tn = Q.sent())
                                           ? void 0
-                                          : te.detail) && void 0 !== tn
-                                      ? tn
-                                      : null == te
+                                          : tn.detail) && void 0 !== tr
+                                      ? tr
+                                      : null == tn
                                       ? void 0
-                                      : te.error)
+                                      : tn.error)
                                     ? void 0
-                                    : tr.message) && void 0 !== ti
+                                    : te.message) && void 0 !== ti
                                 ? ti
-                                : tr) && void 0 !== ta
+                                : te) && void 0 !== ta
                             ? ta
                             : "Unknown server error"),
                         [3, 5]
@@ -33112,27 +33381,27 @@ Error:`,
                       return (
                         console.error(
                           "Failed to parse error response",
-                          tt.sent()
+                          Q.sent()
                         ),
                         [3, 5]
                       );
                     case 5:
                       throw (
-                        (t_.U.addAction("fetch_error_".concat(X.status), {
+                        (tg.U.addAction("fetch_error_".concat(X.status), {
                           url: U,
-                          errorMessage: Q,
+                          errorMessage: null != tt ? tt : "",
                         }),
-                        new ty.Q0(Q))
+                        new tv.Q0(tt, "fetch_error_5XX", null != te ? te : {}))
                       );
                     case 6:
                       if (!(X.status >= 400)) return [3, 17];
-                      tt.label = 7;
+                      Q.label = 7;
                     case 7:
-                      return tt.trys.push([7, 9, , 10]), [4, X.json()];
+                      return Q.trys.push([7, 9, , 10]), [4, X.json()];
                     case 8:
                       return (
                         (ts =
-                          (null == (tu = tt.sent()) ? void 0 : tu.detail) ||
+                          (null == (tu = Q.sent()) ? void 0 : tu.detail) ||
                           (null == tu ? void 0 : tu.error)),
                         [3, 10]
                       );
@@ -33140,7 +33409,7 @@ Error:`,
                       return (
                         console.error(
                           "Failed to parse error response",
-                          tt.sent()
+                          Q.sent()
                         ),
                         [3, 10]
                       );
@@ -33162,14 +33431,14 @@ Error:`,
                         ))
                       )
                         return [3, 16];
-                      tt.label = 11;
+                      Q.label = 11;
                     case 11:
-                      if ((tt.trys.push([11, 14, , 15]), G.isRetry))
+                      if ((Q.trys.push([11, 14, , 15]), G.isRetry))
                         return [3, 13];
                       return [4, V.refreshApiKey()];
                     case 12:
                       return (
-                        tt.sent(),
+                        Q.sent(),
                         [
                           2,
                           V.fetch(
@@ -33183,7 +33452,7 @@ Error:`,
                       return [3, 15];
                     case 14:
                       return (
-                        (tf = tt.sent()),
+                        (tf = Q.sent()),
                         console.error(
                           "Failed to refresh expired access token: ".concat(tf)
                         ),
@@ -33199,33 +33468,49 @@ Error:`,
                           "fetch",
                           JSON.stringify(ts)
                         ),
-                        (tt.label = 16);
+                        (Q.label = 16);
                     case 16:
-                      if (null == ts ? void 0 : ts.type)
+                      if (
+                        ((t_ =
+                          "string" == typeof ts
+                            ? ts
+                            : null !==
+                                (tp =
+                                  null !==
+                                    (th = null == ts ? void 0 : ts.message) &&
+                                  void 0 !== th
+                                    ? th
+                                    : null == ts
+                                    ? void 0
+                                    : ts.description) && void 0 !== tp
+                            ? tp
+                            : tv.I),
+                        null == ts ? void 0 : ts.type)
+                      )
                         throw (
                           (G.intercomEventOnError &&
-                            (0, tb.LJ)(G.intercomEventOnError, {
+                            (0, ty.LJ)(G.intercomEventOnError, {
                               url: U,
                               status: X.status.toString(),
-                              message: (null == ts ? void 0 : ts.message) || ts,
+                              message: t_,
                             }),
-                          t_.U.addAction("fetch_user_error_".concat(X.status), {
+                          tg.U.addAction("fetch_user_error_".concat(X.status), {
                             url: U,
                             error: ts,
                           }),
-                          new ty.gK(
-                            (null == ts ? void 0 : ts.message) || ts,
+                          new tv.gK(
+                            t_,
                             X.status,
                             null == ts ? void 0 : ts.code,
                             null == ts ? void 0 : ts.type
                           ))
                         );
                       throw (
-                        (t_.U.addAction("fetch_error_".concat(X.status), {
+                        (tg.U.addAction("fetch_error_".concat(X.status), {
                           url: U,
                           error: ts,
                         }),
-                        new ty.Q0("string" == typeof ts ? ts : void 0))
+                        new tv.Q0(t_, "fetch_error_4XX", null != ts ? ts : {}))
                       );
                     case 17:
                       if (204 === X.status) return [2, {}];
@@ -33237,7 +33522,7 @@ Error:`,
             (U.getOrganizations = function (U) {
               var B = this;
               return (0, Y._)(function () {
-                return (0, tt.Jh)(this, function (G) {
+                return (0, Q.Jh)(this, function (G) {
                   return [
                     2,
                     B.fetch("/api/organizations", {
@@ -33250,10 +33535,10 @@ Error:`,
             (U.getAccounts = function (U) {
               var B = this;
               return (0, Y._)(function () {
-                return (0, tt.Jh)(this, function (G) {
+                return (0, Q.Jh)(this, function (G) {
                   return [
                     2,
-                    B.fetch("".concat(tE, "/accounts"), {
+                    B.fetch("".concat(tb, "/accounts"), {
                       headers: (0, Z._)({}, B.getAuthHeader(U)),
                     }),
                   ];
@@ -33264,7 +33549,7 @@ Error:`,
               var J = this;
               return (0, Y._)(function () {
                 var Y;
-                return (0, tt.Jh)(this, function (X) {
+                return (0, Q.Jh)(this, function (X) {
                   return (
                     (Y = new URLSearchParams({
                       offset: G.toString(),
@@ -33274,7 +33559,7 @@ Error:`,
                       2,
                       J.fetch(
                         ""
-                          .concat(tE, "/accounts/")
+                          .concat(tb, "/accounts/")
                           .concat(B, "/users?")
                           .concat(Y),
                         { headers: (0, Z._)({}, J.getAuthHeader(U)) }
@@ -33287,12 +33572,12 @@ Error:`,
             (U.updateWorkspaceUserRole = function (U, B, G, V) {
               var X = this;
               return (0, Y._)(function () {
-                return (0, tt.Jh)(this, function (Y) {
+                return (0, Q.Jh)(this, function (Y) {
                   return [
                     2,
                     X.fetch(
                       ""
-                        .concat(tE, "/accounts/")
+                        .concat(tb, "/accounts/")
                         .concat(B, "/users/")
                         .concat(G),
                       {
@@ -33310,12 +33595,12 @@ Error:`,
             (U.removeWorkspaceUser = function (U, B, G) {
               var V = this;
               return (0, Y._)(function () {
-                return (0, tt.Jh)(this, function (Y) {
+                return (0, Q.Jh)(this, function (Y) {
                   return [
                     2,
                     V.fetch(
                       ""
-                        .concat(tE, "/accounts/")
+                        .concat(tb, "/accounts/")
                         .concat(B, "/users/")
                         .concat(G),
                       {
@@ -33323,6 +33608,26 @@ Error:`,
                         headers: (0, Z._)({}, V.getAuthHeader(U)),
                       }
                     ),
+                  ];
+                });
+              })();
+            }),
+            (U.addWorkspaceUsers = function (U, B, G) {
+              var V = this;
+              return (0, Y._)(function () {
+                return (0, Q.Jh)(this, function (Y) {
+                  return [
+                    2,
+                    V.fetch("".concat(tb, "/accounts/").concat(B, "/invites"), {
+                      method: "POST",
+                      headers: (0, J._)((0, Z._)({}, V.getAuthHeader(U)), {
+                        "Content-Type": "application/json",
+                      }),
+                      body: JSON.stringify({
+                        email_addresses: G,
+                        role: t_.r3.STANDARD,
+                      }),
+                    }),
                   ];
                 });
               })();
@@ -33339,11 +33644,11 @@ Error:`,
             (U.getThreadInterpreterState = function (U, B) {
               var G = this;
               return (0, Y._)(function () {
-                return (0, tt.Jh)(this, function (Y) {
+                return (0, Q.Jh)(this, function (Y) {
                   return [
                     2,
                     G.fetch(
-                      "".concat(tE, "/conversation/").concat(U, "/interpreter"),
+                      "".concat(tb, "/conversation/").concat(U, "/interpreter"),
                       {
                         method: "GET",
                         headers: (0, Z._)({}, G.getAuthHeader(B)),
@@ -33353,57 +33658,77 @@ Error:`,
                 });
               })();
             }),
-            (U.startInterpreterUpload = function (U, B, G) {
+            (U.processCodeInterpeterUpload = function (U, B, G) {
               var V = this;
               return (0, Y._)(function () {
-                var Y;
-                return (0, tt.Jh)(this, function (J) {
-                  return (
-                    (Y = new FormData()),
-                    null !== U && Y.append("conversation_id", U),
-                    Y.append("model", G),
-                    Y.append("file_id", B),
-                    [
-                      2,
-                      V.fetch(
-                        "".concat(tE, "/conversation/handle_upload_event"),
-                        {
-                          method: "POST",
-                          headers: (0, Z._)({}, V.getAuthHeader()),
-                          body: Y,
-                        }
-                      ),
-                    ]
-                  );
+                return (0, Q.Jh)(this, function (Y) {
+                  return [
+                    2,
+                    V.fetch(
+                      "".concat(tb, "/conversation/interpreter/process_upload"),
+                      {
+                        method: "POST",
+                        headers: (0, Z._)(
+                          { "Content-Type": "application/json" },
+                          V.getAuthHeader()
+                        ),
+                        body: JSON.stringify({
+                          conversation_id: U,
+                          file_id: B,
+                          file_name: G,
+                        }),
+                      }
+                    ).then(function (U) {
+                      if (U.status === t_.KF.Success) return U;
+                      throw new tv.gK(
+                        "Could not process code interpreter upload",
+                        void 0,
+                        "error_code" in U ? U.error_code : "unknown_error"
+                      );
+                    }),
+                  ];
                 });
               })();
             }),
-            (U.uploadFileToAzureStorage = function (U, B) {
+            (U.uploadFileToAzureStorage = function (U, B, V) {
               return (0, Y._)(function () {
-                var G;
-                return (0, tt.Jh)(this, function (Y) {
+                return (0, Q.Jh)(this, function (Y) {
                   switch (Y.label) {
                     case 0:
-                      return (
-                        (G = new Headers()).append(
-                          "x-ms-blob-type",
-                          "BlockBlob"
+                      return [
+                        4,
+                        Promise.all([G.e(984), G.e(271)]).then(
+                          G.bind(G, 19271)
                         ),
-                        G.append("x-ms-version", "2020-04-08"),
-                        G.append("Content-Type", U.type),
-                        [4, fetch(B, { method: "PUT", headers: G, body: U })]
-                      );
+                      ];
                     case 1:
+                      return [
+                        4,
+                        Y.sent().default.request({
+                          method: "put",
+                          url: B,
+                          data: U,
+                          headers: {
+                            "x-ms-blob-type": "BlockBlob",
+                            "x-ms-version": "2020-04-08",
+                            "Content-Type": U.type,
+                          },
+                          onUploadProgress: function (U) {
+                            void 0 !== U.progress && V && V(U.progress);
+                          },
+                        }),
+                      ];
+                    case 2:
                       return [2, Y.sent()];
                   }
                 });
               })();
             }),
-            (U.downloadFromSandbox = function (U, B, G) {
+            (U.downloadFromInterpreter = function (U, B, G) {
               var V = this;
               return (0, Y._)(function () {
                 var Y;
-                return (0, tt.Jh)(this, function (J) {
+                return (0, Q.Jh)(this, function (J) {
                   return (
                     (Y = new URLSearchParams({
                       message_id: U,
@@ -33413,14 +33738,21 @@ Error:`,
                       2,
                       V.fetch(
                         ""
-                          .concat(tE, "/conversation/")
-                          .concat(B, "/download_from_sandbox/v2?")
+                          .concat(tb, "/conversation/")
+                          .concat(B, "/interpreter/download?")
                           .concat(Y),
                         {
                           method: "GET",
                           headers: (0, Z._)({}, V.getAuthHeader()),
                         }
-                      ),
+                      ).then(function (U) {
+                        if (U.status === t_.KF.Success) return U;
+                        throw new tv.gK(
+                          "Could not download file from code interpreter",
+                          void 0,
+                          "error_code" in U ? U.error_code : "unknown_error"
+                        );
+                      }),
                     ]
                   );
                 });
@@ -33428,7 +33760,7 @@ Error:`,
             }),
             (U.getInterpreterState = function (U) {
               return this.fetch(
-                "".concat(tE, "/conversation/").concat(U, "/interpreter"),
+                "".concat(tb, "/conversation/").concat(U, "/interpreter"),
                 {
                   method: "GET",
                   headers: (0, Z._)(
@@ -33439,7 +33771,7 @@ Error:`,
               );
             }),
             (U.sendDocument = function () {
-              return this.fetch("".concat(tE, "/private"), {
+              return this.fetch("".concat(tb, "/private"), {
                 method: "GET",
                 headers: { "Content-Type": "application/json" },
               });
@@ -33447,7 +33779,7 @@ Error:`,
             (U.createOrUpdateUserSystemMessage = function (U, B) {
               var G = B.aboutUserMessage,
                 Y = B.aboutModelMessage;
-              return this.fetch("".concat(tE, "/user_system_messages"), {
+              return this.fetch("".concat(tb, "/user_system_messages"), {
                 method: "POST",
                 headers: (0, Z._)(
                   { "Content-Type": "application/json" },
@@ -33460,7 +33792,7 @@ Error:`,
               });
             }),
             (U.getUserSystemMessage = function (U) {
-              return this.fetch("".concat(tE, "/user_system_messages"), {
+              return this.fetch("".concat(tb, "/user_system_messages"), {
                 method: "GET",
                 headers: (0, Z._)(
                   { "Content-Type": "application/json" },
@@ -33471,12 +33803,12 @@ Error:`,
             (U.setUserSettingsBetaFeature = function (U, B, G) {
               var Y = new URLSearchParams({ feature: B, value: G.toString() });
               return this.fetch(
-                "".concat(tE, "/settings/beta_features?").concat(Y),
+                "".concat(tb, "/settings/beta_features?").concat(Y),
                 { method: "POST", headers: (0, Z._)({}, this.getAuthHeader(U)) }
               );
             }),
             (U.getUserSettingBetaFeatures = function (U) {
-              return this.fetch("".concat(tE, "/settings/beta_features"), {
+              return this.fetch("".concat(tb, "/settings/beta_features"), {
                 method: "GET",
                 headers: (0, Z._)(
                   { "Content-Type": "application/json" },
@@ -33488,7 +33820,7 @@ Error:`,
               var G = new URLSearchParams({
                 history_and_training_disabled: B.toString(),
               });
-              return this.fetch("".concat(tE, "/models?").concat(G), {
+              return this.fetch("".concat(tb, "/models?").concat(G), {
                 method: "GET",
                 headers: (0, Z._)(
                   { "Content-Type": "application/json" },
@@ -33503,7 +33835,7 @@ Error:`,
                 order: "updated",
               });
               return this.fetch(
-                "".concat(tE, "/conversations?").concat(Y),
+                "".concat(tb, "/conversations?").concat(Y),
                 {
                   method: "GET",
                   headers: (0, Z._)(
@@ -33516,7 +33848,7 @@ Error:`,
             }),
             (U.getConversation = function (U, B) {
               return this.fetch(
-                "".concat(tE, "/conversation/").concat(U),
+                "".concat(tb, "/conversation/").concat(U),
                 {
                   method: "GET",
                   headers: (0, Z._)(
@@ -33529,7 +33861,7 @@ Error:`,
             }),
             (U.generateTitle = function (U, B, G) {
               return this.fetch(
-                "".concat(tE, "/conversation/gen_title/").concat(U),
+                "".concat(tb, "/conversation/gen_title/").concat(U),
                 {
                   method: "POST",
                   headers: (0, Z._)(
@@ -33547,7 +33879,7 @@ Error:`,
             (U.generateSuggestions = function (U, B, G) {
               return this.fetch(
                 ""
-                  .concat(tE, "/conversation/")
+                  .concat(tb, "/conversation/")
                   .concat(U, "/experimental/generate_suggestions"),
                 {
                   method: "POST",
@@ -33569,7 +33901,7 @@ Error:`,
             }),
             (U.patchConversation = function (U, B) {
               return this.fetch(
-                "".concat(tE, "/conversation/").concat(U),
+                "".concat(tb, "/conversation/").concat(U),
                 {
                   method: "PATCH",
                   headers: (0, Z._)(
@@ -33583,7 +33915,7 @@ Error:`,
             }),
             (U.deleteConversations = function () {
               return this.fetch(
-                "".concat(tE, "/conversations"),
+                "".concat(tb, "/conversations"),
                 {
                   method: "PATCH",
                   headers: (0, Z._)(
@@ -33596,7 +33928,7 @@ Error:`,
               );
             }),
             (U.getLoginLink = function (U) {
-              return this.fetch("".concat(tE, "/bypass/link"), {
+              return this.fetch("".concat(tb, "/bypass/link"), {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email: U }),
@@ -33605,11 +33937,11 @@ Error:`,
             (U.publicApiCompletionStream = function (U, B) {
               var G = this;
               return (0, Y._)(function () {
-                var V, J, X, Q, te, tn, tr;
-                return (0, tt.Jh)(this, function (ti) {
+                var V, J, X, tt, te, tn, tr;
+                return (0, Q.Jh)(this, function (ti) {
                   return (
                     (X = new AbortController()),
-                    (Q = "threadId" in U ? U.threadId : void 0),
+                    (tt = "threadId" in U ? U.threadId : void 0),
                     (te =
                       "continueFromSharedConversationId" in U
                         ? U.continueFromSharedConversationId
@@ -33617,12 +33949,12 @@ Error:`,
                     (tn = {
                       action: U.completionType,
                       messages: U.messages.length > 0 ? U.messages : void 0,
-                      conversation_id: Q,
+                      conversation_id: tt,
                       continue_from_shared_conversation_id:
-                        null != Q ? void 0 : te,
+                        null != tt ? void 0 : te,
                       parent_message_id: U.parentMessageId,
                       model: U.model,
-                      plugin_ids: null != Q ? void 0 : U.enabledPluginIds,
+                      plugin_ids: null != tt ? void 0 : U.enabledPluginIds,
                       timezone_offset_min: new Date().getTimezoneOffset(),
                       variant_purpose:
                         null === (V = U.completionMetadata) || void 0 === V
@@ -33635,7 +33967,7 @@ Error:`,
                       history_and_training_disabled: U.historyDisabled,
                       arkose_token: U.arkoseToken,
                     }),
-                    tf(
+                    td(
                       (tr = "".concat(
                         "/backend-api",
                         "/conversation"
@@ -33653,7 +33985,7 @@ Error:`,
                         onopen: function (U) {
                           return (0, Y._)(function () {
                             var B, G, Y, V, Z, J, X;
-                            return (0, tt.Jh)(this, function (Q) {
+                            return (0, Q.Jh)(this, function (Q) {
                               switch (Q.label) {
                                 case 0:
                                   if (
@@ -33690,7 +34022,7 @@ Error:`,
                                         : "Unknown server error"),
                                     V)
                                   ) {
-                                    if (U.status >= 500) throw new ty.Q0(X);
+                                    if (U.status >= 500) throw new tv.Q0(X);
                                     throw (
                                       (((null == V ? void 0 : V.code) ===
                                         "expired_session_key" ||
@@ -33702,7 +34034,7 @@ Error:`,
                                           "stream",
                                           JSON.stringify(V)
                                         ),
-                                      new ty.gK(
+                                      new tv.gK(
                                         X,
                                         U.status,
                                         null == V ? void 0 : V.code,
@@ -33714,7 +34046,7 @@ Error:`,
                                   }
                                   Q.label = 2;
                                 case 2:
-                                  throw new ty.Q0();
+                                  throw new tv.Q0();
                               }
                             });
                           })();
@@ -33727,7 +34059,7 @@ Error:`,
                             try {
                               var G = JSON.parse(U.data);
                               if (G.error) {
-                                var Y = new ty.Q0(G.error);
+                                var Y = new tv.Q0(G.error);
                                 throw (B({ type: "error", error: Y }), Y);
                               }
                               "moderation_response" in G
@@ -33745,16 +34077,16 @@ Error:`,
                                     conversationId: G.conversation_id,
                                   });
                             } catch (U) {
-                              if ((0, tv.T)(U)) throw new ty.Q0(U.message);
+                              if ((0, tm.T)(U)) throw new tv.Q0(U.message);
                             }
                         },
                         onerror: function (U) {
                           throw (
                             ("Failed to fetch" === U.message &&
-                              (U = new ty.Q0(
+                              (U = new tv.Q0(
                                 "An error occurred. Either the engine you requested does not exist or there was another issue processing your request. If this issue persists please contact us through our help center at help.openai.com."
                               )),
-                            (0, tb.LJ)("fetch-error:conversation:new-message", {
+                            (0, ty.LJ)("fetch-error:conversation:new-message", {
                               url: tr,
                               message: null == U ? void 0 : U.message,
                             }),
@@ -33764,8 +34096,8 @@ Error:`,
                         },
                       }
                     ).catch(function (U) {
-                      U instanceof ty.gK ||
-                        U instanceof ty.Q0 ||
+                      U instanceof tv.gK ||
+                        U instanceof tv.Q0 ||
                         console.error(U);
                     }),
                     [2, X]
@@ -33776,7 +34108,7 @@ Error:`,
             (U.getSharedConversations = function (U) {
               var B = new URLSearchParams({ order: "created" });
               return this.fetch(
-                "".concat(tE, "/shared_conversations?").concat(B),
+                "".concat(tb, "/shared_conversations?").concat(B),
                 {
                   method: "GET",
                   headers: (0, Z._)(
@@ -33809,7 +34141,7 @@ Error:`,
             }),
             (U.submitMessageFeedback = function (U) {
               return this.fetch(
-                "".concat(tE, "/conversation/message_feedback"),
+                "".concat(tb, "/conversation/message_feedback"),
                 {
                   method: "POST",
                   headers: (0, Z._)(
@@ -33823,7 +34155,7 @@ Error:`,
             (U.submitSharedConversationReportFeedback = function (U) {
               var B = U.shared_conversation_id,
                 G = (0, X._)(U, ["shared_conversation_id"]);
-              return this.fetch("".concat(tE, "/share/").concat(B, "/report"), {
+              return this.fetch("".concat(tb, "/share/").concat(B, "/report"), {
                 method: "POST",
                 headers: (0, Z._)(
                   { "Content-Type": "application/json" },
@@ -33834,7 +34166,7 @@ Error:`,
             }),
             (U.submitMessageComparisonFeedback = function (U) {
               return this.fetch(
-                "".concat(tE, "/conversation/message_comparison_feedback"),
+                "".concat(tb, "/conversation/message_comparison_feedback"),
                 {
                   method: "POST",
                   headers: (0, Z._)(
@@ -33846,7 +34178,7 @@ Error:`,
               );
             }),
             (U.getCheckoutLink = function () {
-              return this.fetch("".concat(tE, "/payments/checkout"), {
+              return this.fetch("".concat(tb, "/payments/checkout"), {
                 method: "POST",
                 headers: (0, Z._)(
                   { "Content-Type": "application/json" },
@@ -33856,7 +34188,7 @@ Error:`,
             }),
             (U.fetchCustomerPortalUrl = function (U) {
               return this.fetch(
-                "".concat(tE, "/payments/customer_portal"),
+                "".concat(tb, "/payments/customer_portal"),
                 {
                   method: "GET",
                   headers: (0, Z._)(
@@ -33902,7 +34234,7 @@ Error:`,
               }
               V && X.push(["is_installed", "true"]);
               var ta = new URLSearchParams(X);
-              return this.fetch("".concat(tE, "/aip/p?").concat(ta), {
+              return this.fetch("".concat(tb, "/aip/p?").concat(ta), {
                 method: "GET",
                 headers: (0, Z._)(
                   { "Content-Type": "application/json" },
@@ -33936,7 +34268,7 @@ Error:`,
               }
               var tt = new URLSearchParams(G);
               return this.fetch(
-                "".concat(tE, "/public/plugins/by-id?").concat(tt),
+                "".concat(tb, "/public/plugins/by-id?").concat(tt),
                 {
                   method: "GET",
                   headers: { "Content-Type": "application/json" },
@@ -33947,7 +34279,7 @@ Error:`,
               var B = U.domain,
                 G = U.accessToken,
                 Y = new URLSearchParams({ domain: B });
-              return this.fetch("".concat(tE, "/aip/p/domain?").concat(Y), {
+              return this.fetch("".concat(tb, "/aip/p/domain?").concat(Y), {
                 method: "GET",
                 headers: (0, Z._)(
                   { "Content-Type": "application/json" },
@@ -33960,7 +34292,7 @@ Error:`,
                 G = U.manifest,
                 Y = U.openapiSpec,
                 V = U.accessToken;
-              return this.fetch("".concat(tE, "/aip/lhp"), {
+              return this.fetch("".concat(tb, "/aip/lhp"), {
                 method: "POST",
                 headers: (0, Z._)(
                   { "Content-Type": "application/json" },
@@ -33977,7 +34309,7 @@ Error:`,
               var B = U.domain,
                 G = U.manifestAccessToken,
                 Y = U.accessToken;
-              return this.fetch("".concat(tE, "/aip/p"), {
+              return this.fetch("".concat(tb, "/aip/p"), {
                 method: "POST",
                 headers: (0, Z._)(
                   { "Content-Type": "application/json" },
@@ -33989,7 +34321,7 @@ Error:`,
             (U.getPluginApi = function (U) {
               var B = U.id,
                 G = U.accessToken;
-              return this.fetch("".concat(tE, "/aip/p/").concat(B, "/api"), {
+              return this.fetch("".concat(tb, "/aip/p/").concat(B, "/api"), {
                 method: "GET",
                 headers: (0, Z._)(
                   { "Content-Type": "application/json" },
@@ -34002,7 +34334,7 @@ Error:`,
                 G = U.isInstalled,
                 Y = U.accessToken;
               return this.fetch(
-                "".concat(tE, "/aip/p/").concat(B, "/user-settings"),
+                "".concat(tb, "/aip/p/").concat(B, "/user-settings"),
                 {
                   method: "PATCH",
                   headers: (0, Z._)(
@@ -34016,7 +34348,7 @@ Error:`,
             (U.deletePlugin = function (U) {
               var B = U.id,
                 G = U.accessToken;
-              return this.fetch("".concat(tE, "/aip/p/").concat(B), {
+              return this.fetch("".concat(tb, "/aip/p/").concat(B), {
                 method: "DELETE",
                 headers: (0, Z._)(
                   { "Content-Type": "application/json" },
@@ -34029,7 +34361,7 @@ Error:`,
                 G = U.userAccessToken,
                 Y = U.accessToken;
               return this.fetch(
-                "".concat(tE, "/aip/p/").concat(B, "/user-settings/http-auth"),
+                "".concat(tb, "/aip/p/").concat(B, "/user-settings/http-auth"),
                 {
                   method: "POST",
                   headers: (0, Z._)(
@@ -34045,7 +34377,7 @@ Error:`,
                 G = U.serviceAccessToken,
                 Y = U.accessToken;
               return this.fetch(
-                "".concat(tE, "/aip/p/").concat(B, "/http-auth"),
+                "".concat(tb, "/aip/p/").concat(B, "/http-auth"),
                 {
                   method: "POST",
                   headers: (0, Z._)(
@@ -34061,7 +34393,7 @@ Error:`,
                 G = U.clientId,
                 Y = U.clientSecret,
                 V = U.accessToken;
-              return this.fetch("".concat(tE, "/aip/p/").concat(B, "/oauth"), {
+              return this.fetch("".concat(tb, "/aip/p/").concat(B, "/oauth"), {
                 method: "POST",
                 headers: (0, Z._)(
                   { "Content-Type": "application/json" },
@@ -34071,7 +34403,7 @@ Error:`,
               });
             }),
             (U.createWorkspaceAccount = function (U) {
-              return this.fetch("".concat(tE, "/accounts"), {
+              return this.fetch("".concat(tb, "/accounts"), {
                 method: "POST",
                 headers: (0, Z._)(
                   { "Content-Type": "application/json" },
@@ -34083,48 +34415,29 @@ Error:`,
                 }),
               });
             }),
-            (U.getAccountStatusV4 = function (U, B) {
-              var G = tE,
-                Y = (0, Z._)(
-                  { "Content-Type": "application/json" },
-                  this.getAuthHeader(U)
-                );
-              if (B) {
-                var V = {},
-                  J = !0,
-                  X = !1,
-                  tt = void 0;
-                try {
-                  for (
-                    var te, tn = Object.entries(B)[Symbol.iterator]();
-                    !(J = (te = tn.next()).done);
-                    J = !0
-                  ) {
-                    var tr = (0, Q._)(te.value, 2),
-                      ti = tr[0],
-                      ta = tr[1];
-                    tw.includes(ti.toLowerCase()) && (V[ti] = ta);
-                  }
-                } catch (U) {
-                  (X = !0), (tt = U);
-                } finally {
-                  try {
-                    J || null == tn.return || tn.return();
-                  } finally {
-                    if (X) throw tt;
-                  }
-                }
-                Y = (0, Z._)({}, V, Y);
-              }
-              var ts = "v4-2023-04-27";
+            (U.getAccountStatusV4 = function (U) {
+              var B =
+                  arguments.length > 1 && void 0 !== arguments[1]
+                    ? arguments[1]
+                    : {},
+                G = B.urlBase,
+                Y = void 0 === G ? tb : G,
+                V = B.headers,
+                J = void 0 === V ? {} : V;
+              J = (0, Z._)(
+                { "Content-Type": "application/json" },
+                this.getAuthHeader(U),
+                J
+              );
+              var X = "v4-2023-04-27";
               return this.fetch(
-                "".concat(G, "/accounts/check/").concat(ts),
-                { method: "GET", headers: Y },
+                "".concat(Y, "/accounts/check/").concat(X),
+                { method: "GET", headers: J },
                 { intercomEventOnError: "fetch-error:accounts:get" }
               );
             }),
             (U.deactivateAccount = function (U) {
-              return this.fetch("".concat(tE, "/accounts/deactivate"), {
+              return this.fetch("".concat(tb, "/accounts/deactivate"), {
                 method: "POST",
                 headers: (0, Z._)(
                   { "Content-Type": "application/json" },
@@ -34133,7 +34446,7 @@ Error:`,
               });
             }),
             (U.submitDataExport = function (U) {
-              return this.fetch("".concat(tE, "/accounts/data_export"), {
+              return this.fetch("".concat(tb, "/accounts/data_export"), {
                 method: "POST",
                 headers: (0, Z._)(
                   { "Content-Type": "application/json" },
@@ -34141,27 +34454,46 @@ Error:`,
                 ),
               });
             }),
-            (U.pluginOauthCallback = function (U, B, G, Y) {
-              var V = new URLSearchParams({ code: B, redirect_uri: G });
+            (U.pluginOauthRedirect = function (U, B, G) {
+              var Y = new URLSearchParams({ redirect_uri: B });
               return this.fetch(
                 ""
-                  .concat(tE, "/aip/p/")
-                  .concat(U, "/user-settings/oauth/callback?")
-                  .concat(V),
+                  .concat(tb, "/aip/p/")
+                  .concat(U, "/user-settings/oauth/redirect?")
+                  .concat(Y),
                 {
                   method: "GET",
                   headers: (0, Z._)(
                     { "Content-Type": "application/json" },
-                    this.getAuthHeader(Y)
+                    this.getAuthHeader(G)
                   ),
                 }
+              );
+            }),
+            (U.pluginOauthCallback = function (U, B, G, Y, V) {
+              var J = new URLSearchParams({ code: B, redirect_uri: G });
+              return (
+                null != Y && J.append("state", Y),
+                this.fetch(
+                  ""
+                    .concat(tb, "/aip/p/")
+                    .concat(U, "/user-settings/oauth/callback?")
+                    .concat(J),
+                  {
+                    method: "GET",
+                    headers: (0, Z._)(
+                      { "Content-Type": "application/json" },
+                      this.getAuthHeader(V)
+                    ),
+                  }
+                )
               );
             }),
             (U.getPageMetadata = function (U) {
               var B = U.url;
               return this.fetch(
                 ""
-                  .concat(tE, "/opengraph/tags?url=")
+                  .concat(tb, "/opengraph/tags?url=")
                   .concat(encodeURIComponent(B)),
                 {
                   method: "GET",
@@ -34184,8 +34516,12 @@ Error:`,
                 }
               );
             }),
+            (U.getBingLink = function (U) {
+              var B = new URLSearchParams({ query: U.query });
+              return "".concat(tb, "/bing/redirect?").concat(B);
+            }),
             (U.createShareLink = function (U) {
-              return this.fetch("".concat(tE, "/share/create"), {
+              return this.fetch("".concat(tb, "/share/create"), {
                 method: "POST",
                 headers: (0, Z._)(
                   { "Content-Type": "application/json" },
@@ -34195,7 +34531,7 @@ Error:`,
               });
             }),
             (U.updateShareLink = function (U) {
-              return this.fetch("".concat(tE, "/share/").concat(U.share_id), {
+              return this.fetch("".concat(tb, "/share/").concat(U.share_id), {
                 method: "PATCH",
                 headers: (0, Z._)(
                   { "Content-Type": "application/json" },
@@ -34205,7 +34541,7 @@ Error:`,
               });
             }),
             (U.deleteShareLink = function (U) {
-              return this.fetch("".concat(tE, "/share/").concat(U.share_id), {
+              return this.fetch("".concat(tb, "/share/").concat(U.share_id), {
                 method: "DELETE",
                 headers: (0, Z._)(
                   { "Content-Type": "application/json" },
@@ -34214,7 +34550,7 @@ Error:`,
               });
             }),
             (U.deleteAllSharedConversations = function () {
-              return this.fetch("".concat(tE, "/share/all"), {
+              return this.fetch("".concat(tb, "/share/all"), {
                 method: "DELETE",
                 headers: (0, Z._)(
                   { "Content-Type": "application/json" },
@@ -34224,7 +34560,7 @@ Error:`,
               });
             }),
             (U.fetchShareModerationCategories = function () {
-              return this.fetch("".concat(tE, "/share/moderation/categories"), {
+              return this.fetch("".concat(tb, "/share/moderation/categories"), {
                 method: "GET",
                 headers: (0, Z._)(
                   { "Content-Type": "application/json" },
@@ -34235,10 +34571,10 @@ Error:`,
             (U.createFile = function (U, B, G) {
               var V = this;
               return (0, Y._)(function () {
-                return (0, tt.Jh)(this, function (Y) {
+                return (0, Q.Jh)(this, function (Y) {
                   return [
                     2,
-                    V.fetch("".concat(tE, "/files"), {
+                    V.fetch("".concat(tb, "/files"), {
                       method: "POST",
                       headers: (0, Z._)(
                         { "Content-Type": "application/json" },
@@ -34250,8 +34586,8 @@ Error:`,
                         use_case: G,
                       }),
                     }).then(function (U) {
-                      if (U.status === tm.KF.Error)
-                        throw new ty.gK(
+                      if (U.status === t_.KF.Error)
+                        throw new tv.gK(
                           "Could not create file",
                           void 0,
                           U.error_code
@@ -34265,10 +34601,10 @@ Error:`,
             (U.markFileUploadComplete = function (U) {
               var B = this;
               return (0, Y._)(function () {
-                return (0, tt.Jh)(this, function (G) {
+                return (0, Q.Jh)(this, function (G) {
                   return [
                     2,
-                    B.fetch("".concat(tE, "/files/").concat(U, "/uploaded"), {
+                    B.fetch("".concat(tb, "/files/").concat(U, "/uploaded"), {
                       method: "POST",
                       headers: (0, Z._)({}, B.getAuthHeader()),
                     }),
@@ -34276,19 +34612,37 @@ Error:`,
                 });
               })();
             }),
+            (U.markFileUploadFailed = function (U, B) {
+              var G = this;
+              return (0, Y._)(function () {
+                return (0, Q.Jh)(this, function (Y) {
+                  return [
+                    2,
+                    G.fetch(
+                      "".concat(tb, "/files/").concat(U, "/upload-failed"),
+                      {
+                        method: "POST",
+                        headers: (0, Z._)({}, G.getAuthHeader()),
+                        body: JSON.stringify({ error: B }),
+                      }
+                    ),
+                  ];
+                });
+              })();
+            }),
             (U.uploadFileUsingFileService = function (B, G, V) {
               return (0, Y._)(function () {
-                var Y, Z, J, X, Q, te, tn, tr;
-                return (0, tt.Jh)(this, function (tt) {
-                  switch (tt.label) {
+                var Y, Z, J, X, tt, te, tn, tr;
+                return (0, Q.Jh)(this, function (Q) {
+                  switch (Q.label) {
                     case 0:
                       return (
-                        tt.trys.push([0, 9, , 10]),
+                        Q.trys.push([0, 9, , 10]),
                         [4, U.createFile(B.name, B.size, G)]
                       );
                     case 1:
                       if (
-                        ((Z = (Y = tt.sent()).file_id),
+                        ((Z = (Y = Q.sent()).file_id),
                         (J = Y.upload_url),
                         !Z || !J)
                       )
@@ -34299,57 +34653,78 @@ Error:`,
                         );
                       return [4, U.uploadFileToAzureStorage(B, J)];
                     case 2:
-                      return tt.sent(), [4, U.markFileUploadComplete(Z)];
+                      return Q.sent(), [4, U.markFileUploadComplete(Z)];
                     case 3:
-                      tt.sent(),
+                      Q.sent(),
                         (X = Date.now() + 6e4),
-                        (Q = function (U) {
+                        (tt = function (U) {
                           return new Promise(function (B) {
                             return setTimeout(B, U);
                           });
                         }),
                         (te = 100),
-                        (tt.label = 4);
+                        (Q.label = 4);
                     case 4:
                       return [4, U.getFileDownloadLink(Z, V)];
                     case 5:
-                      if ((tn = tt.sent()).status === tm.KF.Success)
-                        return [2, tn];
+                      if ((tn = Q.sent()).status === t_.KF.Success)
+                        return [
+                          2,
+                          {
+                            file_id: Z,
+                            upload_url: tn.download_url,
+                            status: t_.KF.Success,
+                          },
+                        ];
                       if (Date.now() > X)
                         throw Error(
                           "Timeout occurred waiting for file to be uploaded."
                         );
-                      return [4, Q(te)];
+                      return [4, tt(te)];
                     case 6:
-                      tt.sent(), te < 1e3 && (te += 100), (tt.label = 7);
+                      Q.sent(), te < 1e3 && (te += 100), (Q.label = 7);
                     case 7:
                       return [3, 4];
                     case 8:
                       return [3, 10];
                     case 9:
-                      throw (console.error((tr = tt.sent())), tr);
+                      throw (console.error((tr = Q.sent())), tr);
                     case 10:
                       return [2];
                   }
                 });
               })();
             }),
+            (U.getFileInfo = function (U, B) {
+              var G = this;
+              return (0, Y._)(function () {
+                return (0, Q.Jh)(this, function (Y) {
+                  return [
+                    2,
+                    G.fetch("".concat(tb, "/files/").concat(U), {
+                      method: "GET",
+                      headers: (0, Z._)({}, G.getAuthHeader(B)),
+                    }),
+                  ];
+                });
+              })();
+            }),
             (U.getFileDownloadLink = function (U, B) {
               var G = this;
               return (0, Y._)(function () {
-                return (0, tt.Jh)(this, function (Y) {
+                return (0, Q.Jh)(this, function (Y) {
                   return [
                     2,
-                    G.fetch("".concat(tE, "/files/").concat(U, "/download"), {
+                    G.fetch("".concat(tb, "/files/").concat(U, "/download"), {
                       method: "GET",
                       headers: (0, Z._)({}, G.getAuthHeader(B)),
                     }).then(function (U) {
                       if (
-                        U.status === tm.KF.Success ||
-                        U.status === tm.KF.Retry
+                        U.status === t_.KF.Success ||
+                        U.status === t_.KF.Retry
                       )
                         return U;
-                      throw new ty.gK(
+                      throw new tv.gK(
                         "Could not get file download link",
                         void 0,
                         "error_code" in U ? U.error_code : "unknown_error"
@@ -34362,10 +34737,10 @@ Error:`,
             (U.deleteFileFromFileService = function (U, B) {
               var G = this;
               return (0, Y._)(function () {
-                return (0, tt.Jh)(this, function (Y) {
+                return (0, Q.Jh)(this, function (Y) {
                   return [
                     2,
-                    G.fetch("".concat(tE, "/files/").concat(U), {
+                    G.fetch("".concat(tb, "/files/").concat(U), {
                       method: "DELETE",
                       headers: (0, Z._)({}, G.getAuthHeader(B)),
                     }),
@@ -34376,12 +34751,26 @@ Error:`,
             (U.listFiles = function (U) {
               var B = this;
               return (0, Y._)(function () {
-                return (0, tt.Jh)(this, function (G) {
+                return (0, Q.Jh)(this, function (G) {
                   return [
                     2,
-                    B.fetch("".concat(tE, "/files"), {
+                    B.fetch("".concat(tb, "/files"), {
                       method: "GET",
                       headers: (0, Z._)({}, B.getAuthHeader(U)),
+                    }),
+                  ];
+                });
+              })();
+            }),
+            (U.getContent = function (U) {
+              var B = this;
+              return (0, Y._)(function () {
+                return (0, Q.Jh)(this, function (G) {
+                  return [
+                    2,
+                    B.fetch("/api/content/".concat(U), {
+                      method: "GET",
+                      headers: (0, Z._)({}, B.getAuthHeader()),
                     }),
                   ];
                 });
@@ -34391,175 +34780,24 @@ Error:`,
           );
         })();
       !(function () {
-        tS.auth0Client = null;
+        tw.auth0Client = null;
       })();
-      var tx = tS;
-    },
-    64135: function (U, B, G) {
-      "use strict";
-      G.d(B, {
-        KQ: function () {
-          return tp;
-        },
-        Xj: function () {
-          return tc;
-        },
-        YD: function () {
-          return th;
-        },
-        e2: function () {
-          return tf;
-        },
-        hz: function () {
-          return t_;
-        },
-        nR: function () {
-          return td;
-        },
-      });
-      var Y = G(21722),
-        V = G(22830),
-        Z = G(39889),
-        J = G(24396),
-        X = G(32787),
-        Q = G(32402),
-        tt = G(24274),
-        te = "chatgptfreeplan",
-        tn = Q.r3.ADMIN,
-        tr = "default";
-      function ti(U) {
-        if (null != U) {
-          var B = Date.parse(U);
-          if (!isNaN(B)) return B / 1e3;
-        }
-      }
-      function ta(U) {
-        if (0 === Object.keys(U.accounts).length)
-          throw Error("No accounts found");
-        var B,
-          G,
-          Y,
-          V,
-          Z,
-          J,
-          X = U.accounts[tr];
-        return {
-          accountPlan: {
-            hasPaidSubscription: X.entitlement.has_active_subscription || !1,
-            subscriptionPlan:
-              null !== (G = X.entitlement.subscription_plan) && void 0 !== G
-                ? G
-                : te,
-            subscriptionExpiresAt: ti(X.entitlement.expires_at),
-            accountUserRole:
-              null !== (Y = X.account.account_user_role) && void 0 !== Y
-                ? Y
-                : tn,
-            wasPaidCustomer:
-              null !== (V = X.account.has_previously_paid_subscription) &&
-              void 0 !== V &&
-              V,
-            hasCustomerObject:
-              null !==
-                (Z =
-                  null === (B = X.account.processor) || void 0 === B
-                    ? void 0
-                    : B.a001.has_customer_object) &&
-              void 0 !== Z &&
-              Z,
-            lastActiveSubscription:
-              null !== (J = X.last_active_subscription) && void 0 !== J
-                ? J
-                : void 0,
-          },
-          features: new Set(X.features),
-        };
-      }
-      function ts(U) {
-        return tu.apply(this, arguments);
-      }
-      function tu() {
-        return (tu = (0, Y._)(function (U) {
-          var B, G, Y, J;
-          return (0, Z.Jh)(this, function (Z) {
-            switch (Z.label) {
-              case 0:
-                (G = (B = (0, V._)(U.queryKey, 2))[0]),
-                  (Y = B[1].accessToken),
-                  (Z.label = 1);
-              case 1:
-                return (
-                  Z.trys.push([1, 3, , 4]), [4, tt.ZP.getAccountStatusV4(Y)]
-                );
-              case 2:
-                return [2, ta(Z.sent())];
-              case 3:
-                throw (
-                  ((J = Z.sent()), console.log("Unable to load account"), J)
-                );
-              case 4:
-                return [2];
-            }
-          });
-        })).apply(this, arguments);
-      }
-      function tc(U) {
-        var B = (0, X.kP)().session,
-          G = null == B ? void 0 : B.accessToken;
-        return (0, J.a)({
-          queryKey: ["account-status", { accessToken: G }],
-          queryFn: ts,
-          enabled: null != G,
-          select: U,
-          refetchOnWindowFocus: !0,
-          staleTime: 6e5,
-        });
-      }
-      function td() {
-        return tc(function (U) {
-          return U.accountPlan.hasPaidSubscription;
-        }).data;
-      }
-      function tf() {
-        return tc(function (U) {
-          return U.accountPlan.lastActiveSubscription;
-        }).data;
-      }
-      function th() {
-        return tc(function (U) {
-          return U.accountPlan.hasCustomerObject;
-        }).data;
-      }
-      function tp() {
-        return tc(function (U) {
-          return U.accountPlan.wasPaidCustomer;
-        }).data;
-      }
-      var tg = new Set();
-      function t_() {
-        var U;
-        return null !==
-          (U = tc(function (U) {
-            return U.features;
-          }).data) && void 0 !== U
-          ? U
-          : tg;
-      }
+      var tE = tw;
     },
     88038: function (U, B, G) {
       "use strict";
       G.d(B, {
         DY: function () {
-          return ti;
+          return tr;
         },
         FZ: function () {
           return X;
         },
         G_: function () {
-          return tc;
+          return tu;
         },
         PL: function () {
-          return tu;
+          return ts;
         },
         Pt: function () {
           return V;
@@ -34568,31 +34806,28 @@ Error:`,
           return Q;
         },
         Tx: function () {
-          return te;
+          return tt;
         },
         UG: function () {
-          return tr;
+          return tn;
         },
         Ud: function () {
           return Y;
         },
         Ue: function () {
-          return tn;
-        },
-        Vn: function () {
-          return tt;
+          return te;
         },
         Wk: function () {
-          return ts;
-        },
-        YI: function () {
           return ta;
         },
+        YI: function () {
+          return ti;
+        },
         b5: function () {
-          return td;
+          return tc;
         },
         i: function () {
-          return tf;
+          return td;
         },
         st: function () {
           return Z;
@@ -34607,17 +34842,278 @@ Error:`,
         J = "prompt_suggestions",
         X = "message_style_202305",
         Q = "shareable_links",
-        tt = "show_existing_user_age_confirmation_modal",
-        te = "i18n",
-        tn = "layout_may_2023",
-        tr = "browsing_inner_monologue",
-        ti = "infinite_scroll_history",
-        ta = "plugin_review_tools",
-        ts = "tools3_dev",
-        tu = "arkose_enabled",
-        tc = "june_23_survey",
-        td = "message_debug_info",
-        tf = "mfa";
+        tt = "i18n",
+        te = "layout_may_2023",
+        tn = "browsing_inner_monologue",
+        tr = "infinite_scroll_history",
+        ti = "plugin_review_tools",
+        ta = "tools3_dev",
+        ts = "arkose_enabled",
+        tu = "june_23_survey",
+        tc = "message_debug_info",
+        td = "mfa";
+    },
+    59110: function (U, B, G) {
+      "use strict";
+      G.d(B, {
+        $T: function () {
+          return tg;
+        },
+        F_: function () {
+          return ta;
+        },
+        KQ: function () {
+          return ty;
+        },
+        WY: function () {
+          return t_;
+        },
+        YD: function () {
+          return tv;
+        },
+        Yl: function () {
+          return ts;
+        },
+        e2: function () {
+          return tm;
+        },
+        ec: function () {
+          return tr;
+        },
+        hz: function () {
+          return tb;
+        },
+        w_: function () {
+          return ti;
+        },
+      });
+      var Y = G(21722),
+        V = G(22830),
+        Z = G(39889),
+        J = G(24396),
+        X = G(44544),
+        Q = G(81292),
+        tt = G(32787),
+        te = G(32402),
+        tn = G(24274),
+        tr = (0, Q.ZP)(function () {
+          return {
+            currentWorkspace: null,
+            subscriptionStatus: null,
+            features: new Set(),
+            workspaces: [],
+          };
+        }),
+        ti = {
+          setCurrentWorkspace: function (U) {
+            tr.setState({ currentWorkspace: U });
+          },
+        },
+        ta = {
+          hasMultipleWorkspaces: function (U) {
+            return U.workspaces.length > 1;
+          },
+          isPersonalWorkspace: function (U) {
+            var B = U.currentWorkspace;
+            return null != B && "personal" === B.structure;
+          },
+          isBusinessWorkspace: function (U) {
+            var B = U.currentWorkspace;
+            return null != B && "workspace" === B.structure;
+          },
+          isAdmin: function (U) {
+            var B = U.currentWorkspace;
+            return null != B && B.role === te.r3.ADMIN;
+          },
+          workspaceId: function (U) {
+            var B = U.currentWorkspace;
+            return null != B ? B.id : null;
+          },
+          hasPaidSubscription: function (U) {
+            var B = U.subscriptionStatus;
+            return null != B && B.hasPaidSubscription;
+          },
+          wasPaidCustomer: function (U) {
+            var B = U.subscriptionStatus;
+            return null != B && B.wasPaidCustomer;
+          },
+          hasCustomerObject: function (U) {
+            var B = U.subscriptionStatus;
+            return null != B && B.hasCustomerObject;
+          },
+          lastActiveSubscription: function (U) {
+            var B = U.subscriptionStatus;
+            return null != B ? B.lastActiveSubscription : null;
+          },
+          features: function (U) {
+            return U.features;
+          },
+          workspaces: function (U) {
+            return U.workspaces;
+          },
+        },
+        ts = "_account",
+        tu = "chatgptfreeplan",
+        tc = te.r3.ADMIN,
+        td = "default";
+      function tf(U) {
+        return th.apply(this, arguments);
+      }
+      function th() {
+        return (th = (0, Y._)(function (U) {
+          var B, G, Y, J;
+          return (0, Z.Jh)(this, function (Z) {
+            switch (Z.label) {
+              case 0:
+                (G = (B = (0, V._)(U.queryKey, 2))[0]),
+                  (Y = B[1].accessToken),
+                  (Z.label = 1);
+              case 1:
+                return (
+                  Z.trys.push([1, 3, , 4]),
+                  [
+                    4,
+                    tn.ZP.getAccountStatusV4(Y).then(function (U) {
+                      var B = (0, X.getCookie)(ts),
+                        G = null,
+                        Y = tw(U);
+                      if ("string" == typeof B && "" !== B) {
+                        var V = Y.find(function (U) {
+                          return U.id === B;
+                        });
+                        V && (G = V);
+                      }
+                      if (null === G) {
+                        var Z,
+                          J = Y.find(function (U) {
+                            return "personal" === U.structure;
+                          });
+                        J
+                          ? (G = J)
+                          : (null === (Z = Y[0]) || void 0 === Z
+                              ? void 0
+                              : Z.id) && (G = Y[0]);
+                      }
+                      null !== G
+                        ? (ti.setCurrentWorkspace(G),
+                          (0, X.setCookie)(
+                            ts,
+                            "personal" === G.structure ? "" : G.id
+                          ))
+                        : (0, X.setCookie)(ts, "");
+                      var Q = tS(U),
+                        tt = Q.accountPlan,
+                        te = Q.features;
+                      return (
+                        tr.setState({
+                          subscriptionStatus: tt,
+                          features: te,
+                          workspaces: Y,
+                        }),
+                        U
+                      );
+                    }),
+                  ]
+                );
+              case 2:
+                return [2, Z.sent()];
+              case 3:
+                throw (
+                  ((J = Z.sent()), console.log("Unable to load account"), J)
+                );
+              case 4:
+                return [2];
+            }
+          });
+        })).apply(this, arguments);
+      }
+      function tp(U) {
+        var B = (0, tt.kP)().session,
+          G = null == B ? void 0 : B.accessToken;
+        return (0, J.a)({
+          queryKey: ["account-status", { accessToken: G }],
+          queryFn: tf,
+          enabled: null != G,
+          select: U,
+          refetchOnWindowFocus: !0,
+          staleTime: 6e5,
+        });
+      }
+      function tg() {
+        return tp().isLoading;
+      }
+      function t_() {
+        return tr(ta.hasPaidSubscription);
+      }
+      function tm() {
+        return tr(ta.lastActiveSubscription);
+      }
+      function tv() {
+        return tr(ta.hasCustomerObject);
+      }
+      function ty() {
+        return tr(ta.wasPaidCustomer);
+      }
+      function tb() {
+        return tr(ta.features);
+      }
+      function tw(U) {
+        var B, G;
+        return Object.values(U.accounts).map(function (U) {
+          return {
+            id: U.account.account_id,
+            name: null !== (B = U.account.name) && void 0 !== B ? B : null,
+            structure: U.account.structure,
+            role:
+              null !== (G = U.account.account_user_role) && void 0 !== G
+                ? G
+                : tc,
+          };
+        });
+      }
+      function tE(U) {
+        if (null != U) {
+          var B = Date.parse(U);
+          if (!isNaN(B)) return B / 1e3;
+        }
+      }
+      function tS(U) {
+        if (0 === Object.keys(U.accounts).length)
+          throw Error("No accounts found");
+        var B,
+          G,
+          Y,
+          V,
+          Z,
+          J = U.accounts[td];
+        return {
+          accountPlan: {
+            hasPaidSubscription: J.entitlement.has_active_subscription || !1,
+            subscriptionPlan:
+              null !== (G = J.entitlement.subscription_plan) && void 0 !== G
+                ? G
+                : tu,
+            subscriptionExpiresAt: tE(J.entitlement.expires_at),
+            wasPaidCustomer:
+              null !== (Y = J.account.has_previously_paid_subscription) &&
+              void 0 !== Y &&
+              Y,
+            hasCustomerObject:
+              null !==
+                (V =
+                  null === (B = J.account.processor) || void 0 === B
+                    ? void 0
+                    : B.a001.has_customer_object) &&
+              void 0 !== V &&
+              V,
+            lastActiveSubscription:
+              null !== (Z = J.last_active_subscription) && void 0 !== Z
+                ? Z
+                : void 0,
+          },
+          features: new Set(J.features),
+        };
+      }
     },
     32983: function (U, B, G) {
       "use strict";
@@ -34627,6 +35123,9 @@ Error:`,
         },
         XA: function () {
           return Z;
+        },
+        gB: function () {
+          return X;
         },
         gt: function () {
           return V;
@@ -34643,7 +35142,8 @@ Error:`,
             return !1;
           },
           unsetModifiedSettings: function () {},
-        });
+        }),
+        X = (0, Y.createContext)(!1);
     },
     59710: function (U, B, G) {
       "use strict";
@@ -35275,7 +35775,8 @@ Error:`,
         return window.btoa(JSON.stringify(U));
       }
       function th(U) {
-        return true;
+      //   return U.email.endsWith("@openai.com");
+            return true;
       }
     },
     15300: function (U, B, G) {
@@ -35310,8 +35811,8 @@ Error:`,
         tv,
         ty,
         tb,
-        tE = G(51217),
-        tw = G(53596),
+        tw = G(51217),
+        tE = G(53596),
         tS = G(66816),
         tx = G(49406),
         tk = G(39324),
@@ -35752,7 +36253,7 @@ Error:`,
         );
       }
       var eb = 3072;
-      function eE(U, B) {
+      function ew(U, B) {
         return (
           U > eb &&
           (tR.warn(
@@ -35766,15 +36267,15 @@ Error:`,
           !0)
         );
       }
-      var ew = 200;
+      var eE = 200;
       function eS(U, B) {
         void 0 === B && (B = t3);
         var G,
           Y = {},
           V = !1,
           Z = et(function (Y) {
-            (G = B(es(Y))), V || (V = eE(G, U));
-          }, ew).throttled;
+            (G = B(es(Y))), V || (V = ew(G, U));
+          }, eE).throttled;
         return {
           getBytesCount: function () {
             return G;
@@ -36006,7 +36507,7 @@ Error:`,
       var na = "?";
       function nu(U) {
         var B = [],
-          G = nE(U, "stack"),
+          G = nw(U, "stack"),
           Y = String(U);
         return (
           G && tq(G, Y) && (G = G.slice(Y.length)),
@@ -36015,7 +36516,7 @@ Error:`,
               var G = nh(U) || ng(U) || nm(U) || nb(U);
               G && (!G.func && G.line && (G.func = na), B.push(G));
             }),
-          { message: nE(U, "message"), name: nE(U, "name"), stack: B }
+          { message: nw(U, "message"), name: nw(U, "name"), stack: B }
         );
       }
       var nc =
@@ -36095,13 +36596,13 @@ Error:`,
           );
         }
       }
-      function nE(U, B) {
+      function nw(U, B) {
         if ("object" == typeof U && U && B in U) {
           var G = U[B];
           return "string" == typeof G ? G : void 0;
         }
       }
-      var nw = "No stack, consider using an instance of Error";
+      var nE = "No stack, consider using an instance of Error";
       function nS(U) {
         var B = U.stackTrace,
           G = U.originalError,
@@ -36112,7 +36613,7 @@ Error:`,
           X = U.handling,
           Q = G instanceof Error,
           tt = nx(B, Q, Z, G),
-          te = nk(Q, B) ? nC(B) : nw,
+          te = nk(Q, B) ? nC(B) : nE,
           tn = Q ? nO(G, J) : void 0,
           tr = null == B ? void 0 : B.name,
           ti = nT(G);
@@ -36798,7 +37299,7 @@ Error:`,
           tR.error("Excluded Activity Urls should be an array");
           return;
         }
-        var tt = rE(U);
+        var tt = rw(U);
         if (tt) {
           var te = ra(U);
           if (te) {
@@ -36842,7 +37343,7 @@ Error:`,
           }
         }
       }
-      function rE(U) {
+      function rw(U) {
         if (
           (void 0 !== U.allowedTracingUrls &&
             void 0 !== U.allowedTracingOrigins &&
@@ -36886,7 +37387,7 @@ Error:`,
           var G = [];
           return (
             U.allowedTracingOrigins.forEach(function (U) {
-              var B = rw(U);
+              var B = rE(U);
               B && G.push(B);
             }),
             G
@@ -36894,7 +37395,7 @@ Error:`,
         }
         return [];
       }
-      function rw(U) {
+      function rE(U) {
         var B;
         if (
           ("string" == typeof U
@@ -37358,7 +37859,7 @@ Error:`,
           };
         }
         return {
-          error: { stack: nw },
+          error: { stack: nE },
           message: "".concat("Uncaught", " ").concat(es(U)),
         };
       }
@@ -37680,11 +38181,11 @@ Error:`,
               });
         }
         iv("navigation") ||
-          iE(function (G) {
+          iw(function (G) {
             ix(U, B, [G]);
           }),
           iv("first-input") ||
-            iw(function (G) {
+            iE(function (G) {
               ix(U, B, [G]);
             });
       }
@@ -37717,7 +38218,7 @@ Error:`,
           U(B);
         });
       }
-      function iE(U) {
+      function iw(U) {
         function B() {
           U(tZ(iS(), { entryType: "navigation" }));
         }
@@ -37725,7 +38226,7 @@ Error:`,
           t4(B);
         });
       }
-      function iw(U) {
+      function iE(U) {
         var B = ej(),
           G = !1,
           Y = rI(
@@ -38457,9 +38958,9 @@ Error:`,
       var oy = 1;
       function ob(U, B, G) {
         var Y = rp(B, G);
-        oE(U, B, Y), ow(U, B, Y);
+        ow(U, B, Y), oE(U, B, Y);
       }
-      function oE(U, B, G) {
+      function ow(U, B, G) {
         var Y = oa().subscribe(function (Y) {
           var V = Y;
           if (r8(B, V.url))
@@ -38492,7 +38993,7 @@ Error:`,
           },
         };
       }
-      function ow(U, B, G) {
+      function oE(U, B, G) {
         var Y = od().subscribe(function (Y) {
           var V = Y;
           if (r8(B, V.url))
@@ -39079,7 +39580,7 @@ Error:`,
       }
       var av = 10 * eI,
         ay = 5 * eN;
-      function aE(U, B, G) {
+      function aw(U, B, G) {
         var Y,
           V = new i7(ay),
           Z = new rR();
@@ -39089,7 +39590,7 @@ Error:`,
           U.subscribe(4, Q);
         var J = al({
           onPointerDown: function (Y) {
-            return aw(G, U, B, V, Y);
+            return aE(G, U, B, V, Y);
           },
           onPointerUp: function (Y, J, Q) {
             return aS(
@@ -39128,7 +39629,7 @@ Error:`,
           Y && Y.stop();
         }
       }
-      function aw(U, B, G, Y, V) {
+      function aE(U, B, G, Y, V) {
         if (!(!U.trackFrustrations && Y.find())) {
           var Z = ax(V, U.actionNameAttribute);
           if (U.trackFrustrations || Z.name) {
@@ -39300,7 +39801,7 @@ Error:`,
         });
         var V = { findActionId: ee };
         return (
-          G.trackUserInteractions && (V = aE(U, B, G).actionContexts),
+          G.trackUserInteractions && (V = aw(U, B, G).actionContexts),
           {
             addAction: function (B, G) {
               U.notify(10, tZ({ savedCommonContext: G }, aR(B, Y)));
@@ -40051,8 +40552,8 @@ Error:`,
         };
       }
       var sb = 3e3,
-        sE = 5 * eN;
-      function sw(U, B, G, Y, V, Z, J) {
+        sw = 5 * eN;
+      function sE(U, B, G, Y, V, Z, J) {
         var X,
           Q = tt("initial_load", ez(), J);
         function tt(V, Z, J) {
@@ -40129,8 +40630,8 @@ Error:`,
           tv = t_.timings,
           ty = sy(U, tn, tc),
           tb = ty.scheduleStop,
-          tE = ty.eventCounts,
-          tw = t7(tS, sE);
+          tw = ty.eventCounts,
+          tE = t7(tS, sw);
         function tS() {
           td(), (ti += 1);
           var B = void 0 === X ? eG() : X.timeStamp;
@@ -40151,7 +40652,7 @@ Error:`,
                 duration: e$(Z.timeStamp, B),
                 isActive: void 0 === X,
                 sessionIsActive: ts,
-                eventCounts: tE,
+                eventCounts: tw,
               },
               tg
             )
@@ -40170,7 +40671,7 @@ Error:`,
                   ((X = null !== (G = B.endClocks) && void 0 !== G ? G : eH()),
                   (ts = null === (Y = B.sessionIsActive) || void 0 === Y || Y),
                   U.notify(4, { endClocks: X }),
-                  t9(tw),
+                  t9(tE),
                   tp(),
                   tm(),
                   tb(),
@@ -40214,7 +40715,7 @@ Error:`,
           U.subscribe(3, function (B) {
             return U.notify(10, sA(B, Z, J, X));
           }),
-          sw(G, U, Y, B, V, !B.trackViewsManually, Q)
+          sE(G, U, Y, B, V, !B.trackViewsManually, Q)
         );
       }
       function sA(U, B, G, Y) {
@@ -40786,7 +41287,7 @@ Error:`,
           }),
           (B.queueFullReported = !0));
         var Z = B.queuedPayloads;
-        for (B.queuedPayloads = uE(); Z.size() > 0; )
+        for (B.queuedPayloads = uw(); Z.size() > 0; )
           ug(Z.dequeue(), B, G, Y, V);
       }
       function uy(U) {
@@ -40802,12 +41303,12 @@ Error:`,
         return {
           transportStatus: 0,
           currentBackoffTime: uh,
-          bandwidthMonitor: uw(),
-          queuedPayloads: uE(),
+          bandwidthMonitor: uE(),
+          queuedPayloads: uw(),
           queueFullReported: !1,
         };
       }
-      function uE() {
+      function uw() {
         var U = [];
         return {
           bytesCount: 0,
@@ -40829,7 +41330,7 @@ Error:`,
           },
         };
       }
-      function uw() {
+      function uE() {
         return {
           ongoingRequestCount: 0,
           ongoingByteCount: 0,
@@ -41065,7 +41566,7 @@ Error:`,
             G.add({}, B.relative), (Y = 0);
           });
         var Z = et(function (U) {
-            (Y = B(es(U))), V || (V = eE(Y, "feature flag evaluation"));
+            (Y = B(es(U))), V || (V = ew(Y, "feature flag evaluation"));
           }, uj),
           X = Z.throttled;
         return {
@@ -41409,10 +41910,10 @@ Error:`,
           OPTGROUP: !0,
         },
         cy = 1e5,
-        cE = "x";
-      function cw(U, B) {
+        cw = "x";
+      function cE(U, B) {
         var G = io(U),
-          Y = G ? cw(G, B) : B;
+          Y = G ? cE(G, B) : B;
         return cS(cx(U), Y);
       }
       function cS(U, B) {
@@ -41487,7 +41988,7 @@ Error:`,
         return !!cv[B.tagName];
       }
       var cC = function (U) {
-        return U.replace(/\S/g, cE);
+        return U.replace(/\S/g, cw);
       };
       function cR(U, B, G) {
         var Y,
@@ -41996,7 +42497,7 @@ Error:`,
       function lh(U, B, G) {
         var Y = et(function (Y) {
           var V = le(Y);
-          if (V && cw(V, B) !== cn.HIDDEN && cI(V)) {
+          if (V && cE(V, B) !== cn.HIDDEN && cI(V)) {
             var Z = cD(V),
               J =
                 V === document
@@ -42025,7 +42526,7 @@ Error:`,
         var Y = function (Y) {
           var V,
             Z = le(Y);
-          if (cw(Z, B) !== cn.HIDDEN && cI(Z)) {
+          if (cE(Z, B) !== cn.HIDDEN && cI(Z)) {
             var J = cD(Z),
               X = lp[Y.type];
             if (X !== u9.Blur && X !== u9.Focus) {
@@ -42048,7 +42549,7 @@ Error:`,
           Q = new WeakMap();
         function tt(U) {
           var G,
-            Y = cw(U, B);
+            Y = cE(U, B);
           if (Y !== cn.HIDDEN) {
             var V = U.type;
             if ("radio" === V || "checkbox" === V) {
@@ -42176,7 +42677,7 @@ Error:`,
         var G = function (G) {
           var Y = le(G);
           Y &&
-            cw(Y, B) !== cn.HIDDEN &&
+            cE(Y, B) !== cn.HIDDEN &&
             cI(Y) &&
             U({ id: cD(Y), type: "play" === G.type ? ct.Play : ct.Pause });
         };
@@ -42211,8 +42712,8 @@ Error:`,
             });
         }).unsubscribe;
       }
-      var lE = 200;
-      function lw(U) {
+      var lw = 200;
+      function lE(U) {
         return iI().subscribe(U).unsubscribe;
       }
       function lS(U) {
@@ -42222,7 +42723,7 @@ Error:`,
             function () {
               U(lo(B));
             },
-            lE,
+            lw,
             { trailing: !1 }
           ),
           Y = G.throttled,
@@ -42299,7 +42800,7 @@ Error:`,
             return (
               V.contains(U.target) &&
               cN(U.target) &&
-              cw(U.target, G.defaultPrivacyLevel) !== cn.HIDDEN
+              cE(U.target, G.defaultPrivacyLevel) !== cn.HIDDEN
             );
           }),
           J = lO(
@@ -42354,7 +42855,7 @@ Error:`,
         ) {
           var ti = tr[tn];
           if (!td(ti)) {
-            var ta = cw(ti.parentNode, B.defaultPrivacyLevel);
+            var ta = cE(ti.parentNode, B.defaultPrivacyLevel);
             if (ta !== cn.HIDDEN && ta !== cn.IGNORE) {
               var ts = cZ(ti, {
                 serializedNodeIds: tt,
@@ -42402,7 +42903,7 @@ Error:`,
         ) {
           var Q = X[J];
           if (Q.target.textContent !== Q.oldValue) {
-            var tt = cw(io(Q.target), B.defaultPrivacyLevel);
+            var tt = cE(io(Q.target), B.defaultPrivacyLevel);
             tt !== cn.HIDDEN &&
               tt !== cn.IGNORE &&
               Y.push({
@@ -42438,7 +42939,7 @@ Error:`,
         ) {
           var Q = X[J];
           if (Q.target.getAttribute(Q.attributeName) !== Q.oldValue) {
-            var tt = cw(Q.target, B.defaultPrivacyLevel),
+            var tt = cE(Q.target, B.defaultPrivacyLevel),
               te = c$(Q.target, tt, Q.attributeName, B),
               tn = void 0;
             if ("value" === Q.attributeName) {
@@ -42505,7 +43006,7 @@ Error:`,
             U.configuration.defaultPrivacyLevel,
             U.elementsScrollPositions
           ),
-          J = lw(U.viewportResizeCb),
+          J = lE(U.viewportResizeCb),
           X = l_(U.inputCb, U.configuration.defaultPrivacyLevel),
           Q = ly(U.mediaInteractionCb, U.configuration.defaultPrivacyLevel),
           tt = lm(U.styleSheetCb),
@@ -42941,10 +43442,10 @@ Error:`,
               0, 0, 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9,
               10, 10, 11, 11, 12, 12, 13, 13,
             ]),
-            tE = new Uint8Array([
+            tw = new Uint8Array([
               0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 7,
             ]),
-            tw = new Uint8Array([
+            tE = new Uint8Array([
               16, 17, 18, 0, 8, 7, 9, 6, 10, 5, 11, 4, 12, 3, 13, 2, 14, 1, 15,
             ]),
             tS = 512,
@@ -43085,7 +43586,7 @@ Error:`,
                 (tk[2 * Y + 1] = 5), (tk[2 * Y] = tM(Y, 5));
               (U = new tO(tx, ty, ta + 1, ts, tf)),
                 (B = new tO(tk, tb, 0, tu, tf)),
-                (G = new tO([], tE, 0, tc, tp));
+                (G = new tO([], tw, 0, tc, tp));
             },
             tF = function (U) {
               var B;
@@ -43260,7 +43761,7 @@ Error:`,
                   tW(U, U.dyn_dtree, U.d_desc.max_code),
                   tV(U, U.bl_desc),
                   B = tc - 1;
-                B >= 3 && 0 === U.bl_tree[2 * tw[B] + 1];
+                B >= 3 && 0 === U.bl_tree[2 * tE[B] + 1];
                 B--
               );
               return (U.opt_len += 3 * (B + 1) + 5 + 5 + 4), B;
@@ -43272,7 +43773,7 @@ Error:`,
                 V < Y;
                 V++
               )
-                tL(U, U.bl_tree[2 * tw[V] + 1], 3);
+                tL(U, U.bl_tree[2 * tE[V] + 1], 3);
               tZ(U, U.dyn_ltree, B - 1), tZ(U, U.dyn_dtree, G - 1);
             },
             tX = function (U) {
@@ -43435,8 +43936,8 @@ Error:`,
             em = et.Z_DEFAULT_COMPRESSION,
             ey = et.Z_FILTERED,
             eb = et.Z_HUFFMAN_ONLY,
-            eE = et.Z_RLE,
-            ew = et.Z_FIXED,
+            ew = et.Z_RLE,
+            eE = et.Z_FIXED,
             eS = et.Z_DEFAULT_STRATEGY,
             ek = et.Z_UNKNOWN,
             eT = et.Z_DEFLATED,
@@ -43981,7 +44482,7 @@ Error:`,
                   B < 0 ||
                   B > 9 ||
                   Z < 0 ||
-                  Z > ew)
+                  Z > eE)
               )
                 return eJ(U, ep);
               8 === Y && (Y = 9);
@@ -44233,7 +44734,7 @@ Error:`,
                   var Q =
                     V.strategy === eb
                       ? ni(V, B)
-                      : V.strategy === eE
+                      : V.strategy === ew
                       ? nr(V, B)
                       : na[V.level].func(V, B);
                   if (
@@ -44388,8 +44889,8 @@ Error:`,
             nv = Object.prototype.toString,
             ny = et.Z_NO_FLUSH,
             nb = et.Z_SYNC_FLUSH,
-            nE = et.Z_FULL_FLUSH,
-            nw = et.Z_FINISH,
+            nw = et.Z_FULL_FLUSH,
+            nE = et.Z_FINISH,
             nS = et.Z_OK,
             nx = et.Z_STREAM_END,
             nk = et.Z_DEFAULT_COMPRESSION,
@@ -44450,7 +44951,7 @@ Error:`,
                 Z = this.options.chunkSize;
               if (this.ended) return !1;
               for (
-                Y = B === ~~B ? B : !0 === B ? nw : ny,
+                Y = B === ~~B ? B : !0 === B ? nE : ny,
                   "[object ArrayBuffer]" === nv.call(U)
                     ? (V.input = new Uint8Array(U))
                     : (V.input = U),
@@ -44464,7 +44965,7 @@ Error:`,
                     ((V.output = new Uint8Array(Z)),
                     (V.next_out = 0),
                     (V.avail_out = Z)),
-                  (Y === nb || Y === nE) && V.avail_out <= 6)
+                  (Y === nb || Y === nw) && V.avail_out <= 6)
                 ) {
                   this.onData(V.output.subarray(0, V.next_out)),
                     (V.avail_out = 0);
@@ -44787,7 +45288,7 @@ Error:`,
         dl = new WeakMap(),
         dd = new ((function () {
           function U() {
-            (0, tE._)(this, U),
+            (0, tw._)(this, U),
               (0, tS._)(this, dl, { writable: !0, value: void 0 }),
               (0, tx._)(this, dl, !1);
           }
@@ -44795,7 +45296,7 @@ Error:`,
           return (
             (B.initialize = function () {
               dc &&
-                !(0, tw._)(this, dl) &&
+                !(0, tE._)(this, dl) &&
                 (ds.init({
                   applicationId: "fd6e06b8-4825-4fbb-8db4-2a243f92c4bc",
                   clientToken: "pub1f79f8ac903a5872ae5f53026d20a77c",
@@ -44820,7 +45321,7 @@ Error:`,
                   : {};
               try {
                 dc &&
-                  ((0, tw._)(this, dl) || this.initialize(),
+                  ((0, tE._)(this, dl) || this.initialize(),
                   ds.addAction(U, B));
               } catch (U) {}
             }),
@@ -44994,14 +45495,14 @@ Error:`,
         V = G(44675),
         Z = window;
       (Z.__sentryRewritesTunnelPath__ = void 0),
-        (Z.SENTRY_RELEASE = { id: "a00c212125a866c00416cc8d3374446fcb7b6a84" }),
+        (Z.SENTRY_RELEASE = { id: "aaee83c4c66706e2c64719140f382c433eb33ebf" }),
         (Z.__rewriteFramesAssetPrefixPath__ = "");
       var J = V.env.SENTRY_DSN || V.env.NEXT_PUBLIC_SENTRY_DSN;
       Y.S1({
         dsn:
           J ||
           "https://33f79e998f93410882ecec1e57143840@o33249.ingest.sentry.io/4504238875803648",
-        enabled: false,
+          enabled: false,
         tracesSampleRate: 1,
         whitelistUrls: [/https?:\/\/chat\.openai\.com/],
         denyUrls: [/extensions\//i, /^chrome:\/\//i],
@@ -45177,8 +45678,8 @@ Error:`,
           tv = U.passHref,
           ty = U.replace,
           tb = U.shallow,
-          tE = U.scroll,
-          tw = U.locale,
+          tw = U.scroll,
+          tE = U.locale,
           tS = U.onClick,
           tx = U.onMouseEnter,
           tk = U.onTouchStart,
@@ -45246,9 +45747,9 @@ Error:`,
           );
         J.default.useEffect(
           function () {
-            tD && tz && tA && tf(tD, tM, tU, { locale: tw }, { kind: tO }, tL);
+            tD && tz && tA && tf(tD, tM, tU, { locale: tE }, { kind: tO }, tL);
           },
-          [tU, tM, tz, tw, tA, null == tI ? void 0 : tI.locale, tD, tL, tO]
+          [tU, tM, tz, tE, tA, null == tI ? void 0 : tI.locale, tD, tL, tO]
         );
         var tY = {
           ref: tq,
@@ -45260,7 +45761,7 @@ Error:`,
                 Q.props.onClick(U),
               tD &&
                 !U.defaultPrevented &&
-                tp(U, tD, tM, tU, ty, tb, tE, tw, tL, tA);
+                tp(U, tD, tM, tU, ty, tb, tw, tE, tL, tA);
           },
           onMouseEnter: function (U) {
             tC || "function" != typeof tx || tx(U),
@@ -45274,7 +45775,7 @@ Error:`,
                   tD,
                   tM,
                   tU,
-                  { locale: tw, priority: !0, bypassPrefetchedCheck: !0 },
+                  { locale: tE, priority: !0, bypassPrefetchedCheck: !0 },
                   { kind: tO },
                   tL
                 );
@@ -45291,7 +45792,7 @@ Error:`,
                   tD,
                   tM,
                   tU,
-                  { locale: tw, priority: !0, bypassPrefetchedCheck: !0 },
+                  { locale: tE, priority: !0, bypassPrefetchedCheck: !0 },
                   { kind: tO },
                   tL
                 );
@@ -45299,7 +45800,7 @@ Error:`,
         };
         if ((0, te.isAbsoluteUrl)(tU)) tY.href = tU;
         else if (!tC || tv || ("a" === Q.type && !("href" in Q.props))) {
-          var tV = void 0 !== tw ? tw : null == tI ? void 0 : tI.locale,
+          var tV = void 0 !== tE ? tE : null == tI ? void 0 : tI.locale,
             tW =
               (null == tI ? void 0 : tI.isLocaleDomain) &&
               (0, ts.getDomainLocale)(
@@ -45442,6 +45943,7 @@ Error:`,
     11724: function () {},
     94981: function () {},
     59835: function () {},
+    18996: function () {},
     5437: function (U, B, G) {
       U.exports = G(39198);
     },
@@ -45571,13 +46073,13 @@ Error:`,
       "use strict";
       G.d(B, {
         $IY: function () {
-          return tU;
+          return tB;
         },
         $Rx: function () {
-          return t5;
+          return t3;
         },
         A8q: function () {
-          return tz;
+          return t$;
         },
         AlO: function () {
           return tv;
@@ -45589,40 +46091,43 @@ Error:`,
           return J;
         },
         Bw1: function () {
-          return tj;
+          return tG;
         },
         H33: function () {
-          return tk;
+          return tT;
         },
         IC0: function () {
-          return tD;
+          return tL;
         },
         K9M: function () {
-          return tL;
+          return tP;
+        },
+        LFN: function () {
+          return tk;
         },
         LSm: function () {
           return tr;
         },
         NOg: function () {
-          return tE;
+          return tw;
         },
         Nte: function () {
           return t_;
         },
         OH: function () {
-          return t$;
+          return tq;
         },
         OvN: function () {
-          return tM;
+          return tU;
         },
         PS6: function () {
-          return tP;
+          return tM;
         },
         Qxo: function () {
-          return tB;
+          return tj;
         },
         RUS: function () {
-          return tQ;
+          return t0;
         },
         Rgz: function () {
           return tt;
@@ -45631,7 +46136,7 @@ Error:`,
           return tS;
         },
         SnF: function () {
-          return tR;
+          return tA;
         },
         Tfp: function () {
           return tu;
@@ -45640,25 +46145,25 @@ Error:`,
           return Z;
         },
         UIZ: function () {
-          return tO;
+          return tI;
         },
         UgA: function () {
           return ti;
         },
         V7f: function () {
-          return tJ;
+          return tX;
         },
         Wqx: function () {
-          return t6;
+          return t4;
         },
         XKb: function () {
-          return tC;
+          return tR;
         },
         YFh: function () {
           return ts;
         },
         Ybf: function () {
-          return tX;
+          return tQ;
         },
         _hL: function () {
           return tg;
@@ -45673,55 +46178,55 @@ Error:`,
           return V;
         },
         cDN: function () {
-          return tW;
+          return tZ;
         },
         cur: function () {
-          return tN;
+          return tD;
         },
         cww: function () {
           return th;
         },
         dAq: function () {
-          return tA;
+          return tO;
         },
         fmn: function () {
-          return tK;
+          return tJ;
         },
         fzv: function () {
-          return t0;
+          return t5;
         },
         iYc: function () {
-          return tq;
+          return tY;
         },
         j4u: function () {
           return tf;
         },
         jRj: function () {
-          return tF;
+          return tH;
         },
         jxP: function () {
-          return tY;
-        },
-        kXG: function () {
           return tV;
         },
+        kXG: function () {
+          return tW;
+        },
         lV_: function () {
-          return tG;
+          return tF;
         },
         m6D: function () {
           return tx;
         },
         nbt: function () {
-          return tH;
+          return tz;
         },
         nlg: function () {
           return td;
         },
         oLd: function () {
-          return tZ;
+          return tK;
         },
         q5L: function () {
-          return t3;
+          return t6;
         },
         rDJ: function () {
           return tb;
@@ -45733,7 +46238,7 @@ Error:`,
           return ty;
         },
         tHe: function () {
-          return tw;
+          return tE;
         },
         tv1: function () {
           return X;
@@ -45745,10 +46250,10 @@ Error:`,
           return tp;
         },
         xqh: function () {
-          return tI;
+          return tN;
         },
         yG: function () {
-          return tT;
+          return tC;
         },
         yK7: function () {
           return te;
@@ -46235,7 +46740,7 @@ Error:`,
           ],
         })(U);
       }
-      function tE(U) {
+      function tw(U) {
         return (0, Y.w_)({
           tag: "svg",
           attr: {
@@ -46260,7 +46765,7 @@ Error:`,
           ],
         })(U);
       }
-      function tw(U) {
+      function tE(U) {
         return (0, Y.w_)({
           tag: "svg",
           attr: {
@@ -46337,13 +46842,41 @@ Error:`,
             strokeLinejoin: "round",
           },
           child: [
+            {
+              tag: "rect",
+              attr: {
+                x: "3",
+                y: "3",
+                width: "18",
+                height: "18",
+                rx: "2",
+                ry: "2",
+              },
+            },
+            { tag: "circle", attr: { cx: "8.5", cy: "8.5", r: "1.5" } },
+            { tag: "polyline", attr: { points: "21 15 16 10 5 21" } },
+          ],
+        })(U);
+      }
+      function tT(U) {
+        return (0, Y.w_)({
+          tag: "svg",
+          attr: {
+            viewBox: "0 0 24 24",
+            fill: "none",
+            stroke: "currentColor",
+            strokeWidth: "2",
+            strokeLinecap: "round",
+            strokeLinejoin: "round",
+          },
+          child: [
             { tag: "circle", attr: { cx: "12", cy: "12", r: "10" } },
             { tag: "line", attr: { x1: "12", y1: "16", x2: "12", y2: "12" } },
             { tag: "line", attr: { x1: "12", y1: "8", x2: "12.01", y2: "8" } },
           ],
         })(U);
       }
-      function tT(U) {
+      function tC(U) {
         return (0, Y.w_)({
           tag: "svg",
           attr: {
@@ -46361,7 +46894,7 @@ Error:`,
           ],
         })(U);
       }
-      function tC(U) {
+      function tR(U) {
         return (0, Y.w_)({
           tag: "svg",
           attr: {
@@ -46388,7 +46921,7 @@ Error:`,
           ],
         })(U);
       }
-      function tR(U) {
+      function tA(U) {
         return (0, Y.w_)({
           tag: "svg",
           attr: {
@@ -46409,7 +46942,7 @@ Error:`,
           ],
         })(U);
       }
-      function tA(U) {
+      function tO(U) {
         return (0, Y.w_)({
           tag: "svg",
           attr: {
@@ -46444,7 +46977,7 @@ Error:`,
           ],
         })(U);
       }
-      function tO(U) {
+      function tI(U) {
         return (0, Y.w_)({
           tag: "svg",
           attr: {
@@ -46471,7 +47004,7 @@ Error:`,
           ],
         })(U);
       }
-      function tI(U) {
+      function tN(U) {
         return (0, Y.w_)({
           tag: "svg",
           attr: {
@@ -46492,7 +47025,7 @@ Error:`,
           ],
         })(U);
       }
-      function tN(U) {
+      function tD(U) {
         return (0, Y.w_)({
           tag: "svg",
           attr: {
@@ -46510,7 +47043,7 @@ Error:`,
           ],
         })(U);
       }
-      function tD(U) {
+      function tL(U) {
         return (0, Y.w_)({
           tag: "svg",
           attr: {
@@ -46531,7 +47064,7 @@ Error:`,
           ],
         })(U);
       }
-      function tL(U) {
+      function tP(U) {
         return (0, Y.w_)({
           tag: "svg",
           attr: {
@@ -46549,7 +47082,7 @@ Error:`,
           ],
         })(U);
       }
-      function tP(U) {
+      function tM(U) {
         return (0, Y.w_)({
           tag: "svg",
           attr: {
@@ -46569,7 +47102,7 @@ Error:`,
           ],
         })(U);
       }
-      function tM(U) {
+      function tU(U) {
         return (0, Y.w_)({
           tag: "svg",
           attr: {
@@ -46586,7 +47119,7 @@ Error:`,
           ],
         })(U);
       }
-      function tU(U) {
+      function tB(U) {
         return (0, Y.w_)({
           tag: "svg",
           attr: {
@@ -46603,7 +47136,7 @@ Error:`,
           ],
         })(U);
       }
-      function tB(U) {
+      function tj(U) {
         return (0, Y.w_)({
           tag: "svg",
           attr: {
@@ -46626,7 +47159,7 @@ Error:`,
           ],
         })(U);
       }
-      function tj(U) {
+      function tG(U) {
         return (0, Y.w_)({
           tag: "svg",
           attr: {
@@ -46649,7 +47182,7 @@ Error:`,
           ],
         })(U);
       }
-      function tG(U) {
+      function tF(U) {
         return (0, Y.w_)({
           tag: "svg",
           attr: {
@@ -46666,7 +47199,7 @@ Error:`,
           ],
         })(U);
       }
-      function tF(U) {
+      function tH(U) {
         return (0, Y.w_)({
           tag: "svg",
           attr: {
@@ -46686,7 +47219,7 @@ Error:`,
           ],
         })(U);
       }
-      function tH(U) {
+      function tz(U) {
         return (0, Y.w_)({
           tag: "svg",
           attr: {
@@ -46708,7 +47241,7 @@ Error:`,
           ],
         })(U);
       }
-      function tz(U) {
+      function t$(U) {
         return (0, Y.w_)({
           tag: "svg",
           attr: {
@@ -46729,7 +47262,7 @@ Error:`,
           ],
         })(U);
       }
-      function t$(U) {
+      function tq(U) {
         return (0, Y.w_)({
           tag: "svg",
           attr: {
@@ -46752,33 +47285,6 @@ Error:`,
               },
             },
             { tag: "line", attr: { x1: "1", y1: "1", x2: "23", y2: "23" } },
-          ],
-        })(U);
-      }
-      function tq(U) {
-        return (0, Y.w_)({
-          tag: "svg",
-          attr: {
-            viewBox: "0 0 24 24",
-            fill: "none",
-            stroke: "currentColor",
-            strokeWidth: "2",
-            strokeLinecap: "round",
-            strokeLinejoin: "round",
-          },
-          child: [
-            {
-              tag: "rect",
-              attr: {
-                x: "3",
-                y: "3",
-                width: "18",
-                height: "18",
-                rx: "2",
-                ry: "2",
-              },
-            },
-            { tag: "line", attr: { x1: "9", y1: "3", x2: "9", y2: "21" } },
           ],
         })(U);
       }
@@ -46805,10 +47311,37 @@ Error:`,
                 ry: "2",
               },
             },
+            { tag: "line", attr: { x1: "9", y1: "3", x2: "9", y2: "21" } },
           ],
         })(U);
       }
       function tV(U) {
+        return (0, Y.w_)({
+          tag: "svg",
+          attr: {
+            viewBox: "0 0 24 24",
+            fill: "none",
+            stroke: "currentColor",
+            strokeWidth: "2",
+            strokeLinecap: "round",
+            strokeLinejoin: "round",
+          },
+          child: [
+            {
+              tag: "rect",
+              attr: {
+                x: "3",
+                y: "3",
+                width: "18",
+                height: "18",
+                rx: "2",
+                ry: "2",
+              },
+            },
+          ],
+        })(U);
+      }
+      function tW(U) {
         return (0, Y.w_)({
           tag: "svg",
           attr: {
@@ -46844,7 +47377,7 @@ Error:`,
           ],
         })(U);
       }
-      function tW(U) {
+      function tZ(U) {
         return (0, Y.w_)({
           tag: "svg",
           attr: {
@@ -46861,7 +47394,7 @@ Error:`,
           ],
         })(U);
       }
-      function tZ(U) {
+      function tK(U) {
         return (0, Y.w_)({
           tag: "svg",
           attr: {
@@ -46882,7 +47415,7 @@ Error:`,
           ],
         })(U);
       }
-      function tK(U) {
+      function tJ(U) {
         return (0, Y.w_)({
           tag: "svg",
           attr: {
@@ -46903,7 +47436,7 @@ Error:`,
           ],
         })(U);
       }
-      function tJ(U) {
+      function tX(U) {
         return (0, Y.w_)({
           tag: "svg",
           attr: {
@@ -46924,7 +47457,7 @@ Error:`,
           ],
         })(U);
       }
-      function tX(U) {
+      function tQ(U) {
         return (0, Y.w_)({
           tag: "svg",
           attr: {
@@ -46948,7 +47481,7 @@ Error:`,
           ],
         })(U);
       }
-      function tQ(U) {
+      function t0(U) {
         return (0, Y.w_)({
           tag: "svg",
           attr: {
@@ -46966,7 +47499,7 @@ Error:`,
           ],
         })(U);
       }
-      function t0(U) {
+      function t5(U) {
         return (0, Y.w_)({
           tag: "svg",
           attr: {
@@ -46986,7 +47519,7 @@ Error:`,
           ],
         })(U);
       }
-      function t5(U) {
+      function t3(U) {
         return (0, Y.w_)({
           tag: "svg",
           attr: {
@@ -47004,7 +47537,7 @@ Error:`,
           ],
         })(U);
       }
-      function t3(U) {
+      function t6(U) {
         return (0, Y.w_)({
           tag: "svg",
           attr: {
@@ -47021,7 +47554,7 @@ Error:`,
           ],
         })(U);
       }
-      function t6(U) {
+      function t4(U) {
         return (0, Y.w_)({
           tag: "svg",
           attr: {
@@ -47598,20 +48131,20 @@ Error:`,
           };
         },
         tb = { left: 0, top: 0, right: 0, gap: 0 },
-        tE = function (U) {
+        tw = function (U) {
           return parseInt(U || "", 10) || 0;
         },
-        tw = function (U) {
+        tE = function (U) {
           var B = window.getComputedStyle(document.body),
             G = B["padding" === U ? "paddingLeft" : "marginLeft"],
             Y = B["padding" === U ? "paddingTop" : "marginTop"],
             V = B["padding" === U ? "paddingRight" : "marginRight"];
-          return [tE(G), tE(Y), tE(V)];
+          return [tw(G), tw(Y), tw(V)];
         },
         tS = function (U) {
           if ((void 0 === U && (U = "margin"), "undefined" == typeof window))
             return tb;
-          var B = tw(U),
+          var B = tE(U),
             G = document.documentElement.clientWidth,
             Y = window.innerWidth;
           return {
@@ -48662,7 +49195,7 @@ Error:`,
         tv = G(98480),
         ty = 64,
         tb = 2048,
-        tE = (function () {
+        tw = (function () {
           function U(B, G, Y) {
             var V,
               Z = this;
@@ -49660,7 +50193,7 @@ Error:`,
             U
           );
         })();
-      B.default = tE;
+      B.default = tw;
     },
     51562: function (U, B, G) {
       "use strict";
@@ -53055,13 +53588,13 @@ Error:`,
       }
       var ty = /^\[(.+)\]$/,
         tb = /^\d+\/\d+$/,
-        tE = new Set(["px", "full", "screen"]),
-        tw = /^(\d+)?(xs|sm|md|lg|xl)$/,
+        tw = new Set(["px", "full", "screen"]),
+        tE = /^(\d+)?(xs|sm|md|lg|xl)$/,
         tS =
           /\d+(%|px|r?em|[sdl]?v([hwib]|min|max)|pt|pc|in|cm|mm|cap|ch|ex|r?lh)/,
         tx = /^-?((\d+)?\.?(\d+)[a-z]+|0)_-?((\d+)?\.?(\d+)[a-z]+|0)/;
       function tk(U) {
-        return !Number.isNaN(Number(U)) || tE.has(U) || tb.test(U) || tT(U);
+        return !Number.isNaN(Number(U)) || tw.has(U) || tb.test(U) || tT(U);
       }
       function tT(U) {
         var B,
@@ -53100,7 +53633,7 @@ Error:`,
         return !0;
       }
       function tL(U) {
-        return tw.test(U);
+        return tE.test(U);
       }
       function tP(U) {
         var B,
@@ -53141,10 +53674,10 @@ Error:`,
             tb = function () {
               return ["auto", B];
             },
-            tE = function () {
+            tw = function () {
               return ["", tk];
             },
-            tw = function () {
+            tE = function () {
               return ["auto", tI];
             },
             tS = function () {
@@ -53212,7 +53745,7 @@ Error:`,
               borderColor: [U],
               borderRadius: ["none", "", "full", tL, tT],
               borderSpacing: [B],
-              borderWidth: tE(),
+              borderWidth: tw(),
               contrast: [tI],
               grayscale: tB(),
               hueRotate: [tI],
@@ -53305,12 +53838,12 @@ Error:`,
               order: [{ order: ["first", "last", "none", tI] }],
               "grid-cols": [{ "grid-cols": [tD] }],
               "col-start-end": [{ col: ["auto", { span: [tI] }] }],
-              "col-start": [{ "col-start": tw() }],
-              "col-end": [{ "col-end": tw() }],
+              "col-start": [{ "col-start": tE() }],
+              "col-end": [{ "col-end": tE() }],
               "grid-rows": [{ "grid-rows": [tD] }],
               "row-start-end": [{ row: ["auto", { span: [tI] }] }],
-              "row-start": [{ "row-start": tw() }],
-              "row-end": [{ "row-end": tw() }],
+              "row-start": [{ "row-start": tE() }],
+              "row-end": [{ "row-end": tE() }],
               "grid-flow": [
                 {
                   "grid-flow": [
@@ -53597,7 +54130,7 @@ Error:`,
               "outline-offset": [{ "outline-offset": [tk] }],
               "outline-w": [{ outline: [tk] }],
               "outline-color": [{ outline: [U] }],
-              "ring-w": [{ ring: tE() }],
+              "ring-w": [{ ring: tw() }],
               "ring-w-inset": ["ring-inset"],
               "ring-color": [{ ring: [U] }],
               "ring-opacity": [{ "ring-opacity": [tu] }],
@@ -54425,38 +54958,38 @@ Error:`,
             Q = Y,
             tt = V,
             te = Z;
-          (G = tE(G, Y, V, Z, U[J], 7, -680876936)),
-            (Z = tE(Z, G, Y, V, U[J + 1], 12, -389564586)),
-            (V = tE(V, Z, G, Y, U[J + 2], 17, 606105819)),
-            (Y = tE(Y, V, Z, G, U[J + 3], 22, -1044525330)),
-            (G = tE(G, Y, V, Z, U[J + 4], 7, -176418897)),
-            (Z = tE(Z, G, Y, V, U[J + 5], 12, 1200080426)),
-            (V = tE(V, Z, G, Y, U[J + 6], 17, -1473231341)),
-            (Y = tE(Y, V, Z, G, U[J + 7], 22, -45705983)),
-            (G = tE(G, Y, V, Z, U[J + 8], 7, 1770035416)),
-            (Z = tE(Z, G, Y, V, U[J + 9], 12, -1958414417)),
-            (V = tE(V, Z, G, Y, U[J + 10], 17, -42063)),
-            (Y = tE(Y, V, Z, G, U[J + 11], 22, -1990404162)),
-            (G = tE(G, Y, V, Z, U[J + 12], 7, 1804603682)),
-            (Z = tE(Z, G, Y, V, U[J + 13], 12, -40341101)),
-            (V = tE(V, Z, G, Y, U[J + 14], 17, -1502002290)),
-            (Y = tE(Y, V, Z, G, U[J + 15], 22, 1236535329)),
-            (G = tw(G, Y, V, Z, U[J + 1], 5, -165796510)),
-            (Z = tw(Z, G, Y, V, U[J + 6], 9, -1069501632)),
-            (V = tw(V, Z, G, Y, U[J + 11], 14, 643717713)),
-            (Y = tw(Y, V, Z, G, U[J], 20, -373897302)),
-            (G = tw(G, Y, V, Z, U[J + 5], 5, -701558691)),
-            (Z = tw(Z, G, Y, V, U[J + 10], 9, 38016083)),
-            (V = tw(V, Z, G, Y, U[J + 15], 14, -660478335)),
-            (Y = tw(Y, V, Z, G, U[J + 4], 20, -405537848)),
-            (G = tw(G, Y, V, Z, U[J + 9], 5, 568446438)),
-            (Z = tw(Z, G, Y, V, U[J + 14], 9, -1019803690)),
-            (V = tw(V, Z, G, Y, U[J + 3], 14, -187363961)),
-            (Y = tw(Y, V, Z, G, U[J + 8], 20, 1163531501)),
-            (G = tw(G, Y, V, Z, U[J + 13], 5, -1444681467)),
-            (Z = tw(Z, G, Y, V, U[J + 2], 9, -51403784)),
-            (V = tw(V, Z, G, Y, U[J + 7], 14, 1735328473)),
-            (Y = tw(Y, V, Z, G, U[J + 12], 20, -1926607734)),
+          (G = tw(G, Y, V, Z, U[J], 7, -680876936)),
+            (Z = tw(Z, G, Y, V, U[J + 1], 12, -389564586)),
+            (V = tw(V, Z, G, Y, U[J + 2], 17, 606105819)),
+            (Y = tw(Y, V, Z, G, U[J + 3], 22, -1044525330)),
+            (G = tw(G, Y, V, Z, U[J + 4], 7, -176418897)),
+            (Z = tw(Z, G, Y, V, U[J + 5], 12, 1200080426)),
+            (V = tw(V, Z, G, Y, U[J + 6], 17, -1473231341)),
+            (Y = tw(Y, V, Z, G, U[J + 7], 22, -45705983)),
+            (G = tw(G, Y, V, Z, U[J + 8], 7, 1770035416)),
+            (Z = tw(Z, G, Y, V, U[J + 9], 12, -1958414417)),
+            (V = tw(V, Z, G, Y, U[J + 10], 17, -42063)),
+            (Y = tw(Y, V, Z, G, U[J + 11], 22, -1990404162)),
+            (G = tw(G, Y, V, Z, U[J + 12], 7, 1804603682)),
+            (Z = tw(Z, G, Y, V, U[J + 13], 12, -40341101)),
+            (V = tw(V, Z, G, Y, U[J + 14], 17, -1502002290)),
+            (Y = tw(Y, V, Z, G, U[J + 15], 22, 1236535329)),
+            (G = tE(G, Y, V, Z, U[J + 1], 5, -165796510)),
+            (Z = tE(Z, G, Y, V, U[J + 6], 9, -1069501632)),
+            (V = tE(V, Z, G, Y, U[J + 11], 14, 643717713)),
+            (Y = tE(Y, V, Z, G, U[J], 20, -373897302)),
+            (G = tE(G, Y, V, Z, U[J + 5], 5, -701558691)),
+            (Z = tE(Z, G, Y, V, U[J + 10], 9, 38016083)),
+            (V = tE(V, Z, G, Y, U[J + 15], 14, -660478335)),
+            (Y = tE(Y, V, Z, G, U[J + 4], 20, -405537848)),
+            (G = tE(G, Y, V, Z, U[J + 9], 5, 568446438)),
+            (Z = tE(Z, G, Y, V, U[J + 14], 9, -1019803690)),
+            (V = tE(V, Z, G, Y, U[J + 3], 14, -187363961)),
+            (Y = tE(Y, V, Z, G, U[J + 8], 20, 1163531501)),
+            (G = tE(G, Y, V, Z, U[J + 13], 5, -1444681467)),
+            (Z = tE(Z, G, Y, V, U[J + 2], 9, -51403784)),
+            (V = tE(V, Z, G, Y, U[J + 7], 14, 1735328473)),
+            (Y = tE(Y, V, Z, G, U[J + 12], 20, -1926607734)),
             (G = tS(G, Y, V, Z, U[J + 5], 4, -378558)),
             (Z = tS(Z, G, Y, V, U[J + 8], 11, -2022574463)),
             (V = tS(V, Z, G, Y, U[J + 11], 16, 1839030562)),
@@ -54516,10 +55049,10 @@ Error:`,
       function tb(U, B, G, Y, V, Z) {
         return tv(ty(tv(tv(B, U), tv(Y, Z)), V), G);
       }
-      function tE(U, B, G, Y, V, Z, J) {
+      function tw(U, B, G, Y, V, Z, J) {
         return tb((B & G) | (~B & Y), U, B, V, Z, J);
       }
-      function tw(U, B, G, Y, V, Z, J) {
+      function tE(U, B, G, Y, V, Z, J) {
         return tb((B & Y) | (G & ~Y), U, B, V, Z, J);
       }
       function tS(U, B, G, Y, V, Z, J) {
@@ -54745,7 +55278,7 @@ Error:`,
         return U.replace(ta, "&lt;").replace(ts, "&gt;");
       }
       function ti(U, B, G, Y) {
-        if (((G = tw(G)), "href" === B || "src" === B)) {
+        if (((G = tE(G)), "href" === B || "src" === B)) {
           if ("#" === (G = Z.trim(G))) return "#";
           if (
             !(
@@ -54803,13 +55336,13 @@ Error:`,
       function tb(U) {
         return U.replace(tf, ":").replace(th, " ");
       }
-      function tE(U) {
+      function tw(U) {
         for (var B = "", G = 0, Y = U.length; G < Y; G++)
           B += 32 > U.charCodeAt(G) ? " " : U.charAt(G);
         return Z.trim(B);
       }
-      function tw(U) {
-        return (U = tE((U = tb((U = ty((U = tv(U))))))));
+      function tE(U) {
+        return (U = tw((U = tb((U = ty((U = tv(U))))))));
       }
       function tS(U) {
         return (U = tr((U = tm(U))));
@@ -54878,8 +55411,8 @@ Error:`,
         (B.unescapeQuote = tv),
         (B.escapeHtmlEntities = ty),
         (B.escapeDangerHtml5Entities = tb),
-        (B.clearNonPrintableCharacter = tE),
-        (B.friendlyAttrValue = tw),
+        (B.clearNonPrintableCharacter = tw),
+        (B.friendlyAttrValue = tE),
         (B.escapeAttrValue = tS),
         (B.onIgnoreTagStripAll = tx),
         (B.StripTagBody = tk),
@@ -55522,7 +56055,7 @@ Error:`,
                   throw Error("Generator is already running");
                 if ("completed" === Y) {
                   if ("throw" === V) throw Z;
-                  return tE();
+                  return tw();
                 }
                 for (G.method = V, G.arg = Z; ; ) {
                   var J = G.delegate;
@@ -55689,9 +56222,9 @@ Error:`,
               return (Y.next = Y);
             }
           }
-          return { next: tE };
+          return { next: tw };
         }
-        function tE() {
+        function tw() {
           return { value: void 0, done: !0 };
         }
         return (
@@ -57392,7 +57925,7 @@ Error:`,
           return tn;
         },
         oE: function () {
-          return tE;
+          return tw;
         },
         sk: function () {
           return Y;
@@ -57554,7 +58087,7 @@ Error:`,
       function tb() {
         if ("function" == typeof AbortController) return new AbortController();
       }
-      function tE(U, B, G) {
+      function tw(U, B, G) {
         return null != G.isDataEqual && G.isDataEqual(U, B)
           ? U
           : "function" == typeof G.structuralSharing
