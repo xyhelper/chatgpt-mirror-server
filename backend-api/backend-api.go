@@ -1,6 +1,7 @@
 package backendapi
 
 import (
+	"chatgpt-mirror-server/backend-api/accounts"
 	"chatgpt-mirror-server/config"
 	"chatgpt-mirror-server/modules/chatgpt/service"
 	"chatgpt-mirror-server/utility"
@@ -22,6 +23,7 @@ func init() {
 	backendGroup := s.Group("/backend-api")
 	backendGroup.POST("/accounts/data_export", NotFound) // 禁用导出
 	backendGroup.POST("/payments/checkout", NotFound)    // 禁用支付
+	backendGroup.GET("/accounts/check/*any", accounts.Check)
 
 }
 
