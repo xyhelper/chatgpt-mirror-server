@@ -1,10 +1,19 @@
 package accounts
 
 import (
+	"chatgpt-mirror-server/config"
+	"chatgpt-mirror-server/modules/chatgpt/service"
+	"chatgpt-mirror-server/utility"
+	"net/http"
+
 	"github.com/gogf/gf/v2/container/gset"
 	"github.com/gogf/gf/v2/encoding/gjson"
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/net/ghttp"
+)
+
+var (
+	ChatgptSessionService = service.NewChatgptSessionService()
 )
 
 func Check(r *ghttp.Request) {
@@ -12,11 +21,31 @@ func Check(r *ghttp.Request) {
 	// g.Log().Info(ctx, "check", r.GetHost(), r.RequestURI, r.URL.String(), r.GetUrl())
 	// g.Dump(r.Header)
 	// 获取header中的authorization
-	authHeader := r.Header.Get("Authorization")
+	userToken := r.Header.Get("Authorization")[7:]
+
+	record, _, err := ChatgptSessionService.GetSessionByUserToken(ctx, userToken)
+	if err != nil {
+		g.Log().Error(ctx, err)
+		r.Response.WriteStatus(http.StatusUnauthorized)
+		return
+	}
+	if record.IsEmpty() {
+		g.Log().Error(ctx, "session is empty")
+		r.Response.WriteStatus(http.StatusUnauthorized)
+		return
+	}
+	officialSession := record["officialSession"].String()
+	if officialSession == "" {
+		r.Response.WriteStatus(http.StatusUnauthorized)
+		return
+	}
+	officialAccessToken := utility.AccessTokenFormSession(officialSession)
+	authHeader := "Bearer " + officialAccessToken
 	client := g.Client().SetBrowserMode(true)
 	client.SetHeader("Authorization", authHeader)
+	client.SetHeader("authkey", config.AUTHKEY(ctx))
 
-	res := client.GetVar(ctx, "https://chat.openai.com/backend-api/accounts/check/v4-2023-04-27")
+	res := client.GetVar(ctx, config.CHATPROXY(ctx)+"/backend-api/accounts/check/v4-2023-04-27")
 	resJson := gjson.New(res)
 
 	features := resJson.Get("accounts.default.features").Array()
@@ -25,8 +54,8 @@ func Check(r *ghttp.Request) {
 		featuresSet.Add(feature)
 	}
 	featuresSet.Remove("log_statsig_events")
-	if r.Session.MustGet("offical-session").IsEmpty() {
-		featuresSet.Remove("arkose_enabled")
+	if !r.Session.MustGet("userToken").IsEmpty() {
+		featuresSet.Add("arkose_enabled")
 	}
 	featuresSet.Remove("log_intercom_events")
 	featuresSet.Remove("shareable_links")
