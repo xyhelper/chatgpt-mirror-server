@@ -1,7 +1,6 @@
 package backendapi
 
 import (
-	"chatgpt-mirror-server/backend-api/accounts"
 	"chatgpt-mirror-server/config"
 	"chatgpt-mirror-server/modules/chatgpt/service"
 	"chatgpt-mirror-server/utility"
