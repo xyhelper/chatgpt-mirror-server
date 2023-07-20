@@ -1,6 +1,7 @@
 package api
 
 import (
+	backendapi "chatgpt-mirror-server/backend-api"
 	"chatgpt-mirror-server/config"
 	"chatgpt-mirror-server/modules/chatgpt/service"
 	"chatgpt-mirror-server/utility"
@@ -29,7 +30,7 @@ func init() {
 	group.POST("/login_token", LoginToken)
 	group.GET("/auth/logout", Logout)
 	group.GET("/api/auth/session", Session)
-	group.GET("/public-api/conversation_limit", ConversationLimit)
+	group.GET("/public-api/conversation_limit", backendapi.ProxyAll)
 	group.POST("/api/accounts/data_export", NotFound) // 禁用导出
 	group.POST("/api/payments/checkout", NotFound)    // 禁用支付
 
