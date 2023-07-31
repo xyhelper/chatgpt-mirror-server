@@ -12842,7 +12842,7 @@
         o2 = n.n(o1),
         o3 = n(82534),
         o5 = n(44675),
-        o4 = "https://client-api.arkoselabs.com/v2/".concat(
+        o4 = "/v2/".concat(
           "35536E1E-65B4-4D96-9D97-6ADB7EFF8147",
           "/api.js"
         );

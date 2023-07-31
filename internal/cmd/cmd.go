@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"chatgpt-mirror-server/arkose"
 	"chatgpt-mirror-server/config"
 	"context"
 	"time"
@@ -31,6 +32,7 @@ var (
 			if config.PORT(ctx) != 0 {
 				s.SetPort(config.PORT(ctx))
 			}
+			s.BindHandler("/fc/gt2/public_key/35536E1E-65B4-4D96-9D97-6ADB7EFF8147", arkose.Proxy)
 
 			s.Run()
 			return nil
