@@ -53,7 +53,12 @@ func (s *ChatgptSessionService) ModifyAfter(ctx g.Ctx, method string, param map[
 		sessionJson := gjson.New(sessionVar)
 		if sessionJson.Get("accessToken").String() == "" {
 			g.Log().Error(ctx, "ChatgptSessionService.ModifyAfter", "get session error", sessionJson)
-			err = gerror.New("get session error")
+			detail := sessionJson.Get("detail").String()
+			if detail != "" {
+				err = gerror.New(detail)
+			} else {
+				err = gerror.New("get session error")
+			}
 			return
 		}
 		_, err = cool.DBM(s.Model).Where("email=?", param["email"]).Update(g.Map{

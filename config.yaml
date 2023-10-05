@@ -1,0 +1,65 @@
+server:
+  serverRoot: "resource/public"
+  clientMaxBodySize: 104857600  # 100MB in bytes 100*1024*1024
+
+logger:
+  path: "./data/logs/"
+  file: "{Y-m-d}.log"
+  level : "all"
+  stdout: true
+
+
+database:
+  # default:
+  #   type: "sqlite" # 数据库类型
+  #   name: "./data/cool.sqlite" # 数据库名称,对于sqlite来说就是数据库文件名
+  #   extra: busy_timeout=5000 # 扩展参数 如 busy_timeout=5000&journal_mode=ALL
+  #   createdAt: "createTime" # 创建时间字段名称
+  #   updatedAt: "updateTime" # 更新时间字段名称
+  #   debug: true # 开启调试模式,启用后将在控制台打印相关sql语句
+  default: # 数据源名称,当不指定数据源时 default 为默认数据源
+    type: "mysql" # 数据库类型
+    host: "127.0.0.1" # 数据库地址
+    port: "3306" # 数据库端口
+    user: "root" # 数据库用户名
+    pass: "123456" # 数据库密码
+    name: "cool" # 数据库名称
+    charset: "utf8mb4" # 数据库编码
+    timezone: "Asia/Shanghai" # 数据库时区
+    debug: true # 是否开启调试模式，开启后会打印SQL日志
+    createdAt: "createTime" # 创建时间字段
+    updatedAt: "updateTime" # 更新时间字段
+redis:
+  cool:
+    address: "127.0.0.1:6379"
+    db: 0
+    
+cool:
+  autoMigrate: true
+  eps: true
+  file:
+    mode: "local"
+    domain: "http://127.0.0.1:8001"
+
+modules:
+  base:
+    jwt:
+      sso: false
+      secret: "cool-admin-go"
+      token:
+        expire: 7200 # 2*3600
+        refreshExpire: 1296000 # 24*3600*15
+    middleware:
+      authority:
+        enable: 1
+      log:
+        enable: 1
+
+# 接入网关地址
+CHATPROXY: "https://demo.xyhelper.cn"
+# 接入网关的authkey
+AUTHKEY: "xyhelper"
+# 是否限制每个用户只能同时发起一个会话
+# USERTOKENLOCK: true
+ONLYTOKEN: true # 是否只使用token验证
+APIAUTH: "xyhelper"

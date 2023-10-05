@@ -23,5 +23,5 @@ logs/
 public/uploads/
 gf
 data/cool.sqlite
-config.yaml
+# config.yaml
 data/

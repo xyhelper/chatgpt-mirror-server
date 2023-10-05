@@ -7,13 +7,16 @@ import (
 	"net/http"
 	"net/http/httputil"
 	"net/url"
+	"time"
 
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/net/ghttp"
+	"github.com/gogf/gf/v2/os/gcache"
 )
 
 var (
 	ChatgptSessionService = service.NewChatgptSessionService()
+	AccessTokenCache      = gcache.New()
 )
 
 func init() {
@@ -35,25 +38,27 @@ func ProxyAll(r *ghttp.Request) {
 	ctx := r.GetCtx()
 	// 获取header中的token Authorization: Bearer xxx 去掉Bearer
 	userToken := r.Header.Get("Authorization")[7:]
-
-	record, _, err := ChatgptSessionService.GetSessionByUserToken(ctx, userToken)
-	if err != nil {
-		g.Log().Error(ctx, err)
-		r.Response.WriteStatus(http.StatusUnauthorized)
-		return
+	officialAccessToken := AccessTokenCache.MustGet(ctx, userToken).String()
+	if officialAccessToken == "" {
+		record, _, err := ChatgptSessionService.GetSessionByUserToken(ctx, userToken)
+		if err != nil {
+			g.Log().Error(ctx, err)
+			r.Response.WriteStatus(http.StatusUnauthorized)
+			return
+		}
+		if record.IsEmpty() {
+			g.Log().Error(ctx, "session is empty")
+			r.Response.WriteStatus(http.StatusUnauthorized)
+			return
+		}
+		officialSession := record["officialSession"].String()
+		if officialSession == "" {
+			r.Response.WriteStatus(http.StatusUnauthorized)
+			return
+		}
+		officialAccessToken = utility.AccessTokenFormSession(officialSession)
+		AccessTokenCache.Set(ctx, userToken, officialAccessToken, time.Hour)
 	}
-	if record.IsEmpty() {
-		g.Log().Error(ctx, "session is empty")
-		r.Response.WriteStatus(http.StatusUnauthorized)
-		return
-	}
-	officialSession := record["officialSession"].String()
-	if officialSession == "" {
-		r.Response.WriteStatus(http.StatusUnauthorized)
-		return
-	}
-	officialAccessToken := utility.AccessTokenFormSession(officialSession)
-
 	UpStream := config.CHATPROXY(ctx)
 	u, _ := url.Parse(UpStream)
 	proxy := httputil.NewSingleHostReverseProxy(u)
