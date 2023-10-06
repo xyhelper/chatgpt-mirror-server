@@ -57,7 +57,7 @@ func ProxyAll(r *ghttp.Request) {
 			return
 		}
 		officialAccessToken = utility.AccessTokenFormSession(officialSession)
-		AccessTokenCache.Set(ctx, userToken, officialAccessToken, time.Hour)
+		AccessTokenCache.Set(ctx, userToken, officialAccessToken, time.Minute)
 	}
 	UpStream := config.CHATPROXY(ctx)
 	u, _ := url.Parse(UpStream)
