@@ -20,6 +20,7 @@ func init() {
 		panic(err)
 	}
 	g.Log().Info(ctx, "RefreshSession", "corn", corn, "cornInterval", config.CRONINTERVAL(ctx), "注册成功")
+	go RefreshSession(ctx)
 }
 
 func RefreshSession(ctx g.Ctx) {
