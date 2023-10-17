@@ -3,7 +3,6 @@ package tasks
 import (
 	"chatgpt-mirror-server/config"
 	"chatgpt-mirror-server/modules/chatgpt/model"
-	"time"
 
 	"github.com/cool-team-official/cool-admin-go/cool"
 	"github.com/gogf/gf/v2/encoding/gjson"
@@ -54,7 +53,7 @@ func RefreshSession(ctx g.Ctx) {
 		}
 		g.Log().Info(ctx, "RefreshSession", v["email"], "success")
 		// 延时5分钟
-		time.Sleep(5 * time.Minute)
+		// time.Sleep(5 * time.Minute)
 	}
 
 }
