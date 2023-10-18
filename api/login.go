@@ -127,8 +127,5 @@ func LoginToken(r *ghttp.Request) {
 		return
 	}
 	r.Session.Set("userToken", r.Get("access_token").String())
-	r.Response.WriteJsonExit(g.Map{
-		"code": 0,
-		"url":  "/",
-	})
+	r.Response.RedirectTo("/")
 }

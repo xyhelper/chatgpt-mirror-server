@@ -27,7 +27,7 @@ func init() {
 
 	group.GET("/login", Login)
 	group.POST("/login", LoginPost)
-	group.POST("/login_token", LoginToken)
+	group.ALL("/login_token", LoginToken)
 	group.GET("/auth/logout", Logout)
 	group.GET("/api/auth/session", Session)
 	group.GET("/public-api/conversation_limit", backendapi.ProxyAll)
