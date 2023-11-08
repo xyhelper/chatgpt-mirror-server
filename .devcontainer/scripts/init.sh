@@ -19,25 +19,25 @@ if [ "$REMOTE_CONTAINERS" = "true" ]; then
     echo "$(hostname)" >.devcontainer/data/hostname.txt
 
     # 配置goproxy
-    echo "Configuring goproxy"
-    go env -w GO111MODULE=on
-    go env -w GOPROXY=https://goproxy.cn,direct
+    # echo "Configuring goproxy"
+    # go env -w GO111MODULE=on
+    # go env -w GOPROXY=https://goproxy.cn,direct
 
     # 配置npm mirror
-    echo "Configuring npm mirror"
-    npm config set registry https://registry.npmmirror.com
-    yarn config set registry https://registry.npmmirror.com
+    # echo "Configuring npm mirror"
+    # npm config set registry https://registry.npmmirror.com
+    # yarn config set registry https://registry.npmmirror.com
 
     # 安装pgit
-    echo "Installing pgit"
-    curl -o pgit https://gitee.com/gcslaoli/pgit/raw/main/shell/pgit && chmod +x pgit && sudo mv pgit /usr/local/bin
+    # echo "Installing pgit"
+    # curl -o pgit https://gitee.com/gcslaoli/pgit/raw/main/shell/pgit && chmod +x pgit && sudo mv pgit /usr/local/bin
 
     # 安装cool-tools
     echo "Installing cool-tools ..."
     go install github.com/cool-team-official/cool-admin-go/cool-tools@latest
     # 安装gf 
     echo "Installing gf use mirror ..."
-    pgit wget -O gf \
+    wget -O gf \
         https://github.com/gogf/gf/releases/latest/download/gf_$(go env GOOS)_$(go env GOARCH) &&
         chmod +x gf &&
         ./gf install -y &&

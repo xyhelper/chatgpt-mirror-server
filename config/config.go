@@ -6,6 +6,7 @@ import (
 
 	"github.com/gogf/gf/v2/container/garray"
 	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/os/gctx"
 	"github.com/gogf/gf/v2/util/gconv"
 )
 
@@ -26,15 +27,24 @@ var (
 	DefaultModel = "text-davinci-002-render-sha"
 	FreeModels   = garray.NewStrArray()
 	PlusModels   = garray.NewStrArray()
+	ArkoseUrl    = "https://client-api.arkoselabs.com/v2/"
 )
 
 func init() {
+	ctx := gctx.GetInitCtx()
+
 	FreeModels.Append("text-davinci-002-render-sha")
 	FreeModels.Append("text-davinci-002-render-sha-mobile")
 	PlusModels.Append("gpt-4")
 	PlusModels.Append("gpt-4-browsing")
 	PlusModels.Append("gpt-4-plugins")
 	PlusModels.Append("gpt-4-mobile")
+	PlusModels.Append("gpt-4-gizmo")
+	arkoseUrl := g.Cfg().MustGetWithEnv(ctx, "ARKOSE_URL")
+	if !arkoseUrl.IsEmpty() {
+		ArkoseUrl = arkoseUrl.String()
+	}
+
 }
 
 func PORT(ctx g.Ctx) int {

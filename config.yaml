@@ -59,7 +59,6 @@ modules:
 CHATPROXY: "https://demo.xyhelper.cn"
 # 接入网关的authkey
 AUTHKEY: "xyhelper"
-# 是否限制每个用户只能同时发起一个会话
-# USERTOKENLOCK: true
-ONLYTOKEN: true # 是否只使用token验证
-APIAUTH: "xyhelper"
+ONLYTOKEN: true
+
+# 5a07e29c-31d8-4976-ba66-f183598587d9

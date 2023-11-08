@@ -49,6 +49,9 @@ func Session(r *ghttp.Request) {
 	sessionJson.Set("accessToken", userToken.String())
 	sessionJson.Set("user.email", "admin@openai.com")
 	sessionJson.Set("user.name", expireTime)
+	sessionJson.Set("user.image", "/avatars.png")
+	sessionJson.Set("user.picture", "/avatars.png")
 	sessionJson.Remove("refreshCookie")
+
 	r.Response.WriteJsonExit(sessionJson)
 }
