@@ -21,7 +21,7 @@ var (
 func init() {
 	s := g.Server()
 	s.BindHandler("/api/*", Api2backend)
-	s.SetServerRoot("./resource/public/" + config.BuildDate)
+	// s.SetServerRoot("./resource/public/" + config.BuildDate)
 	group := s.Group("/")
 	group.GET("/", Index)
 	group.GET("/c/:ChatId", C)
