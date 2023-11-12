@@ -26,6 +26,7 @@ func init() {
 	backendGroup.POST("/accounts/data_export", NotFound) // 禁用导出
 	backendGroup.POST("/payments/checkout", NotFound)    // 禁用支付
 	// backendGroup.GET("/accounts/check/*any", accounts.Check)
+	backendGroup.GET("/me", Me)
 
 }
 

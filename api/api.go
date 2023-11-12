@@ -21,9 +21,15 @@ var (
 func init() {
 	s := g.Server()
 	s.BindHandler("/api/*", Api2backend)
+	s.SetServerRoot("./resource/public/" + config.BuildDate)
 	group := s.Group("/")
 	group.GET("/", Index)
 	group.GET("/c/:ChatId", C)
+	group.GET("/g/:gizmoId", G)
+	group.GET("/gpts/discovery", Discovery)
+	group.GET("/gpts/editor", Editor)
+	group.GET("/gpts/editor/:slug", Slug)
+	group.GET("/g/:gizmoId/c/:convId", GC)
 
 	group.GET("/login", Login)
 	group.POST("/login", LoginPost)

@@ -12,59 +12,64 @@ func Index(r *ghttp.Request) {
 
 	if r.Session.MustGet("userToken").IsEmpty() {
 		r.Response.RedirectTo("/login")
+		// r.Response.Writer.Write([]byte("Hello XyHelper"))
 		return
 	}
 	model := r.Get("model").String()
 	props := `
   {
     "props": {
-      "pageProps": {
-        "user": {
-          "id": "user-x5xxxxxxxxxx7",
-          "name": "admin@openai.com",
-          "email": "admin@openai.com",
-          "image": "https://s.gravatar.com/avatar/558db47f25d89a95df170b4bde9fd72f?s=480\u0026r=pg\u0026d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fli.png",
-          "picture": "https://s.gravatar.com/avatar/558db47f25d89a95df170b4bde9fd72f?s=480\u0026r=pg\u0026d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fli.png",
-          "idp": "auth0",
-          "iat": 1698495829,
-          "mfa": false,
-          "groups": [],
-          "intercom_hash": "30fd0a0ada1c07ce526be7c3d54c22904b80fa7e2713d978630e979e4315cf67"
+        "pageProps": {
+            "user": {
+                "id": "user-xyhelper",
+                "name": "admin@openai.com",
+                "email": "admin@openai.com",
+                "image": "/avatars.png",
+                "picture": "/avatars.png",
+                "idp": "auth0",
+                "iat": 2699699364,
+                "mfa": false,
+                "groups": [],
+                "intercom_hash": "30fd0a0ada1c07ce526be7c3d54c22904b80fa7e2713d978630e979e4315cf67"
+            },
+            "serviceStatus": {},
+            "userCountry": "US",
+            "serviceAnnouncement": {
+                "paid": {},
+                "public": {}
+            },
+            "serverPrimedAllowBrowserStorageValue": true,
+            "canManageBrowserStorage": false,
+            "ageVerificationDeadline": null,
+            "showCookieConsentBanner": false
         },
-        "serviceStatus": {},
-        "userCountry": "US",
-        "geoOk": true,
-        "serviceAnnouncement": { "paid": {}, "public": {} },
-        "serverPrimedAllowBrowserStorageValue": true,
-        "canManageBrowserStorage": false,
-        "ageVerificationDeadline": null,
-        "showCookieConsentBanner": false,
-        "isUserInCanPayGroup": true
-      },
-      "__N_SSP": true
+        "__N_SSP": true
     },
     "page": "/[[...default]]",
     "query": {},
-    "buildId": "DxhyfP3OR5HFF69ve_LJq",
+    "buildId": "wtXFegAXt6bfbujLr1e7S",
     "assetPrefix": "",
     "isFallback": false,
     "gssp": true,
     "scriptLoader": []
-  }`
+}`
+
 	propsJson := gjson.New(props)
 	propsJson.Set("query.model", model)
+	// propsJson.Dump()
 
-	r.Response.WriteTpl("chat.html", g.Map{
+	r.Response.WriteTpl("chat-"+config.BuildDate+".html", g.Map{
 		"props":     propsJson,
 		"arkoseUrl": config.ArkoseUrl,
 	})
 }
-
 func C(r *ghttp.Request) {
-	if r.Session.MustGet("userToken").IsEmpty() {
-		r.Response.RedirectTo("/login")
-		return
-	}
+
+	// if r.Session.MustGet("offical-session").IsEmpty() {
+	// 	// r.Response.RedirectTo("/login")
+	// 	r.Response.Writer.Write([]byte("Hello XyHelper"))
+	// 	return
+	// }
 	chatId := r.RequestURI[3:]
 
 	g.Log().Debug(r.GetCtx(), "chatId", chatId)
@@ -73,32 +78,29 @@ func C(r *ghttp.Request) {
     "props": {
       "pageProps": {
         "user": {
-			"id": "user-x5xxxxxxxxxx7",
-			"name": "admin@openai.com",
-			"email": "admin@openai.com",
-          "image": "https://s.gravatar.com/avatar/558db47f25d89a95df170b4bde9fd72f?s=480\u0026r=pg\u0026d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fli.png",
-          "picture": "https://s.gravatar.com/avatar/558db47f25d89a95df170b4bde9fd72f?s=480\u0026r=pg\u0026d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fli.png",
+          "id": "user-xyhelper",
+          "name": "admin@openai.com",
+          "email": "admin@openai.com",
+          "image": "/avatars.png",
+          "picture": "/avatars.png",
           "idp": "auth0",
-          "iat": 1698495829,
+          "iat": 2699699364,
           "mfa": false,
-          "groups": [],
-          "intercom_hash": "30fd0a0ada1c07ce526be7c3d54c22904b80fa7e2713d978630e979e4315cf67"
+          "groups": []
         },
         "serviceStatus": {},
         "userCountry": "US",
-        "geoOk": true,
-        "serviceAnnouncement": { "public": {}, "paid": {} },
+        "serviceAnnouncement": { "paid": {}, "public": {} },
         "serverPrimedAllowBrowserStorageValue": true,
         "canManageBrowserStorage": false,
         "ageVerificationDeadline": null,
-        "showCookieConsentBanner": false,
-        "isUserInCanPayGroup": true
+        "showCookieConsentBanner": false
       },
       "__N_SSP": true
     },
     "page": "/[[...default]]",
-    "query": { "default": ["c", "608abed0-32ac-4147-af49-739a8d05340f"] },
-    "buildId": "DxhyfP3OR5HFF69ve_LJq",
+    "query": { "default": ["c", "98d86ec9-fa8b-42ba-98e8-ffd6c1d6cae4"] },
+    "buildId": "wtXFegAXt6bfbujLr1e7S",
     "assetPrefix": "",
     "isFallback": false,
     "gssp": true,
@@ -106,9 +108,248 @@ func C(r *ghttp.Request) {
   }
 	`
 	propsJson := gjson.New(props)
-	propsJson.Set("query.query.default.1", chatId)
+	propsJson.Set("query.default.1", chatId)
+	// propsJson.Dump()
+	r.Response.WriteTpl("chat-"+config.BuildDate+".html", g.Map{
+		"props":     propsJson,
+		"arkoseUrl": config.ArkoseUrl,
+	})
+}
 
-	r.Response.WriteTpl("detail.html", g.Map{
-		"props": propsJson,
+// Discovery 发现
+func Discovery(r *ghttp.Request) {
+	props := `
+  {
+    "props": {
+      "pageProps": {
+        "user": {
+          "id": "user-xyhelper",
+          "name": "admin@openai.com",
+          "email": "admin@openai.com",
+          "image": "/avatars.png",
+          "picture": "/avatars.png",
+          "idp": "auth0",
+          "iat": 2699699364,
+          "mfa": false,
+          "groups": []
+        },
+        "serviceStatus": {},
+        "userCountry": "US",
+        "serviceAnnouncement": { "public": {}, "paid": {} },
+        "serverPrimedAllowBrowserStorageValue": true,
+        "canManageBrowserStorage": false,
+        "ageVerificationDeadline": null,
+        "showCookieConsentBanner": false
+      },
+      "__N_SSP": true
+    },
+    "page": "/gpts/discovery",
+    "query": {},
+    "buildId": "wtXFegAXt6bfbujLr1e7S",
+    "assetPrefix": "",
+    "isFallback": false,
+    "gssp": true,
+    "scriptLoader": []
+  }
+  `
+	propsJson := gjson.New(props)
+	r.Response.WriteTpl("discovery-"+config.BuildDate+".html", g.Map{
+		"arkoseUrl": config.ArkoseUrl,
+		"props":     propsJson,
+	})
+}
+
+// Editor 编辑器
+func Editor(r *ghttp.Request) {
+	// slug := r.GetRouter("slug").String()
+
+	props := `
+  {
+    "props": {
+      "pageProps": {
+        "user": {
+          "id": "user-xyhelper",
+          "name": "admin@openai.com",
+          "email": "admin@openai.com",
+          "image": "/avatars.png",
+          "picture": "/avatars.png",
+          "idp": "auth0",
+          "iat": 2699699364,
+          "mfa": false,
+          "groups": []
+        },
+        "serviceStatus": {},
+        "userCountry": "US",
+        "serviceAnnouncement": { "public": {}, "paid": {} },
+        "serverPrimedAllowBrowserStorageValue": true,
+        "canManageBrowserStorage": false,
+        "ageVerificationDeadline": null,
+        "showCookieConsentBanner": false
+      },
+      "__N_SSP": true
+    },
+    "page": "/gpts/editor",
+    "query": {},
+    "buildId": "wtXFegAXt6bfbujLr1e7S",
+    "assetPrefix": "",
+    "isFallback": false,
+    "gssp": true,
+    "scriptLoader": []
+  }
+  `
+	propsJson := gjson.New(props)
+	// if slug != "" {
+	// 	propsJson.Set("page", "/gpts/editor/[slug]")
+	// 	propsJson.Set("query.slug", slug)
+	// }
+	// propsJson.Dump()
+
+	r.Response.WriteTpl("editor-"+config.BuildDate+".html", g.Map{
+		"arkoseUrl": config.ArkoseUrl,
+		"props":     propsJson,
+	})
+}
+
+// Slug 编辑器
+func Slug(r *ghttp.Request) {
+	slug := r.GetRouter("slug").String()
+
+	props := `
+  {
+    "props": {
+      "pageProps": {
+        "user": {
+          "id": "user-xyhelper",
+          "name": "admin@openai.com",
+          "email": "admin@openai.com",
+          "image": "/avatars.png",
+          "picture": "/avatars.png",
+          "idp": "auth0",
+          "iat": 2699699364,
+          "mfa": false,
+          "groups": []
+        },
+        "serviceStatus": {},
+        "userCountry": "US",
+        "serviceAnnouncement": { "public": {}, "paid": {} },
+        "serverPrimedAllowBrowserStorageValue": true,
+        "canManageBrowserStorage": false,
+        "ageVerificationDeadline": null,
+        "showCookieConsentBanner": false
+      },
+      "__N_SSP": true
+    },
+    "page": "/gpts/editor/[slug]",
+    "query": { "slug": "g-I2KQmH4yZ" },
+    "buildId": "wtXFegAXt6bfbujLr1e7S",
+    "assetPrefix": "",
+    "isFallback": false,
+    "gssp": true,
+    "scriptLoader": []
+  }
+  `
+	propsJson := gjson.New(props)
+
+	propsJson.Set("query.slug", slug)
+	r.Response.WriteTpl("slug-"+config.BuildDate+".html", g.Map{
+		"arkoseUrl": config.ArkoseUrl,
+		"props":     propsJson,
+	})
+}
+
+// G 游戏
+func G(r *ghttp.Request) {
+	gizmoId := r.GetRouter("gizmoId").String()
+	props := `
+  {
+    "props": {
+      "pageProps": {
+        "kind": "chat_page",
+        "gizmo": null,
+        "user": {
+          "id": "user-xyhelper",
+          "name": "admin@openai.com",
+          "email": "admin@openai.com",
+          "image": "/avatars.png",
+          "picture": "/avatars.png",
+          "idp": "auth0",
+          "iat": 2699699364,
+          "mfa": false,
+          "groups": []
+        },
+        "serviceStatus": {},
+        "userCountry": "US",
+        "serviceAnnouncement": { "public": {}, "paid": {} },
+        "serverPrimedAllowBrowserStorageValue": true,
+        "canManageBrowserStorage": false,
+        "ageVerificationDeadline": null,
+        "showCookieConsentBanner": false
+      },
+      "__N_SSP": true
+    },
+    "page": "/g/[gizmoId]",
+    "query": { "gizmoId": "g-I2KQmH4yZ-unix2bj" },
+    "buildId": "wtXFegAXt6bfbujLr1e7S",
+    "assetPrefix": "",
+    "isFallback": false,
+    "gssp": true,
+    "scriptLoader": []
+  }
+  `
+	propsJson := gjson.New(props)
+	propsJson.Set("query.gizmoId", gizmoId)
+	r.Response.WriteTpl("g-"+config.BuildDate+".html", g.Map{
+		"arkoseUrl": config.ArkoseUrl,
+		"props":     propsJson,
+	})
+}
+
+// GC 游戏会话
+func GC(r *ghttp.Request) {
+	gizmoId := r.GetRouter("gizmoId").String()
+	convId := r.GetRouter("convId").String()
+	props := `
+  {
+    "props": {
+      "pageProps": {
+        "user": {
+          "id": "user-xyhelper",
+          "name": "admin@openai.com",
+          "email": "admin@openai.com",
+          "image": "/avatars.png",
+          "picture": "/avatars.png",
+          "idp": "auth0",
+          "iat": 2699699364,
+          "mfa": false,
+          "groups": []
+        },
+        "serviceStatus": {},
+        "userCountry": "US",
+        "serviceAnnouncement": { "public": {}, "paid": {} },
+        "serverPrimedAllowBrowserStorageValue": true,
+        "canManageBrowserStorage": false,
+        "ageVerificationDeadline": null,
+        "showCookieConsentBanner": false
+      },
+      "__N_SSP": true
+    },
+    "page": "/g/[gizmoId]/c/[convId]",
+    "query": {
+      "gizmoId": "g-I2KQmH4yZ-unix2bj",
+      "convId": "e5fa1ee7-f482-4892-86ad-12cf0e0f9dd7"
+    },
+    "buildId": "wtXFegAXt6bfbujLr1e7S",
+    "assetPrefix": "",
+    "isFallback": false,
+    "gssp": true,
+    "scriptLoader": []
+  }
+  `
+	propsJson := gjson.New(props)
+	propsJson.Set("query.gizmoId", gizmoId)
+	propsJson.Set("query.convId", convId)
+	r.Response.WriteTpl("gc-"+config.BuildDate+".html", g.Map{
+		"arkoseUrl": config.ArkoseUrl,
+		"props":     propsJson,
 	})
 }

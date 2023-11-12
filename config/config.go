@@ -28,6 +28,7 @@ var (
 	FreeModels   = garray.NewStrArray()
 	PlusModels   = garray.NewStrArray()
 	ArkoseUrl    = "https://client-api.arkoselabs.com/v2/"
+	BuildDate    = "20231111"
 )
 
 func init() {
