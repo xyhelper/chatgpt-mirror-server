@@ -49,6 +49,6 @@ func Me(r *ghttp.Request) {
 	resJson.Set("picture", "/avatars.png")
 	resJson.Set("phone_number", "+1911")
 	resJson.Set("orgs.data.0.description", "OpenAI")
-	resJson.Dump()
+	// resJson.Dump()
 	r.Response.WriteJson(resJson)
 }

@@ -56,7 +56,7 @@ func Index(r *ghttp.Request) {
 
 	propsJson := gjson.New(props)
 	propsJson.Set("query.model", model)
-	// propsJson.Dump()
+	propsJson.Set("buildId", config.BuildId)
 
 	r.Response.WriteTpl("chat-"+config.BuildDate+".html", g.Map{
 		"props":     propsJson,
@@ -65,11 +65,10 @@ func Index(r *ghttp.Request) {
 }
 func C(r *ghttp.Request) {
 
-	// if r.Session.MustGet("offical-session").IsEmpty() {
-	// 	// r.Response.RedirectTo("/login")
-	// 	r.Response.Writer.Write([]byte("Hello XyHelper"))
-	// 	return
-	// }
+	if r.Session.MustGet("userToken").IsEmpty() {
+		r.Response.RedirectTo("/login")
+		return
+	}
 	chatId := r.RequestURI[3:]
 
 	g.Log().Debug(r.GetCtx(), "chatId", chatId)
@@ -109,7 +108,7 @@ func C(r *ghttp.Request) {
 	`
 	propsJson := gjson.New(props)
 	propsJson.Set("query.default.1", chatId)
-	// propsJson.Dump()
+	propsJson.Set("buildId", config.BuildId)
 	r.Response.WriteTpl("chat-"+config.BuildDate+".html", g.Map{
 		"props":     propsJson,
 		"arkoseUrl": config.ArkoseUrl,
@@ -118,6 +117,11 @@ func C(r *ghttp.Request) {
 
 // Discovery 发现
 func Discovery(r *ghttp.Request) {
+
+	if r.Session.MustGet("userToken").IsEmpty() {
+		r.Response.RedirectTo("/login")
+		return
+	}
 	props := `
   {
     "props": {
@@ -153,6 +157,8 @@ func Discovery(r *ghttp.Request) {
   }
   `
 	propsJson := gjson.New(props)
+	propsJson.Set("buildId", config.BuildId)
+
 	r.Response.WriteTpl("discovery-"+config.BuildDate+".html", g.Map{
 		"arkoseUrl": config.ArkoseUrl,
 		"props":     propsJson,
@@ -161,7 +167,11 @@ func Discovery(r *ghttp.Request) {
 
 // Editor 编辑器
 func Editor(r *ghttp.Request) {
-	// slug := r.GetRouter("slug").String()
+
+	if r.Session.MustGet("userToken").IsEmpty() {
+		r.Response.RedirectTo("/login")
+		return
+	}
 
 	props := `
   {
@@ -198,6 +208,8 @@ func Editor(r *ghttp.Request) {
   }
   `
 	propsJson := gjson.New(props)
+	propsJson.Set("buildId", config.BuildId)
+
 	// if slug != "" {
 	// 	propsJson.Set("page", "/gpts/editor/[slug]")
 	// 	propsJson.Set("query.slug", slug)
@@ -212,6 +224,11 @@ func Editor(r *ghttp.Request) {
 
 // Slug 编辑器
 func Slug(r *ghttp.Request) {
+
+	if r.Session.MustGet("userToken").IsEmpty() {
+		r.Response.RedirectTo("/login")
+		return
+	}
 	slug := r.GetRouter("slug").String()
 
 	props := `
@@ -251,6 +268,7 @@ func Slug(r *ghttp.Request) {
 	propsJson := gjson.New(props)
 
 	propsJson.Set("query.slug", slug)
+	propsJson.Set("buildId", config.BuildId)
 	r.Response.WriteTpl("slug-"+config.BuildDate+".html", g.Map{
 		"arkoseUrl": config.ArkoseUrl,
 		"props":     propsJson,
@@ -259,6 +277,11 @@ func Slug(r *ghttp.Request) {
 
 // G 游戏
 func G(r *ghttp.Request) {
+
+	if r.Session.MustGet("userToken").IsEmpty() {
+		r.Response.RedirectTo("/login")
+		return
+	}
 	gizmoId := r.GetRouter("gizmoId").String()
 	props := `
   {
@@ -298,6 +321,8 @@ func G(r *ghttp.Request) {
   `
 	propsJson := gjson.New(props)
 	propsJson.Set("query.gizmoId", gizmoId)
+	propsJson.Set("buildId", config.BuildId)
+
 	r.Response.WriteTpl("g-"+config.BuildDate+".html", g.Map{
 		"arkoseUrl": config.ArkoseUrl,
 		"props":     propsJson,
@@ -306,8 +331,14 @@ func G(r *ghttp.Request) {
 
 // GC 游戏会话
 func GC(r *ghttp.Request) {
+
+	if r.Session.MustGet("userToken").IsEmpty() {
+		r.Response.RedirectTo("/login")
+		return
+	}
 	gizmoId := r.GetRouter("gizmoId").String()
 	convId := r.GetRouter("convId").String()
+	g.Log().Debug(r.GetCtx(), "gizmoId", gizmoId)
 	props := `
   {
     "props": {
@@ -348,6 +379,8 @@ func GC(r *ghttp.Request) {
 	propsJson := gjson.New(props)
 	propsJson.Set("query.gizmoId", gizmoId)
 	propsJson.Set("query.convId", convId)
+	propsJson.Set("buildId", config.BuildId)
+
 	r.Response.WriteTpl("gc-"+config.BuildDate+".html", g.Map{
 		"arkoseUrl": config.ArkoseUrl,
 		"props":     propsJson,
