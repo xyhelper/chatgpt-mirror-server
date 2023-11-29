@@ -27,7 +27,7 @@ var (
 	DefaultModel = "text-davinci-002-render-sha"
 	FreeModels   = garray.NewStrArray()
 	PlusModels   = garray.NewStrArray()
-	ArkoseUrl    = "https://tcr9i.xyhelper.cn/v2/"
+	ArkoseUrl    = "https://tcr9i-2.xyhelper.cn/v2/"
 	BuildDate    = "20231119"
 	BuildId      = "o6pcj5Ej867CTUO0qdR1G"
 )
