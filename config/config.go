@@ -27,9 +27,10 @@ var (
 	DefaultModel = "text-davinci-002-render-sha"
 	FreeModels   = garray.NewStrArray()
 	PlusModels   = garray.NewStrArray()
-	ArkoseUrl    = "https://tcr9i-2.xyhelper.cn/v2/"
-	BuildDate    = "20231119"
-	BuildId      = "o6pcj5Ej867CTUO0qdR1G"
+	ArkoseUrl    = "https://tcr9i.xyhelper.com.cn/v2/"
+	BuildDate    = "20231202"
+	BuildId      = "h8j8GC1m0GPjiDDpUuDdq"
+	AssetPrefix  = "https://oaistatic-cdn.closeai.biz"
 )
 
 func init() {
@@ -46,6 +47,11 @@ func init() {
 	if !arkoseUrl.IsEmpty() {
 		ArkoseUrl = arkoseUrl.String()
 	}
+	assetPrefix := g.Cfg().MustGetWithEnv(ctx, "ASSET_PREFIX").String()
+	if assetPrefix != "" {
+		AssetPrefix = assetPrefix
+	}
+	g.Log().Info(ctx, "ASSET_PREFIX:", AssetPrefix)
 
 }
 
