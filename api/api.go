@@ -32,6 +32,8 @@ func init() {
 	group.GET("/g/:gizmoId/c/:convId", GC)
 	group.GET(("/gpts/mine"), Mine)
 
+	// s.BindHandler("/_next/data/*any", Next)
+
 	group.GET("/login", Login)
 	group.POST("/login", LoginPost)
 	group.ALL("/login_token", LoginToken)
