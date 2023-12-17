@@ -33,6 +33,9 @@ func RefreshSession(ctx g.Ctx) {
 		g.Log().Info(ctx, "RefreshSession", v["email"], "start")
 		getSessionUrl := config.CHATPROXY(ctx) + "/getsession"
 		refreshCookie := gjson.New(v["officialSession"]).Get("refreshCookie").String()
+		if refreshCookie == "" {
+			continue
+		}
 		sessionVar := g.Client().SetHeader("authkey", config.AUTHKEY(ctx)).PostVar(ctx, getSessionUrl, g.Map{
 			"username":      v["email"],
 			"password":      v["password"],

@@ -19,7 +19,8 @@ func Session(r *ghttp.Request) {
 	record, expireTime, err := ChatgptSessionService.GetSessionByUserToken(ctx, userToken.String())
 	if err != nil {
 		g.Log().Error(ctx, err)
-		r.Response.WriteStatus(http.StatusUnauthorized)
+		r.Session.RemoveAll()
+		r.Response.WriteJson(g.Map{})
 		return
 	}
 	if record.IsEmpty() {
@@ -39,12 +40,14 @@ func Session(r *ghttp.Request) {
 	sessionJson := gjson.New(sessionVar)
 	if sessionJson.Get("accessToken").String() == "" {
 		g.Log().Error(ctx, "get session error", sessionJson)
+		r.Session.RemoveAll()
 		r.Response.WriteStatus(http.StatusUnauthorized)
 		return
 	}
 	cool.DBM(model.NewChatgptSession()).Where("email=?", record["email"].String()).Update(g.Map{
 		"officialSession": sessionJson.String(),
 	})
+	r.Session.Set("offical-session", sessionJson.String())
 	backendapi.AccessTokenCache.Set(ctx, userToken.String(), sessionJson.Get("accessToken").String(), 10*24*time.Hour)
 	sessionJson.Set("accessToken", userToken.String())
 	sessionJson.Set("user.email", "admin@openai.com")

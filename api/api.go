@@ -32,7 +32,7 @@ func init() {
 	group.GET("/g/:gizmoId/c/:convId", GC)
 	group.GET(("/gpts/mine"), Mine)
 
-	// s.BindHandler("/_next/data/*any", Next)
+	s.BindHandler("/_next/data/*any", ProxyNext)
 
 	group.GET("/login", Login)
 	group.POST("/login", LoginPost)

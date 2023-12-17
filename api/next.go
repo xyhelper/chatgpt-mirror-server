@@ -1,60 +1,54 @@
 package api
 
 import (
-	backendapi "chatgpt-mirror-server/backend-api"
+	"bytes"
 	"chatgpt-mirror-server/config"
-	"chatgpt-mirror-server/utility"
+	"io"
 	"net/http"
-	"time"
+	"net/http/httputil"
+	"net/url"
 
 	"github.com/gogf/gf/v2/encoding/gjson"
-	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/net/ghttp"
+	"github.com/gogf/gf/v2/text/gstr"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
-func Next(r *ghttp.Request) {
+func ProxyNext(r *ghttp.Request) {
 	ctx := r.Context()
-	path := r.RequestURI
-	userToken := r.Session.MustGet("userToken").String()
-	if userToken == "" {
-		r.Response.WriteStatus(401)
-		return
+	officalSession := gjson.New(r.Session.MustGet("offical-session"))
+	refreshCookie := officalSession.Get("refreshToken").String()
+	u, _ := url.Parse(config.CHATPROXY(ctx))
+	proxy := httputil.NewSingleHostReverseProxy(u)
+	proxy.ErrorHandler = func(writer http.ResponseWriter, request *http.Request, e error) {
+		writer.WriteHeader(http.StatusBadGateway)
 	}
-	officialAccessToken := backendapi.AccessTokenCache.MustGet(ctx, userToken).String()
-	if officialAccessToken == "" {
-		record, _, err := ChatgptSessionService.GetSessionByUserToken(ctx, userToken)
+	req := r.Request.Clone(ctx)
+	// 替换path 中的 cacheBuildId 为 buildId
+	req.URL.Path = gstr.Replace(req.URL.Path, config.CacheBuildId, config.BuildId, 1)
+	req.Header.Set("Cookie", "__Secure-next-auth.session-token="+refreshCookie)
+	proxy.ModifyResponse = func(response *http.Response) error {
+		response.Header.Del("Set-Cookie")
+		// 读取响应体
+		body, err := io.ReadAll(response.Body)
 		if err != nil {
-			g.Log().Error(ctx, err)
-			r.Response.WriteStatus(http.StatusUnauthorized)
-			return
+			return err
 		}
-		if record.IsEmpty() {
-			g.Log().Error(ctx, "session is empty")
-			r.Response.WriteStatus(http.StatusUnauthorized)
-			return
-		}
-		officialSession := record["officialSession"].String()
-		if officialSession == "" {
-			r.Response.WriteStatus(http.StatusUnauthorized)
-			return
-		}
-		officialAccessToken = utility.AccessTokenFormSession(officialSession)
-		backendapi.AccessTokenCache.Set(ctx, userToken, officialAccessToken, time.Minute)
-	}
-	refreshCookie := gjson.New(officialAccessToken).Get("refreshToken").String()
-	res, err := g.Client().SetCookie("refreshToken", refreshCookie).Get(ctx, config.CHATPROXY(ctx)+path)
-	if err != nil {
-		r.Response.WriteStatus(http.StatusUnauthorized)
-		return
-	}
-	res.RawDump()
-	resStr := res.ReadAllString()
-	if res.StatusCode != http.StatusOK {
-		r.Response.Status = res.StatusCode
-		r.Response.Write(resStr)
+		// 修改响应体
+		bodyJson := gjson.New(body)
+		bodyJson.Set("pageProps.user.email", "admin@openai.com")
+		bodyJson.Set("pageProps.user.name", "admin")
+		bodyJson.Set("pageProps.user.image", "/avatars.png")
+		bodyJson.Set("pageProps.user.picture", "/avatars.png")
+		bodyJson.Set("pageProps.user.id", "user-xadmin")
 
-		return
+		// 写入响应体
+		response.Body = io.NopCloser(bytes.NewReader(gconv.Bytes(bodyJson)))
+		// 重写响应头大小
+		response.ContentLength = int64(len(body))
+
+		return nil
 	}
-	r.Response.Write(resStr)
+	proxy.ServeHTTP(r.Response.Writer.RawWriter(), req)
 
 }

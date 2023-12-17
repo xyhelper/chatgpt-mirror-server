@@ -9,6 +9,7 @@ import (
 	"github.com/gogf/gf/v2/encoding/gjson"
 	"github.com/gogf/gf/v2/errors/gerror"
 	"github.com/gogf/gf/v2/frame/g"
+	"github.com/gogf/gf/v2/util/gconv"
 )
 
 type ChatgptSessionService struct {
@@ -41,32 +42,40 @@ func (s *ChatgptSessionService) ModifyAfter(ctx g.Ctx, method string, param map[
 	if method != "Add" && method != "Update" {
 		return
 	}
+	officialSession := gjson.New(param["officialSession"])
+	refreshCookie := officialSession.Get("refreshCookie").String()
 	// 如果没有officialSession，就去获取
-	if param["officialSession"] == "" || param["officialSession"] == nil {
-		g.Log().Debug(ctx, "ChatgptSessionService.ModifyAfter", "officialSession is empty")
-		getSessionUrl := config.CHATPROXY(ctx) + "/getsession"
-		sessionVar := g.Client().SetHeader("authkey", config.AUTHKEY(ctx)).PostVar(ctx, getSessionUrl, g.Map{
-			"username": param["email"],
-			"password": param["password"],
-			"authkey":  config.AUTHKEY(ctx),
-		})
-		sessionJson := gjson.New(sessionVar)
-		if sessionJson.Get("accessToken").String() == "" {
-			g.Log().Error(ctx, "ChatgptSessionService.ModifyAfter", "get session error", sessionJson)
-			detail := sessionJson.Get("detail").String()
-			if detail != "" {
-				err = gerror.New(detail)
-			} else {
-				err = gerror.New("get session error")
-			}
-			return
+	g.Log().Debug(ctx, "ChatgptSessionService.ModifyAfter", "officialSession is empty")
+	getSessionUrl := config.CHATPROXY(ctx) + "/getsession"
+	sessionVar := g.Client().SetHeader("authkey", config.AUTHKEY(ctx)).SetCookie("arkoseToken", gconv.String(param["arkoseToken"])).PostVar(ctx, getSessionUrl, g.Map{
+		"username":      param["email"],
+		"password":      param["password"],
+		"authkey":       config.AUTHKEY(ctx),
+		"refreshCookie": refreshCookie,
+	})
+	sessionJson := gjson.New(sessionVar)
+	if sessionJson.Get("accessToken").String() == "" {
+		g.Log().Error(ctx, "ChatgptSessionService.ModifyAfter", "get session error", sessionJson)
+		detail := sessionJson.Get("detail").String()
+		if detail != "" {
+			err = gerror.New(detail)
+			cool.DBM(s.Model).Where("email=?", param["email"]).Update(g.Map{
+				"officialSession": sessionJson.String(),
+				"status":          0,
+			})
+		} else {
+			err = gerror.New("get session error")
 		}
-		_, err = cool.DBM(s.Model).Where("email=?", param["email"]).Update(g.Map{
-			"officialSession": sessionJson.String(),
-		})
 		return
 	}
+	models := sessionJson.Get("models").Array()
+	_, err = cool.DBM(s.Model).Where("email=?", param["email"]).Update(g.Map{
+		"officialSession": sessionJson.String(),
+		"isPlus":          len(models) > 1,
+		"status":          1,
+	})
 	return
+
 }
 
 // GetSessionByUserToken 根据userToken获取session

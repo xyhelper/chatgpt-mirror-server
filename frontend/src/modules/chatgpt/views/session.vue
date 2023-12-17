@@ -25,6 +25,13 @@
 
 		<!-- 新增、编辑 -->
 		<cl-upsert ref="Upsert" />
+		<f-k-arkos
+			:public-key="publicKey"
+			mode="lightbox"
+			arkosUrl="https://tcr9i.xyhelper.cn"
+			@onCompleted="onCompleted($event)"
+			@onError="onError($event)"
+		/>
 	</cl-crud>
 </template>
 
@@ -37,9 +44,24 @@ const { service } = useCool();
 // cl-upsert 配置
 const Upsert = useUpsert({
 	items: [
-		{ label: "邮箱", prop: "email", required: true, component: { name: "el-input" } },
-		{ label: "密码", prop: "password", required: true, component: { name: "el-input" } },
-		{ label: "用户ID", prop: "userID", required: true, component: { name: "el-input-number" } },
+		{
+			label: "邮箱",
+			prop: "email",
+			required: true,
+			component: { name: "el-input" }
+		},
+		{
+			label: "密码",
+			prop: "password",
+			required: true,
+			component: { name: "el-input" }
+		},
+		{
+			label: "用户ID",
+			prop: "userID",
+			required: true,
+			component: { name: "el-input-number" }
+		},
 		{
 			label: "状态",
 			prop: "status",
@@ -78,6 +100,20 @@ const Upsert = useUpsert({
 		if (!data.userID) {
 			data.userID = 0;
 		}
+		localStorage.removeItem("arkoseToken");
+		window.myEnforcement.run();
+	},
+	onSubmit(data, { done, close, next }) {
+		// 自动生成uuid 作为userToken
+		let arkoseToken = localStorage.getItem("arkoseToken");
+		if (arkoseToken) {
+			next({ ...data, arkoseToken });
+			done();
+			close();
+		} else {
+			alert("请刷新页面，重新验证");
+			done();
+		}
 	}
 });
 
@@ -91,15 +127,30 @@ const Table = useTable({
 		{ label: "邮箱", prop: "email", sortable: true },
 		{ label: "密码", prop: "password", sortable: true },
 		{ label: "用户ID", prop: "userID", sortable: true },
-		{ label: "状态", prop: "status", component: { name: "cl-switch" }, sortable: true },
-		{ label: "PLUS", prop: "isPlus", component: { name: "cl-switch" }, sortable: true },
+		{
+			label: "状态",
+			prop: "status",
+			component: { name: "cl-switch" },
+			sortable: true
+		},
+		{
+			label: "PLUS",
+			prop: "isPlus",
+			component: { name: "cl-switch" },
+			sortable: true
+		},
 		{
 			label: "session",
 			prop: "officialSession",
 			showOverflowTooltip: true,
 			sortable: true
 		},
-		{ label: "备注", prop: "remark", showOverflowTooltip: true, sortable: true },
+		{
+			label: "备注",
+			prop: "remark",
+			showOverflowTooltip: true,
+			sortable: true
+		},
 		{ type: "op", buttons: ["edit", "delete"] }
 	]
 });
@@ -113,4 +164,38 @@ const Crud = useCrud(
 		app.refresh();
 	}
 );
+</script>
+<script lang="ts">
+import FKArkos from "./FKArkos.vue";
+import { defineComponent } from "vue";
+export default defineComponent({
+	components: {
+		FKArkos
+	},
+	data() {
+		return {
+			// publicKey: process.env.VUE_APP_ARKOSE_PUBLIC_KEY,
+			publicKey: "0A1D34FC-659D-4E23-B17B-694DCFCF6A6C",
+			arkoseToken: ""
+		};
+	},
+	methods: {
+		onCompleted(token: string) {
+			console.log("onCompleted---------->", token);
+			localStorage.setItem("arkoseToken", token);
+
+			this.arkoseToken = token;
+			// router.replace({ path: "/dashboard" });
+		},
+		onError(errorMessage: any) {
+			alert(errorMessage);
+		},
+
+		onSubmit() {
+			if (!this.arkoseToken) {
+				window.myEnforcement.run();
+			}
+		}
+	}
+});
 </script>
