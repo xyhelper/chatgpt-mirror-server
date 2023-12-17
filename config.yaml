@@ -56,8 +56,8 @@ modules:
         enable: 1
 
 # 接入网关地址
-CHATPROXY: "https://demo.xyhelper.cn"
-# CHATPROXY: "http://172.17.0.1:7009"
+# CHATPROXY: "https://demo.xyhelper.cn"
+CHATPROXY: "https://chatproxy-dev.closeai.biz"
 # 接入网关的authkey
 AUTHKEY: "xyhelper"
 ONLYTOKEN: true

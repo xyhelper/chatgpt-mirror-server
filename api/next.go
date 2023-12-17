@@ -17,13 +17,18 @@ import (
 func ProxyNext(r *ghttp.Request) {
 	ctx := r.Context()
 	officalSession := gjson.New(r.Session.MustGet("offical-session"))
-	refreshCookie := officalSession.Get("refreshToken").String()
+	refreshCookie := officalSession.Get("refreshCookie").String()
 	u, _ := url.Parse(config.CHATPROXY(ctx))
 	proxy := httputil.NewSingleHostReverseProxy(u)
 	proxy.ErrorHandler = func(writer http.ResponseWriter, request *http.Request, e error) {
 		writer.WriteHeader(http.StatusBadGateway)
 	}
 	req := r.Request.Clone(ctx)
+	req.URL.Host = u.Host
+	req.URL.Scheme = u.Scheme
+	req.Host = u.Host
+	// 去除header 中的 压缩
+	req.Header.Del("Accept-Encoding")
 	// 替换path 中的 cacheBuildId 为 buildId
 	req.URL.Path = gstr.Replace(req.URL.Path, config.CacheBuildId, config.BuildId, 1)
 	req.Header.Set("Cookie", "__Secure-next-auth.session-token="+refreshCookie)
