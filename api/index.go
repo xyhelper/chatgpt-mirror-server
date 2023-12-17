@@ -12,6 +12,7 @@ func Index(r *ghttp.Request) {
 
 	ctx := r.GetCtx()
 	if r.Session.MustGet("offical-session").IsEmpty() {
+		r.Session.RemoveAll()
 		r.Response.RedirectTo("/login")
 		// r.Response.Writer.Write([]byte("Hello XyHelper"))
 		return
@@ -72,6 +73,7 @@ func Index(r *ghttp.Request) {
 func C(r *ghttp.Request) {
 	ctx := r.GetCtx()
 	if r.Session.MustGet("offical-session").IsEmpty() {
+		r.Session.RemoveAll()
 		r.Response.RedirectTo("/login")
 		return
 	}
@@ -130,6 +132,7 @@ func C(r *ghttp.Request) {
 func Discovery(r *ghttp.Request) {
 
 	if r.Session.MustGet("offical-session").IsEmpty() {
+		r.Session.RemoveAll()
 		r.Response.RedirectTo("/login")
 		return
 	}
@@ -182,6 +185,7 @@ func Discovery(r *ghttp.Request) {
 func Editor(r *ghttp.Request) {
 
 	if r.Session.MustGet("offical-session").IsEmpty() {
+		r.Session.RemoveAll()
 		r.Response.RedirectTo("/login")
 		return
 	}
@@ -242,6 +246,7 @@ func Editor(r *ghttp.Request) {
 func Slug(r *ghttp.Request) {
 
 	if r.Session.MustGet("offical-session").IsEmpty() {
+		r.Session.RemoveAll()
 		r.Response.RedirectTo("/login")
 		return
 	}
@@ -299,6 +304,7 @@ func Slug(r *ghttp.Request) {
 func G(r *ghttp.Request) {
 
 	if r.Session.MustGet("offical-session").IsEmpty() {
+		r.Session.RemoveAll()
 		r.Response.RedirectTo("/login")
 		return
 	}
@@ -356,6 +362,7 @@ func G(r *ghttp.Request) {
 func GC(r *ghttp.Request) {
 
 	if r.Session.MustGet("offical-session").IsEmpty() {
+		r.Session.RemoveAll()
 		r.Response.RedirectTo("/login")
 		return
 	}
@@ -415,6 +422,7 @@ func GC(r *ghttp.Request) {
 // Mine 我的
 func Mine(r *ghttp.Request) {
 	if r.Session.MustGet("offical-session").IsEmpty() {
+		r.Session.RemoveAll()
 		r.Response.RedirectTo("/login")
 		return
 	}
