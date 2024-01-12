@@ -30,7 +30,8 @@ func init() {
 	group.GET("/gpts/editor", Editor)
 	group.GET("/gpts/editor/:slug", Slug)
 	group.GET("/g/:gizmoId/c/:convId", GC)
-	group.GET(("/gpts/mine"), Mine)
+	group.GET("/gpts/mine", Mine)
+	group.GET("/gpts", Gpts)
 
 	s.BindHandler("/_next/data/*any", ProxyNext)
 

@@ -60,7 +60,7 @@ func Index(r *ghttp.Request) {
 	if model != "" {
 		propsJson.Set("query.model", model)
 	}
-	propsJson.Set("buildId", config.CacheBuildId)
+	propsJson.Set("buildId", config.BuildId)
 	propsJson.Set("assetPrefix", config.AssetPrefix)
 
 	r.Response.WriteTpl(config.CacheBuildId+"/chat.html", g.Map{
@@ -117,7 +117,7 @@ func C(r *ghttp.Request) {
 
 	propsJson := gjson.New(props)
 	propsJson.Set("query.default.1", convId)
-	propsJson.Set("buildId", config.CacheBuildId)
+	propsJson.Set("buildId", config.BuildId)
 	propsJson.Set("assetPrefix", config.AssetPrefix)
 
 	r.Response.WriteTpl(config.CacheBuildId+"/chat.html", g.Map{
@@ -125,6 +125,59 @@ func C(r *ghttp.Request) {
 		"arkoseUrl":   config.ArkoseUrl,
 		"assetPrefix": config.AssetPrefix,
 		"envScript":   config.GetEnvScript(ctx),
+	})
+}
+
+// Gpts
+func Gpts(r *ghttp.Request) {
+
+	if r.Session.MustGet("offical-session").IsEmpty() {
+		r.Session.RemoveAll()
+		r.Response.RedirectTo("/login")
+		return
+	}
+	props := `
+  {
+    "props": {
+      "pageProps": {
+        "user": {
+          "id": "user-xyhelper",
+          "name": "admin@openai.com",
+          "email": "admin@openai.com",
+          "image": "/avatars.png",
+          "picture": "/avatars.png",
+          "idp": "auth0",
+          "iat": 2699699364,
+          "mfa": false,
+          "groups": []
+        },
+        "serviceStatus": {},
+        "userCountry": "US",
+        "serviceAnnouncement": { "public": {}, "paid": {} },
+        "serverPrimedAllowBrowserStorageValue": true,
+        "canManageBrowserStorage": false,
+        "ageVerificationDeadline": null,
+        "showCookieConsentBanner": false
+      },
+      "__N_SSP": true
+    },
+    "page": "/gpts",
+    "query": {},
+    "buildId": "wtXFegAXt6bfbujLr1e7S",
+    "assetPrefix": "",
+    "isFallback": false,
+    "gssp": true,
+    "scriptLoader": []
+  }
+  `
+	propsJson := gjson.New(props)
+	propsJson.Set("buildId", config.BuildId)
+
+	r.Response.WriteTpl(config.CacheBuildId+"/gpts.html", g.Map{
+		"arkoseUrl":   config.ArkoseUrl,
+		"props":       propsJson,
+		"assetPrefix": config.AssetPrefix,
+		"envScript":   config.GetEnvScript(r.GetCtx()),
 	})
 }
 
@@ -171,7 +224,7 @@ func Discovery(r *ghttp.Request) {
   }
   `
 	propsJson := gjson.New(props)
-	propsJson.Set("buildId", config.CacheBuildId)
+	propsJson.Set("buildId", config.BuildId)
 
 	r.Response.WriteTpl(config.CacheBuildId+"/discovery.html", g.Map{
 		"arkoseUrl":   config.ArkoseUrl,
@@ -225,7 +278,7 @@ func Editor(r *ghttp.Request) {
   }
   `
 	propsJson := gjson.New(props)
-	propsJson.Set("buildId", config.CacheBuildId)
+	propsJson.Set("buildId", config.BuildId)
 	propsJson.Set("assetPrefix", config.AssetPrefix)
 
 	// if slug != "" {
@@ -289,7 +342,7 @@ func Slug(r *ghttp.Request) {
 	propsJson := gjson.New(props)
 
 	propsJson.Set("query.slug", slug)
-	propsJson.Set("buildId", config.CacheBuildId)
+	propsJson.Set("buildId", config.BuildId)
 	propsJson.Set("assetPrefix", config.AssetPrefix)
 
 	r.Response.WriteTpl(config.CacheBuildId+"/slug.html", g.Map{
@@ -347,7 +400,7 @@ func G(r *ghttp.Request) {
   `
 	propsJson := gjson.New(props)
 	propsJson.Set("query.gizmoId", gizmoId)
-	propsJson.Set("buildId", config.CacheBuildId)
+	propsJson.Set("buildId", config.BuildId)
 	propsJson.Set("assetPrefix", config.AssetPrefix)
 
 	r.Response.WriteTpl(config.CacheBuildId+"/g.html", g.Map{
@@ -409,7 +462,7 @@ func GC(r *ghttp.Request) {
 	propsJson := gjson.New(props)
 	propsJson.Set("query.gizmoId", gizmoId)
 	propsJson.Set("query.convId", convId)
-	propsJson.Set("buildId", config.CacheBuildId)
+	propsJson.Set("buildId", config.BuildId)
 
 	r.Response.WriteTpl(config.CacheBuildId+"/gc.html", g.Map{
 		"arkoseUrl":   config.ArkoseUrl,
@@ -464,7 +517,7 @@ func Mine(r *ghttp.Request) {
     "scriptLoader": []
 }`
 	propsJson := gjson.New(props)
-	propsJson.Set("buildId", config.CacheBuildId)
+	propsJson.Set("buildId", config.BuildId)
 	propsJson.Set("assetPrefix", config.AssetPrefix)
 
 	r.Response.WriteTpl(config.CacheBuildId+"/mine.html", g.Map{

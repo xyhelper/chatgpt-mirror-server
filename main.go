@@ -10,6 +10,7 @@ import (
 	_ "chatgpt-mirror-server/api"
 	_ "chatgpt-mirror-server/backend-api"
 	_ "chatgpt-mirror-server/modules"
+	_ "chatgpt-mirror-server/public-api"
 
 	"github.com/gogf/gf/v2/os/gctx"
 

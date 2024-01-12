@@ -38,28 +38,36 @@ func NotFound(r *ghttp.Request) {
 func ProxyAll(r *ghttp.Request) {
 	ctx := r.GetCtx()
 	// 获取header中的token Authorization: Bearer xxx 去掉Bearer
+	userToken := ""
+	Authorization := r.Header.Get("Authorization")
+	if Authorization != "" {
+		userToken = r.Header.Get("Authorization")[7:]
+	}
+	g.Log().Debug(ctx, "userToken", userToken)
 
-	userToken := r.Header.Get("Authorization")[7:]
-	officialAccessToken := AccessTokenCache.MustGet(ctx, userToken).String()
-	if officialAccessToken == "" {
-		record, _, err := ChatgptSessionService.GetSessionByUserToken(ctx, userToken)
-		if err != nil {
-			g.Log().Error(ctx, err)
-			r.Response.WriteStatus(http.StatusUnauthorized)
-			return
+	officialAccessToken := ""
+	if userToken != "" {
+		officialAccessToken = AccessTokenCache.MustGet(ctx, userToken).String()
+		if officialAccessToken == "" {
+			record, _, err := ChatgptSessionService.GetSessionByUserToken(ctx, userToken)
+			if err != nil {
+				g.Log().Error(ctx, err)
+				r.Response.WriteStatus(http.StatusUnauthorized)
+				return
+			}
+			if record.IsEmpty() {
+				g.Log().Error(ctx, "session is empty")
+				r.Response.WriteStatus(http.StatusUnauthorized)
+				return
+			}
+			officialSession := record["officialSession"].String()
+			if officialSession == "" {
+				r.Response.WriteStatus(http.StatusUnauthorized)
+				return
+			}
+			officialAccessToken = utility.AccessTokenFormSession(officialSession)
+			AccessTokenCache.Set(ctx, userToken, officialAccessToken, time.Minute)
 		}
-		if record.IsEmpty() {
-			g.Log().Error(ctx, "session is empty")
-			r.Response.WriteStatus(http.StatusUnauthorized)
-			return
-		}
-		officialSession := record["officialSession"].String()
-		if officialSession == "" {
-			r.Response.WriteStatus(http.StatusUnauthorized)
-			return
-		}
-		officialAccessToken = utility.AccessTokenFormSession(officialSession)
-		AccessTokenCache.Set(ctx, userToken, officialAccessToken, time.Minute)
 	}
 	UpStream := config.CHATPROXY(ctx)
 	u, _ := url.Parse(UpStream)
@@ -73,7 +81,10 @@ func ProxyAll(r *ghttp.Request) {
 	newreq.URL.Scheme = u.Scheme
 	newreq.Host = u.Host
 	newreq.Header.Set("authkey", config.AUTHKEY(ctx))
-	newreq.Header.Set("Authorization", "Bearer "+officialAccessToken)
+	g.Log().Debug(ctx, "officialAccessToken", officialAccessToken)
+	if officialAccessToken != "" {
+		newreq.Header.Set("Authorization", "Bearer "+officialAccessToken)
+	}
 
 	// g.Dump(newreq.URL)
 	proxy.ServeHTTP(r.Response.Writer.RawWriter(), newreq)
