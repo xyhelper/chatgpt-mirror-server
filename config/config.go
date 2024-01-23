@@ -32,8 +32,8 @@ var (
 	FreeModels   = garray.NewStrArray()
 	PlusModels   = garray.NewStrArray()
 	ArkoseUrl    = "https://tcr9i.closeai.biz/v2/"
-	BuildId      = "q1uPMR9VmRS6HPYxPKMbH"
-	CacheBuildId = "q1uPMR9VmRS6HPYxPKMbH"
+	BuildId      = "MCkVH1jJi3yNLkMToVDdU"
+	CacheBuildId = "MCkVH1jJi3yNLkMToVDdU"
 	AssetPrefix  = "https://oaistatic-cdn.closeai.biz"
 	PK40         = "35536E1E-65B4-4D96-9D97-6ADB7EFF8147"
 	PK35         = "3D86FBBA-9D22-402A-B512-3420086BA6CC"
