@@ -13,7 +13,7 @@ type ChatgptSessionController struct {
 func init() {
 	var chatgpt_session_controller = &ChatgptSessionController{
 		&cool.Controller{
-			Perfix:  "/admin/chatgpt/session",
+			Prefix:  "/admin/chatgpt/session",
 			Api:     []string{"Add", "Delete", "Update", "Info", "List", "Page"},
 			Service: service.NewChatgptSessionService(),
 		},

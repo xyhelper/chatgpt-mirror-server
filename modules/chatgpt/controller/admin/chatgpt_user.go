@@ -13,7 +13,7 @@ type ChatgptUserController struct {
 func init() {
 	var chatgpt_user_controller = &ChatgptUserController{
 		&cool.Controller{
-			Perfix:  "/admin/chatgpt/user",
+			Prefix:  "/admin/chatgpt/user",
 			Api:     []string{"Add", "Delete", "Update", "Info", "List", "Page"},
 			Service: service.NewChatgptUserService(),
 		},
