@@ -44,7 +44,7 @@ func Me(r *ghttp.Request) {
 		return
 	}
 	resJson := gjson.New(resStr)
-	resJson.Set("email", "admin@openai.com")
+	resJson.Set("email", "admin@closeai.com")
 	resJson.Set("name", expireTime)
 	resJson.Set("picture", "/avatars.png")
 	resJson.Set("phone_number", "+1911")
