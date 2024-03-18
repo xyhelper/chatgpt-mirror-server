@@ -14,14 +14,14 @@ server:
 database:
   default: # 数据源名称,当不指定数据源时 default 为默认数据源
     type: "mysql" # 数据库类型
-    host: "mysql" # 数据库地址
+    host: "127.0.0.1" # 数据库地址
     port: "3306" # 数据库端口
-    user: "root" # 数据库用户名
-    pass: "123456" # 数据库密码
+    user: "cool" # 数据库用户名
+    pass: "Crz48pDnRyrcWewG" # 数据库密码
     name: "cool" # 数据库名称
     charset: "utf8mb4" # 数据库编码
     timezone: "Asia/Shanghai" # 数据库时区
-    # debug: true # 是否开启调试模式，开启后会打印SQL日志
+    #debug: true # 是否开启调试模式，开启后会打印SQL日志
     createdAt: "createTime" # 创建时间字段
     updatedAt: "updateTime" # 更新时间字段
 redis:
