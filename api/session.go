@@ -50,7 +50,7 @@ func Session(r *ghttp.Request) {
 	r.Session.Set("offical-session", sessionJson.String())
 	backendapi.AccessTokenCache.Set(ctx, userToken.String(), sessionJson.Get("accessToken").String(), 10*24*time.Hour)
 	sessionJson.Set("accessToken", userToken.String())
-	sessionJson.Set("user.email", "admin@openai.com")
+	sessionJson.Set("user.email", "admin@closeai.com")
 	sessionJson.Set("user.name", expireTime)
 	sessionJson.Set("user.image", "/avatars.png")
 	sessionJson.Set("user.picture", "/avatars.png")

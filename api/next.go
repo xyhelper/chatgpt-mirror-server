@@ -41,7 +41,7 @@ func ProxyNext(r *ghttp.Request) {
 		}
 		// 修改响应体
 		bodyJson := gjson.New(body)
-		bodyJson.Set("pageProps.user.email", "admin@openai.com")
+		bodyJson.Set("pageProps.user.email", "admin@closeai.com")
 		bodyJson.Set("pageProps.user.name", "admin")
 		bodyJson.Set("pageProps.user.image", "/avatars.png")
 		bodyJson.Set("pageProps.user.picture", "/avatars.png")
